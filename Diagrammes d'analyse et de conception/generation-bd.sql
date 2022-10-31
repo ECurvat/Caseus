@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  18/10/2022 13:20:09                      */
+/* Date de crï¿½ation :  18/10/2022 13:20:09                      */
 /*==============================================================*/
 
 
@@ -104,10 +104,12 @@ create table EMPLOYE
    ID_EMPLOYE           int not null auto_increment,
    NOM                  varchar(255),
    PRENOM               varchar(255),
+   ADRESSE_MAIL         varchar(255),
    DATE_EMBAUCHE        date,
    ADRESSE              varchar(255),
    CODE_POSTAL          int,
    VILLE                varchar(255),
+   MDP                  varchar(255) NOT NULL
    primary key (ID_EMPLOYE)
 );
 
