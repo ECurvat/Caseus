@@ -14,5 +14,6 @@ if (isset($_POST['mois']) &&
     $annee = date("Y");
 }
 
-require_once(PATH_MODELS.$page.'.php'); 
+require_once(PATH_MODELS.$page.'.php');
+if (empty($listeDispos)) $alert = choixAlert('pas_de_dispo');
 require_once(PATH_VIEWS.$page.'.php'); 

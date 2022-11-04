@@ -23,37 +23,43 @@
 	<!-- Partie édition des disponibilités -->
 	<div class="nine columns">
 		<h5>Edition</h5>
-		<h6>Rechercher une disponibilité</h6>
-		<form action="index.php?page=disponibilites" method="post">
-			<div class="four columns">
-				<label for="mois">Mois</label>
-				<input class="u-full-width" type="text" value="<?php echo $mois ?>" id="mois" name="mois">
-			</div>
-			<div class="four columns">
-				<label for="annee">Année</label>
-				<input class="u-full-width" type="text" value="<?php echo $annee ?>" id="annee" name="annee">
-			</div>
-			<div class="four columns">
-				<input class="button-primary u-full-width" type="submit" value="Valider">
-			</div>
-		</form>
+		<div class="row">
+			<h6>Rechercher une disponibilité</h6>
+			<form action="index.php?page=disponibilites" method="post">
+				<div class="four columns">
+					<label for="mois">Mois</label>
+					<input class="u-full-width" type="text" value="<?php echo $mois ?>" id="mois" name="mois">
+				</div>
+				<div class="four columns">
+					<label for="annee">Année</label>
+					<input class="u-full-width" type="text" value="<?php echo $annee ?>" id="annee" name="annee">
+				</div>
+				<div class="four columns">
+					<input class="button-primary u-full-width" type="submit" value="Valider">
+				</div>
+			</form>
+		</div>
 		<?php if (!empty($listeDispos)) {?>
-		<h6>Choisir la disponibilité</h6>
-		<form action="index.php?page=disponibilites" method="post">
-			<div class=six columns">
-				<label for="dispo">Mois</label>
-				<select name="dispo" class="u-full-width">
-					<?php 
-						foreach ($listeDispos as $elem) {
-							echo '<option value="'.$elem->getIdDispo().'">'.$elem->getDebutDispo().' - '.$elem->getFinDispo().'</option>';
-						}
-					?>
-				</select>
-			</div>
-			<div class="six columns">
-				<input class="button-primary u-full-width" type="submit" value="Valider">
-			</div>
-		</form>
+		<div class="row">
+			<h6>Choisir la disponibilité</h6>
+			<form action="index.php?page=disponibilites" method="post">
+				<div class=nine columns">
+					<label for="dispo">Mois</label>
+					<select name="dispo">
+						<?php 
+							foreach ($listeDispos as $elem) {
+								$debut = date('l d (H:i)', strtotime($elem->getDebutDispo()));
+								$fin = date('l d (H:i)', strtotime($elem->getFinDispo()));
+								echo '<option value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
+							}
+						?>
+					</select>
+				</div>
+				<div class="three columns">
+					<input class="button-primary u-full-width" type="submit" value="Editer">
+				</div>
+			</form>
+		</div>
 		<?php }?>
 	</div>
 </div>

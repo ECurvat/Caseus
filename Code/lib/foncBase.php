@@ -20,6 +20,9 @@ function choixAlert($message)
 		case 'pas_de_planning' :
 			$alert['messageAlert'] = PAS_DE_PLANNING;
 			break;
+		case 'pas_de_dispo' :
+			$alert['messageAlert'] = PAS_DE_DISPO;
+			break;
 		default : 
 			$alert['messageAlert'] = MESSAGE_ERREUR;
 	}
