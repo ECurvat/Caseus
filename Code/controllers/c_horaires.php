@@ -15,16 +15,5 @@ if (isset($_POST['semaine']) &&
     $annee = date("Y");
 }
 
-//On trouve le premier jour de la semaine choisie
-$date = new DateTime(date('Y-m-d',strtotime($annee.'W'.$semaine)));
-
-//On met les dates de la semaine choisie dans un tableau
-$datesSemaine = array();
-
-for($i = 0; $i<7; $i++) {
-    array_push($datesSemaine, $date->format('d-m-Y'));
-    $date->modify('+1 day');
-}
-
 require_once(PATH_MODELS.$page.'.php'); 
 require_once(PATH_VIEWS.$page.'.php'); 

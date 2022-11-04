@@ -8,7 +8,7 @@ $positionCourante = $_SESSION['compte']->getPosition();
     <?php if (($positionCourante == 'POLY') || ($positionCourante == 'ASSI') || ($positionCourante == 'MANA')): ?>
     <div class="category">Planning</div>
         <div class="subcategory <?php echo ($page=='horaires' ? "active":'')?>"><a href="index.php?page=horaires">Horaires</a></div>
-        <div class="subcategory <?php echo ($page=='disponibilites' ? "active":'')?>">Disponibilités</div>
+        <div class="subcategory <?php echo ($page=='disponibilites' ? "active":'')?>"><a href="index.php?page=disponibilites">Disponibilités</a></div>
         <div class="subcategory <?php echo ($page=='echanges' ? "active":'')?>">Échanges</div>
         <div class="subcategory <?php echo ($page=='conges' ? "active":'')?>">Congés</div>
     <?php endif; ?>
