@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : ven. 04 nov. 2022 à 09:26
+-- Généré le : ven. 04 nov. 2022 à 11:28
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -55,11 +55,20 @@ CREATE TABLE `conge` (
 
 CREATE TABLE `disponibilite` (
   `ID_DISPO` int(11) NOT NULL,
-  `ID_ETAT` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
-  `DEBUT_DISPO` time DEFAULT NULL,
-  `FIN_DISPO` time DEFAULT NULL
+  `DEBUT_DISPO` datetime DEFAULT NULL,
+  `FIN_DISPO` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `disponibilite`
+--
+
+INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO`) VALUES
+(1, 1, '2022-11-04 15:00:00', '2022-11-04 23:59:00'),
+(2, 1, '2022-12-01 05:00:00', '2022-12-01 22:30:00'),
+(3, 2, '2022-11-05 12:00:00', '2022-11-05 21:00:00'),
+(4, 1, '2022-11-04 04:00:00', '2022-11-04 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -253,8 +262,7 @@ ALTER TABLE `conge`
 --
 ALTER TABLE `disponibilite`
   ADD PRIMARY KEY (`ID_DISPO`),
-  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`),
-  ADD KEY `FK_EST_DEFINIE_PAR` (`ID_ETAT`);
+  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
 
 --
 -- Index pour la table `echange_travail`
@@ -339,7 +347,7 @@ ALTER TABLE `conge`
 -- AUTO_INCREMENT pour la table `disponibilite`
 --
 ALTER TABLE `disponibilite`
-  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `echange_travail`
@@ -411,8 +419,7 @@ ALTER TABLE `conge`
 -- Contraintes pour la table `disponibilite`
 --
 ALTER TABLE `disponibilite`
-  ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`),
-  ADD CONSTRAINT `FK_EST_DEFINIE_PAR` FOREIGN KEY (`ID_ETAT`) REFERENCES `etat` (`ID_ETAT`);
+  ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
 
 --
 -- Contraintes pour la table `echange_travail`
