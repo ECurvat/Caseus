@@ -13,3 +13,7 @@ if (isset($_POST['modifier'])) {
     $dispoModifiee = new Disponibilite($_POST['modifId'], $_SESSION['compte']->getId(), $_POST['modifDebut'], $_POST['modifFin']);
     $disponibiliteDAO->modifierDispoParId($dispoModifiee);
 }
+
+if (isset($_POST['supprimer'])) {
+    $disponibiliteDAO->supprimerDispoParId($_POST['modifId']);
+}

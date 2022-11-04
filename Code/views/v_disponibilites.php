@@ -80,14 +80,10 @@
 				</div>
 				<div class="three columns">
 					<input class="button-warning u-full-width" type="submit" value="Modifier" name="modifier">
+					<input class="button-danger u-full-width" type="submit" value="Supprimer la disponibilité" name="supprimer">
 				</div>
-				
 			</form>
 		</div>
-		<div class="row">
-			<form action="index.php?page=disponibilites" method="post">
-				<input class="button-danger u-full-width" type="submit" value="Supprimer la disponibilité" name="supprimer">
-			</form>
 		<?php }?>
 	</div>
 </div>

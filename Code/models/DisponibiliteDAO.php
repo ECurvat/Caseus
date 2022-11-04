@@ -36,4 +36,8 @@ class DisponibiliteDAO extends DAO {
         WHERE ID_DISPO = ?', $param);
     }
 
+    public function supprimerDispoParId($id) {
+        $result = $this->queryRow('DELETE FROM DISPONIBILITE WHERE ID_DISPO = ?', array($id));
+    }
+
 }
