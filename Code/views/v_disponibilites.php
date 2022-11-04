@@ -13,11 +13,11 @@
 	<div class="three columns">
 		<h5>Déclaration</h5>
 		<form method="post" action="index.php?page=disponibilites">
-			<label for="debut">Début</label>
-			<input class="u-full-width" type="datetime-local" id="debut" name="debut">
-			<label for="fin">Fin</label>
-			<input class="u-full-width" type="datetime-local" id="fin" name="fin">
-			<input class="button-success u-full-width" type="submit" value="Valider">
+			<label for="ajoutDebut">Début</label>
+			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut">
+			<label for="ajoutFin">Fin</label>
+			<input class="u-full-width" type="datetime-local" id="ajoutFin" name="ajoutFin">
+			<input class="button-success u-full-width" type="submit" value="Ajouter" name="ajouter">
 		</form>
 	</div>
 	<!-- Partie édition des disponibilités -->
