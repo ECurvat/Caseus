@@ -38,10 +38,12 @@ class DisponibiliteDAO extends DAO {
 
     public function supprimerDispoParId($id) {
         $result = $this->queryRow('DELETE FROM DISPONIBILITE WHERE ID_DISPO = ?', array($id));
+        return $result;
     }
 
     public function ajouterDispo($params) {
         $result = $this->queryRow('INSERT INTO DISPONIBILITE (ID_EMPLOYE, DEBUT_DISPO, FIN_DISPO) VALUES(?, ?, ?)', $params);
+        return $result;
     }
 
 }
