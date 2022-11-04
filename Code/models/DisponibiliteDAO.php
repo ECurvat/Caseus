@@ -3,7 +3,7 @@ require_once(PATH_MODELS.'DAO.php');
 
 class DisponibiliteDAO extends DAO {
 
-    public function getDispo($valeurs) {
+    public function getDispoParDate($valeurs) {
         $result = $this->queryAll('SELECT * FROM DISPONIBILITE WHERE 
         ID_EMPLOYE = ? 
         AND EXTRACT(MONTH FROM DEBUT_DISPO) = ? 
@@ -17,6 +17,23 @@ class DisponibiliteDAO extends DAO {
             return $listeDispos;
         }
         return null;
+    }
+
+    public function getDispoParId($id) {
+        $result = $this->queryRow('SELECT * FROM DISPONIBILITE WHERE ID_DISPO = ?', array($id));
+        if ($result) {
+            $dispoEditee = new Disponibilite($result[0], $result[1], $result[2], $result[3]);
+            return $dispoEditee;
+        }
+        return null;
+    }
+
+    public function modifierDispoParId($dispoModifiee) {
+        $param = array(str_replace("T", " ", $dispoModifiee->getDebutDispo()), str_replace("T", " ", $dispoModifiee->getFinDispo()), (int) $dispoModifiee->getIdDispo());
+        $result = $this->queryRow('UPDATE DISPONIBILITE SET 
+        DEBUT_DISPO = ?,
+        FIN_DISPO = ?
+        WHERE ID_DISPO = ?', $param);
     }
 
 }
