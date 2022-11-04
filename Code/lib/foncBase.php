@@ -23,6 +23,9 @@ function choixAlert($message)
 		case 'pas_de_dispo' :
 			$alert['messageAlert'] = PAS_DE_DISPO;
 			break;
+		case 'succes_operation' :
+			$alert['messageAlert'] = SUCCES_OPERATION;
+			break;
 		default : 
 			$alert['messageAlert'] = MESSAGE_ERREUR;
 	}
