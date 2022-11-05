@@ -27,9 +27,6 @@
 				include(PATH_VIEWS.'menu.php');
 				echo '</div>';
 				echo '<div class="nine columns" id="main">';
-				echo '<h1>';
-				echo ucwords($page);
-				echo '</h1>';
 			}
 		?>
 		<!-- Vue -->

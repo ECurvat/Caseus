@@ -2,12 +2,12 @@
 //  En tête de page
 ?>
 <?php require_once(PATH_VIEWS.'header.php');?>
-
+<h1>Disponibilités</h1>
 <!--  Zone message d'alerte -->
 <?php require_once(PATH_VIEWS.'alert.php');?>
 
 <!--  Début de la page -->
-
+<!-- insérer contraintes à respecter pour les dispo (même jour, début < fin ...) -->
 <div class="row">
 	<!-- Partie déclaration -->
 	<div class="three columns">
