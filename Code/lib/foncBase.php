@@ -26,6 +26,9 @@ function choixAlert($message)
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
 			break;
+		case 'contraintes' :
+			$alert['messageAlert'] = CONTRAINTES;
+			break;
 		default : 
 			$alert['messageAlert'] = MESSAGE_ERREUR;
 	}
