@@ -13,5 +13,6 @@ define('PAS_DE_PLANNING',"Aucun planning trouvé pour la semaine et l'année sp�
 define('PAS_DE_DISPO',"Aucune disponibilité trouvée pour le mois et l'année spécifiés");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
+define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
 
 define('TITRE', 'Caseus');

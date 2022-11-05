@@ -29,6 +29,9 @@ function choixAlert($message)
 		case 'contraintes' :
 			$alert['messageAlert'] = CONTRAINTES;
 			break;
+		case 'privileges' :
+			$alert['messageAlert'] = PRIVILEGES;
+			break;
 		default : 
 			$alert['messageAlert'] = MESSAGE_ERREUR;
 	}
