@@ -10,7 +10,7 @@ define('ERREUR_REQUETE',"Une erreur s'est produite dans la requête");
 define('RIEN_TROUVE',"Aucune ligne retournée lors de la requête");
 define('ERREUR_CONNEXION',"Email ou mot de passe incorrect");
 define('PAS_DE_PLANNING',"Aucun planning trouvé pour la semaine et l'année spécifiées");
-define('PAS_DE_DISPO',"Aucune disponibilité trouvée pour le mois et l'année spécifiés");
+define('PAS_DE_DISPO',"Aucune disponibilité trouvée");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
