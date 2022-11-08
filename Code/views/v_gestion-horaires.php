@@ -23,6 +23,9 @@
         </div>
     </form>
 </div>
+<?php 
+    if(!empty($listeDispos)) {
+?>
 <table>
 <thead>
   <tr>
@@ -56,6 +59,9 @@
     ?>
 </tbody>
 </table>
+<?php
+    }
+?>
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
