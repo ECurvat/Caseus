@@ -14,10 +14,10 @@
 		<h5>Déclaration</h5>
 		<form method="post" action="index.php?page=disponibilites">
 			<label for="ajoutDebut">Début</label>
-			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut">
+			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut" required>
 			<label for="ajoutFin">Fin</label>
 			<input class="u-full-width" type="datetime-local" id="ajoutFin" name="ajoutFin">
-			<input class="button-success u-full-width" type="submit" value="Ajouter" name="ajouter">
+			<input class="button-success u-full-width" type="submit" value="Ajouter" name="ajouter" required>
 		</form>
 	</div>
 	<!-- Partie édition des disponibilités -->
