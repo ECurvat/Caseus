@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : ven. 04 nov. 2022 à 11:28
+-- Généré le : mar. 08 nov. 2022 à 15:25
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -65,10 +65,12 @@ CREATE TABLE `disponibilite` (
 --
 
 INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO`) VALUES
-(1, 1, '2022-11-04 15:00:00', '2022-11-04 23:59:00'),
+(1, 1, '2022-11-09 15:00:00', '2022-11-09 23:59:00'),
 (2, 1, '2022-12-01 05:00:00', '2022-12-01 22:30:00'),
 (3, 2, '2022-11-05 12:00:00', '2022-11-05 21:00:00'),
-(4, 1, '2022-11-04 04:00:00', '2022-11-04 12:00:00');
+(10, 1, '2022-11-12 01:00:00', '2022-11-12 18:00:00'),
+(14, 3, '2022-11-09 15:27:00', '2022-11-09 22:27:00'),
+(16, 3, '2022-11-03 10:30:00', '2022-11-03 19:30:00');
 
 -- --------------------------------------------------------
 
@@ -347,7 +349,7 @@ ALTER TABLE `conge`
 -- AUTO_INCREMENT pour la table `disponibilite`
 --
 ALTER TABLE `disponibilite`
-  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `echange_travail`
