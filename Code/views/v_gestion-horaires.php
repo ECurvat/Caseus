@@ -7,7 +7,7 @@
 <?php require_once(PATH_VIEWS.'alert.php');?>
 
 <!--  Début de la page -->
-<h6>Trouver les disponibilités par mois</h6>
+<h5>Trouver les disponibilités par mois</h5>
 <div class="row">
     <form action="index.php?page=gestion-horaires" method="post">
         <div class="four columns">
@@ -26,7 +26,7 @@
 <?php 
     if(!empty($listeDispos)) {
 ?>
-<table>
+<table class="u-full-width">
 <thead>
   <tr>
     <th>Id employé</th>
