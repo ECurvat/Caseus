@@ -50,6 +50,7 @@
 							foreach ($listeDispos as $elem) {
 								$debut = date('l d (H:i)', strtotime($elem->getDebutDispo()));
 								$fin = date('l d (H:i)', strtotime($elem->getFinDispo()));
+								if ($elem->getIdDispo() == $_POST['idDispo']) echo '<option selected value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
 								echo '<option value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
 							}
 						?>

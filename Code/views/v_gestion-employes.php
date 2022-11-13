@@ -108,7 +108,8 @@
             <label for="modifierChoixEmp">Employé</label>
             <select name="modifierChoixEmp" class="u-full-width">
                 <?php foreach ($listeEmployes as $emp) {
-                    echo '<option value="'.$emp->getId().'">'.$emp->getId().' - '.$emp->getPrenom().' '.$emp->getNom().'</option>';
+                    if ($emp->getId() == $_POST['modifierChoixEmp']) echo '<option selected value="'.$emp->getId().'">'.$emp->getId().' - '.$emp->getPrenom().' '.$emp->getNom().'</option>';
+                    else echo '<option value="'.$emp->getId().'">'.$emp->getId().' - '.$emp->getPrenom().' '.$emp->getNom().'</option>';
                 }?>
             </select>
             <input class="button-primary u-full-width" type="submit" value="Choisir" name="modifierChoisir">
