@@ -14,7 +14,7 @@ $positionCourante = $_SESSION['compte']->getPosition();
     <?php endif; ?>
     <?php if (($positionCourante == 'ASSI') || ($positionCourante == 'MANA')): ?>
     <div class="category">Gestion</div>
-        <div class="subcategory <?php echo ($page=='stock' ? "active":'')?>">Stock</div>
+        <div class="subcategory <?php echo ($page=='gestion-stock' ? "active":'')?>"><a href="index.php?page=gestion-stock">Stock</a></div>
         <div class="subcategory <?php echo ($page=='gestion-echanges' ? "active":'')?>">Échanges</div>
     <?php endif; ?>
     <?php if ($positionCourante == 'MANA'): ?>
