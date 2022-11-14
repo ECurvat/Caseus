@@ -16,7 +16,7 @@
             <input class="button-success u-full-width" type="submit" value="Entrer une livraison" name="choixEntrer">
         </div>
         <div class="four columns">
-            <input class="button-danger u-full-width" type="submit" value="Faire la pesée" name="choixPesee">
+        <input class="button-danger u-full-width" type="submit" value="Faire la pesée" name="choixPesee">
         </div>
     </form>
 </div>
@@ -44,8 +44,36 @@
         }?>
     </tbody>
 </table>
-<?php } ?>
-
+<?php } else if (isset($_POST['choixEntrer'])) {?>
+<div class="row">
+        Nombre de produit(s) dans la livraison : <span id="nbProduits">0</span>
+        <input class="button-success" type="button" value="+" name="entreeAjouterProduit">
+</div>
+<form method="post" id="entreeLivraison">
+    <fieldset id="exempleAjout">
+        <div class="row">
+            <div class="five columns">
+                <label for="entreeNomProduit0">Produit</label>
+                <select class="u-full-width" id="entreeNomProduit0" name="entreeNomProduit0" required>
+                <?php foreach ($listeProduits as $produit) {
+                echo '<option value="'.$produit->getIdProduit().'">'.$produit->getDenomination().'</option>';
+                }?>
+                </select>
+            </div>
+            <div class="five columns">
+                <label for="entreeQteProduit0">Quantité</label>
+                <input type="number" class="u-full-width" name="entreeQteProduit0" id="entreeQteProduit0" required>
+            </div>
+            <div class="two columns">
+                <label for="entreeEnleverProduit0">Retirer le produit</label>
+                <button class="button-warning u-full-width" type="button">-</button>
+            </div>
+        </div>
+    </fieldset>
+    <input class="button-primary u-full-width" type="submit" value="Valider" name="entreeValider">
+</form>
+<?php }?>
+<script src="assets/scripts/gestion-stock.js"></script>
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
