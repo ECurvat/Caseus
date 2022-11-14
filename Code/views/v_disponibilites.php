@@ -12,7 +12,7 @@
 	<!-- Partie déclaration -->
 	<div class="three columns">
 		<h5>Déclaration</h5>
-		<form method="post" action="index.php?page=disponibilites">
+		<form method="post">
 			<label for="ajoutDebut">Début</label>
 			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut" required>
 			<label for="ajoutFin">Fin</label>
@@ -25,7 +25,7 @@
 		<h5>Edition</h5>
 		<div class="row">
 			<h6>Rechercher une disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="four columns">
 					<label for="mois">Mois</label>
 					<input class="u-full-width" type="text" value="<?php echo $mois ?>" id="mois" name="mois">
@@ -42,7 +42,7 @@
 		<?php if (!empty($listeDispos)) {?>
 		<div class="row">
 			<h6>Choisir la disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="nine columns">
 					<label for="idDispo">Disponibilité</label>
 					<select name="idDispo" class="u-full-width">
@@ -66,7 +66,7 @@
 		<?php if (isset($dispoEditee)) {?>
 		<div class="row">
 			<h6>Editer la disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="three columns">
 					<label for="modifId">ID</label>
 					<input class="u-full-width" readonly type="text" id="modifId" name="modifId" value="<?php echo $dispoEditee->getIdDispo();?>">

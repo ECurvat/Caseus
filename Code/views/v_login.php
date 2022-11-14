@@ -10,7 +10,7 @@
 			<h1>Connexion</h1>
 			<!--  Zone message d'alerte -->
 			<?php require_once(PATH_VIEWS.'alert.php');?>
-			<form action="index.php?page=login" method="post">
+			<form method="post">
 				<label for="email">Adresse mail</label>
       			<input class="u-full-width" type="email" placeholder="john.doe@mail.com" id="email" name="mail">
 				<label for="mdp">Mot de passe</label>

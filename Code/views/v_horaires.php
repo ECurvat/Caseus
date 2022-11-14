@@ -9,7 +9,7 @@
 <!--  Début de la page -->
 
 <div class="row">
-	<form action="index.php?page=horaires" method="post">
+	<form method="post">
 		<div class="four columns">
 			<label for="semaine">Semaine</label>
 			<input class="u-full-width" type="text" value="<?php echo $semaine ?>" id="semaine" name="semaine">

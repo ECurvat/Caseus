@@ -9,7 +9,7 @@
 <!--  Début de la page -->
 <h5>Trouver les disponibilités par mois</h5>
 <div class="row">
-    <form action="index.php?page=gestion-horaires" method="post">
+    <form method="post">
         <div class="four columns">
             <label for="mois">Mois</label>
             <input class="u-full-width" type="text" value="<?php echo $mois ?>" id="mois" name="mois">

@@ -9,7 +9,7 @@
 <!--  Début de la page -->
 					
 <div class="row">
-    <form action="index.php?page=gestion-employes" method="post">
+    <form method="post">
         <div class="three columns">
             <input class="button-primary u-full-width" type="submit" value="Liste" name="choixListe">
         </div>
@@ -56,7 +56,7 @@
 <?php } elseif (isset($_POST['choixAjouter'])) {?>
     <h5>Ajouter un employé</h5>
     L'employé recevra un email avec les informations dont il a besoin pour se connecter
-    <form action="index.php?page=gestion-employes" method="post">
+    <form method="post">
         <div class="row">
             <div class="six columns">
                 <label for="ajoutNom">Nom</label>
@@ -104,7 +104,7 @@
 <?php } elseif (isset($_POST['choixModifier']) || isset($_POST['modifierChoisir'])) {?>
     <h5>Modifier les informations d'un employé</h5>
     <div class="row">
-        <form action="index.php?page=gestion-employes" method="post">
+        <form method="post">
             <label for="modifierChoixEmp">Employé</label>
             <select name="modifierChoixEmp" class="u-full-width">
                 <?php foreach ($listeEmployes as $emp) {
@@ -116,7 +116,7 @@
         </form>
     </div>
     <?php if (isset($_POST['modifierChoisir'])) {?>
-        <form action="index.php?page=gestion-employes" method="post">
+        <form method="post">
             <label for="modifierMDP">Réinitialiser le mot de passe</label>
             <p>Ceci enverra un nouveau mot de passe à l'adresse mail actuelle de l'employé séléctionné</p>
             <input class="button-warning u-full-width" type="submit" value="Confirmer" name="modifierMDP">
@@ -129,7 +129,7 @@
 <?php } elseif (isset($_POST['choixSupprimer'])) {?>
     <h5>Supprimer un employé</h5>
     <div class="row">
-        <form action="index.php?page=gestion-employes" method="post">
+        <form method="post">
             <label for="supprimerEmp">Employé</label>
             <select name="supprimerEmp" class="u-full-width">
                 <?php foreach ($listeEmployes as $emp) {
