@@ -53,19 +53,19 @@
     <fieldset id="exempleAjout">
         <div class="row">
             <div class="five columns">
-                <label for="entreeNomProduit0">Produit</label>
-                <select class="u-full-width" id="entreeNomProduit0" name="entreeNomProduit0" required>
+                <label id="entreeNomProduit" for="entreeNomProduit">Produit</label>
+                <select class="u-full-width" id="entreeNomProduit" name="entreeNomProduit" required>
                 <?php foreach ($listeProduits as $produit) {
                 echo '<option value="'.$produit->getIdProduit().'">'.$produit->getDenomination().'</option>';
                 }?>
                 </select>
             </div>
             <div class="five columns">
-                <label for="entreeQteProduit0">Quantité</label>
-                <input type="number" class="u-full-width" name="entreeQteProduit0" id="entreeQteProduit0" required>
+                <label id="entreeQteProduit" for="entreeQteProduit">Quantité</label>
+                <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit" required>
             </div>
             <div class="two columns">
-                <label for="entreeEnleverProduit0">Retirer le produit</label>
+                <label for="entreeEnleverProduit">Retirer le produit</label>
                 <button class="button-warning u-full-width" type="button">-</button>
             </div>
         </div>
