@@ -62,7 +62,7 @@
             </div>
             <div class="five columns">
                 <label id="entreeQteProduit" for="entreeQteProduit">Quantité</label>
-                <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit">
+                <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit" min="0">
             </div>
             <div class="two columns">
                 <label for="entreeEnleverProduit">Retirer le produit</label>

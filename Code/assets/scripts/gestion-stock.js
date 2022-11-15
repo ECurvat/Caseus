@@ -4,7 +4,6 @@ var listeFieldSets = [];
 btnAjouterProduit.addEventListener('click',function(ev) {
     
     let spanNbProduits = document.getElementById('nbProduits');
-    if(parseInt(spanNbProduits.textContent) + 1 <= 10) {
         spanNbProduits.textContent = parseInt(spanNbProduits.textContent) + 1;
         // récupérer le formulaire exemple
         const exempleAjout = document.getElementById("exempleAjout");
@@ -22,6 +21,7 @@ btnAjouterProduit.addEventListener('click',function(ev) {
                 spanNbProduits.textContent = parseInt(spanNbProduits.textContent) - 1;
                 let index = listeFieldSets.indexOf(nouvelAjout);
                 listeFieldSets.splice(index, 1);
+                // actualisation des paramètres des fieldsets suivants
                 if(listeFieldSets.length > 0 && listeFieldSets.length != index) {
                     for (let i = index; i < listeFieldSets.length; i++) {
                         const element = listeFieldSets[i];
@@ -29,9 +29,7 @@ btnAjouterProduit.addEventListener('click',function(ev) {
                     }
                 }
             };
-        });
-    }
-    
+        });    
 
 });
 

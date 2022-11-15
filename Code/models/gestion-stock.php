@@ -15,6 +15,7 @@ $listeProduits = $produitDAO->getListeProduits();
 // insertion des produits entrés
 if($nbProduitsEnvoyes > 0) {
     for ($i=0; $i < $nbProduitsEnvoyes; $i++) { 
-        echo 'on va insérer '.$_POST["entreeQteProduit{$i}"].' fois le produit numéro '.$_POST["entreeNomProduit{$i}"];
+        $produitDAO->updateQuantite(array($_POST["entreeQteProduit{$i}"], $_POST["entreeNomProduit{$i}"]));
     }
+    $alert = choixAlert('succes_operation');
 }

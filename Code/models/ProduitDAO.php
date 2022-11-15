@@ -16,4 +16,9 @@ class ProduitDAO extends DAO {
         return null;
     }
 
+    public function updateQuantite($para) {
+        $result = $this->queryRow('UPDATE PRODUIT SET QUANTITE_EN_STOCK = QUANTITE_EN_STOCK + ?, DERNIERE_MODIF = CURRENT_TIMESTAMP WHERE ID_PRODUIT = ?', $para);
+        return $result;
+    }
+
 }
