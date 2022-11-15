@@ -54,7 +54,7 @@
         <div class="row">
             <div class="five columns">
                 <label id="entreeNomProduit" for="entreeNomProduit">Produit</label>
-                <select class="u-full-width" id="entreeNomProduit" name="entreeNomProduit" required>
+                <select class="u-full-width" id="entreeNomProduit" name="entreeNomProduit">
                 <?php foreach ($listeProduits as $produit) {
                 echo '<option value="'.$produit->getIdProduit().'">'.$produit->getDenomination().'</option>';
                 }?>
@@ -62,7 +62,7 @@
             </div>
             <div class="five columns">
                 <label id="entreeQteProduit" for="entreeQteProduit">Quantité</label>
-                <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit" required>
+                <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit">
             </div>
             <div class="two columns">
                 <label for="entreeEnleverProduit">Retirer le produit</label>

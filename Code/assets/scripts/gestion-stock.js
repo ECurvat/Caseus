@@ -10,6 +10,7 @@ btnAjouterProduit.addEventListener('click',function(ev) {
         const exempleAjout = document.getElementById("exempleAjout");
         var nouvelAjout = exempleAjout.cloneNode(true);
         refreshAttributes(nouvelAjout, listeFieldSets.length);
+        
         listeFieldSets.push(nouvelAjout);
         // insertion dans le DOM
         const formulaire = document.getElementById("entreeLivraison");
@@ -40,5 +41,6 @@ function refreshAttributes(fieldset, nombre) {
     fieldset.querySelector('select[id="entreeNomProduit"]').setAttribute("name",  "entreeNomProduit" + nombre);
     fieldset.querySelector('label[id="entreeQteProduit"]').setAttribute("for",  "entreeQteProduit" + nombre);
     fieldset.querySelector('input[id="entreeQteProduit"]').setAttribute("name",  "entreeQteProduit" + nombre);
+    fieldset.querySelector('input[id="entreeQteProduit"]').setAttribute("required", "");
     fieldset.querySelector('button').setAttribute("id",  "entreeRetirerProduit" + nombre);
 }
