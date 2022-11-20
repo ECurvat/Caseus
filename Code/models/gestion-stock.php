@@ -13,9 +13,16 @@ require_once(PATH_MODELS.'ProduitDAO.php');
 $produitDAO = new ProduitDAO(true);
 $listeProduits = $produitDAO->getListeProduits();
 // insertion des produits entrés
-if($nbProduitsEnvoyes > 0) {
-    for ($i=0; $i < $nbProduitsEnvoyes; $i++) { 
-        $produitDAO->updateQuantite(array($_POST["entreeQteProduit{$i}"], $_POST["entreeNomProduit{$i}"]));
+if($nbProduitsEntree > 0) {
+    for ($i=0; $i < $nbProduitsEntree; $i++) { 
+        $produitDAO->ajouterQuantite(array($_POST["entreeQteProduit{$i}"], $_POST["entreeNomProduit{$i}"]));
+    }
+    $alert = choixAlert('succes_operation');
+}
+
+if($nbProduitsSortie > 0) {
+    for ($i=0; $i < $nbProduitsSortie; $i++) { 
+        $produitDAO->majQuantite(array($_POST["sortieQteProduit{$i}"], $_POST["sortieNomProduit{$i}"]));
     }
     $alert = choixAlert('succes_operation');
 }

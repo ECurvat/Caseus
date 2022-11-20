@@ -8,10 +8,21 @@ if (($_SESSION['compte']->getPosition() != 'MANA') && ($_SESSION['compte']->getP
 
 if (isset($_POST['entreeValider'])) {
     // on trouve le nombre de produits envoyés :
-    $nbProduitsEnvoyes = 0;
+    $nbProduitsEntree = 0;
     foreach($_POST as $key =>$value){
         if (substr($key, 0, -1) == 'entreeQteProduit') {
-            $nbProduitsEnvoyes++;
+            $nbProduitsEntree++;
+        }
+        
+    }    
+}
+
+if (isset($_POST['sortieValider'])) {
+    // on trouve le nombre de produits envoyés :
+    $nbProduitsSortie = 0;
+    foreach($_POST as $key =>$value){
+        if (substr($key, 0, -1) == 'sortieQteProduit') {
+            $nbProduitsSortie++;
         }
         
     }    

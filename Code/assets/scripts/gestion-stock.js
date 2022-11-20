@@ -1,31 +1,32 @@
-const btnAjouterProduit = document.querySelector('[name="entreeAjouterProduit"]');
-const btnEntreeValider = document.querySelector('[name="entreeValider"]');
-var listeFieldSets = [];
-btnAjouterProduit.addEventListener('click',function(ev) {
-    
-    let spanNbProduits = document.getElementById('nbProduits');
-        spanNbProduits.textContent = parseInt(spanNbProduits.textContent) + 1;
-        // récupérer le formulaire exemple
-        const exempleAjout = document.getElementById("exempleAjout");
-        var nouvelAjout = exempleAjout.cloneNode(true);
-        refreshAttributes(nouvelAjout, listeFieldSets.length);
+if (document.querySelector('[name="entreeAjouterLigne"]') !== null) {
+    const btnEntreeAjouterLigne = document.querySelector('[name="entreeAjouterLigne"]');
+    const btnEntreeValider = document.querySelector('[name="entreeValider"]'); // btn validation formulaire
+    var listeFieldSetsEntree = [];
+    btnEntreeAjouterLigne.addEventListener('click',function(ev) {
         
-        listeFieldSets.push(nouvelAjout);
+    let spanEntreeNbLigne = document.getElementById('nbLignesEntree');
+        spanEntreeNbLigne.textContent = parseInt(spanEntreeNbLigne.textContent) + 1;
+        // récupérer le formulaire exemple
+        const exempleLigneEntree = document.getElementById("exempleLigneEntree");
+        var nouvelleLigneEntree = exempleLigneEntree.cloneNode(true);
+        refreshAttributesEntree(nouvelleLigneEntree, listeFieldSetsEntree.length);
+        
+        listeFieldSetsEntree.push(nouvelleLigneEntree);
         // insertion dans le DOM
-        const formulaire = document.getElementById("entreeLivraison");
-        formulaire.insertBefore(nouvelAjout,btnEntreeValider); 
+        const formulaireEntree = document.getElementById("entree");
+        formulaireEntree.insertBefore(nouvelleLigneEntree,btnEntreeValider); 
 
-        nouvelAjout.addEventListener("click", function(e) {
+        nouvelleLigneEntree.addEventListener("click", function(e) {
             if(e.target.tagName === "BUTTON"){
                 e.currentTarget.remove();
-                spanNbProduits.textContent = parseInt(spanNbProduits.textContent) - 1;
-                let index = listeFieldSets.indexOf(nouvelAjout);
-                listeFieldSets.splice(index, 1);
+                spanEntreeNbLigne.textContent = parseInt(spanEntreeNbLigne.textContent) - 1;
+                let index = listeFieldSetsEntree.indexOf(nouvelleLigneEntree);
+                listeFieldSetsEntree.splice(index, 1);
                 // actualisation des paramètres des fieldsets suivants
-                if(listeFieldSets.length > 0 && listeFieldSets.length != index) {
-                    for (let i = index; i < listeFieldSets.length; i++) {
-                        const element = listeFieldSets[i];
-                        refreshAttributes(listeFieldSets[i], i);
+                if(listeFieldSetsEntree.length > 0 && listeFieldSetsEntree.length != index) {
+                    for (let i = index; i < listeFieldSetsEntree.length; i++) {
+                        const element = listeFieldSetsEntree[i];
+                        refreshAttributesEntree(listeFieldSetsEntree[i], i);
                     }
                 }
             };
@@ -33,7 +34,7 @@ btnAjouterProduit.addEventListener('click',function(ev) {
 
 });
 
-function refreshAttributes(fieldset, nombre) {
+function refreshAttributesEntree(fieldset, nombre) {
     fieldset.setAttribute("id", nombre); // pour qu'on le voit + récupère plus tard
     fieldset.querySelector('label[id="entreeNomProduit"]').setAttribute("for",  "entreeNomProduit" + nombre);
     fieldset.querySelector('select[id="entreeNomProduit"]').setAttribute("name",  "entreeNomProduit" + nombre);
@@ -42,3 +43,51 @@ function refreshAttributes(fieldset, nombre) {
     fieldset.querySelector('input[id="entreeQteProduit"]').setAttribute("required", "");
     fieldset.querySelector('button').setAttribute("id",  "entreeRetirerProduit" + nombre);
 }
+} else if (document.querySelector('[name="sortieAjouterLigne"]') !== null) {
+    const btnSortieAjouterLigne = document.querySelector('[name="sortieAjouterLigne"]');
+    const btnSortieValider = document.querySelector('[name="sortieValider"]'); // btn validation formulaire
+    var listeFieldSetsSortie = [];
+    btnSortieAjouterLigne.addEventListener('click',function(ev) {
+        console.log('click');
+        let spanSortieNbLigne = document.getElementById('nbLignesSortie');
+            spanSortieNbLigne.textContent = parseInt(spanSortieNbLigne.textContent) + 1;
+            // récupérer le formulaire exemple
+            const exempleLigneSortie = document.getElementById("exempleLigneSortie");
+            var nouvelleLigneSortie = exempleLigneSortie.cloneNode(true);
+            refreshAttributesSortie(nouvelleLigneSortie, listeFieldSetsSortie.length);
+            
+            listeFieldSetsSortie.push(nouvelleLigneSortie);
+            // insertion dans le DOM
+            const formulaireSortie = document.getElementById("sortie");
+            formulaireSortie.insertBefore(nouvelleLigneSortie,btnSortieValider); 
+
+            nouvelleLigneSortie.addEventListener("click", function(e) {
+                if(e.target.tagName === "BUTTON"){
+                    e.currentTarget.remove();
+                    spanSortieNbLigne.textContent = parseInt(spanSortieNbLigne.textContent) - 1;
+                    let index = listeFieldSetsSortie.indexOf(nouvelleLigneSortie);
+                    listeFieldSetsSortie.splice(index, 1);
+                    // actualisation des paramètres des fieldsets suivants
+                    if(listeFieldSetsSortie.length > 0 && listeFieldSetsSortie.length != index) {
+                        for (let i = index; i < listeFieldSetsSortie.length; i++) {
+                            const element = listeFieldSetsSortie[i];
+                            refreshAttributesSortie(listeFieldSetsSortie[i], i);
+                        }
+                    }
+                };
+            });    
+
+    });
+
+    function refreshAttributesSortie(fieldset, nombre) {
+        fieldset.setAttribute("id", nombre); // pour qu'on le voit + récupère plus tard
+        fieldset.querySelector('label[id="sortieNomProduit"]').setAttribute("for",  "sortieNomProduit" + nombre);
+        fieldset.querySelector('select[id="sortieNomProduit"]').setAttribute("name",  "sortieNomProduit" + nombre);
+        fieldset.querySelector('label[id="sortieQteProduit"]').setAttribute("for",  "sortieQteProduit" + nombre);
+        fieldset.querySelector('input[id="sortieQteProduit"]').setAttribute("name",  "sortieQteProduit" + nombre);
+        fieldset.querySelector('input[id="sortieQteProduit"]').setAttribute("required", "");
+        fieldset.querySelector('button').setAttribute("id",  "sortieRetirerProduit" + nombre);
+    }
+}
+
+

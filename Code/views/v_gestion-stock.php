@@ -13,10 +13,10 @@
             <input class="button-primary u-full-width" type="submit" value="Liste des produits" name="choixListe">
         </div>
         <div class="four columns">
-            <input class="button-success u-full-width" type="submit" value="Entrer une livraison" name="choixEntrer">
+            <input class="button-success u-full-width" type="submit" value="Entrer une livraison" name="choixEntree">
         </div>
         <div class="four columns">
-        <input class="button-danger u-full-width" type="submit" value="Faire la pesée" name="choixPesee">
+        <input class="button-danger u-full-width" type="submit" value="Faire la pesée" name="choixSortie">
         </div>
     </form>
 </div>
@@ -44,13 +44,14 @@
         }?>
     </tbody>
 </table>
-<?php } else if (isset($_POST['choixEntrer'])) {?>
+<?php } else if (isset($_POST['choixEntree'])) {?>
 <div class="row">
-        Nombre de produit(s) dans la livraison : <span id="nbProduits">0</span>
-        <input class="button-success" type="button" value="+" name="entreeAjouterProduit">
+    <p>Notice : ajouter une ligne avec le bouton +, choisir le produit concerné et indiquer la quantité inscrite sur le bon de commande</p>
+    Nombre de produit(s) dans la livraison : <span id="nbLignesEntree">0</span>
+    <input class="button-success" type="button" value="+" name="entreeAjouterLigne">
 </div>
-<form method="post" id="entreeLivraison">
-    <fieldset id="exempleAjout">
+<form method="post" id="entree">
+    <fieldset id="exempleLigneEntree">
         <div class="row">
             <div class="five columns">
                 <label id="entreeNomProduit" for="entreeNomProduit">Produit</label>
@@ -65,12 +66,41 @@
                 <input type="number" class="u-full-width" name="entreeQteProduit" id="entreeQteProduit" min="0">
             </div>
             <div class="two columns">
-                <label for="entreeEnleverProduit">Retirer le produit</label>
+                <label for="entreeEnleverProduit">Retirer la ligne</label>
                 <button class="button-warning u-full-width" type="button">-</button>
             </div>
         </div>
     </fieldset>
     <input class="button-primary u-full-width" type="submit" value="Valider" name="entreeValider">
+</form>
+<?php } else if (isset($_POST['choixSortie'])) {?>
+<div class="row">
+    <p>Notice : ajouter une ligne avec le bouton +, choisir le produit concerné et indiquer la quantité restante en fin de service</p>
+    Nombre de produit(s) dans la livraison : <span id="nbLignesSortie">0</span>
+    <input class="button-success" type="button" value="+" name="sortieAjouterLigne"> 
+</div>
+<form method="post" id="sortie">
+    <fieldset id="exempleLigneSortie">
+        <div class="row">
+            <div class="five columns">
+                <label id="sortieNomProduit" for="sortieNomProduit">Produit</label>
+                <select class="u-full-width" id="sortieNomProduit" name="sortieNomProduit">
+                <?php foreach ($listeProduits as $produit) {
+                echo '<option value="'.$produit->getIdProduit().'">'.$produit->getDenomination().'</option>';
+                }?>
+                </select>
+            </div>
+            <div class="five columns">
+                <label id="sortieQteProduit" for="sortieQteProduit">Quantité</label>
+                <input type="number" class="u-full-width" name="sortieQteProduit" id="sortieQteProduit" min="0">
+            </div>
+            <div class="two columns">
+                <label for="sortieEnleverProduit">Retirer la ligne</label>
+                <button class="button-warning u-full-width" type="button">-</button>
+            </div>
+        </div>
+    </fieldset>
+    <input class="button-primary u-full-width" type="submit" value="Valider" name="sortieValider">
 </form>
 <?php }?>
 <script src="assets/scripts/gestion-stock.js"></script>
