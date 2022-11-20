@@ -15,5 +15,6 @@ define('PAS_DE_PRODUIT', "Aucun produit trouvé");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
+define('FORM_VIDE',"Echec : entrez au moins un produit avant de valider");
 
 define('TITRE', 'Caseus');

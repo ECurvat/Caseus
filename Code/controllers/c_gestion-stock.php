@@ -13,7 +13,6 @@ if (isset($_POST['entreeValider'])) {
         if (substr($key, 0, -1) == 'entreeQteProduit') {
             $nbProduitsEntree++;
         }
-        
     }    
 }
 
@@ -24,7 +23,6 @@ if (isset($_POST['sortieValider'])) {
         if (substr($key, 0, -1) == 'sortieQteProduit') {
             $nbProduitsSortie++;
         }
-        
     }    
 }
 

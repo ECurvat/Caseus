@@ -35,6 +35,9 @@ function choixAlert($message)
 		case 'privileges' :
 			$alert['messageAlert'] = PRIVILEGES;
 			break;
+		case 'form_vide' :
+			$alert['messageAlert'] = FORM_VIDE;
+			break;
 		default : 
 			$alert['messageAlert'] = MESSAGE_ERREUR;
 	}
