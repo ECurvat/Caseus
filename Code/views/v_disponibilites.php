@@ -12,12 +12,12 @@
 	<!-- Partie déclaration -->
 	<div class="three columns">
 		<h5>Déclaration</h5>
-		<form method="post" action="index.php?page=disponibilites">
+		<form method="post">
 			<label for="ajoutDebut">Début</label>
-			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut">
+			<input class="u-full-width" type="datetime-local" id="ajoutDebut" name="ajoutDebut" required>
 			<label for="ajoutFin">Fin</label>
 			<input class="u-full-width" type="datetime-local" id="ajoutFin" name="ajoutFin">
-			<input class="button-success u-full-width" type="submit" value="Ajouter" name="ajouter">
+			<input class="button-success u-full-width" type="submit" value="Ajouter" name="ajouter" required>
 		</form>
 	</div>
 	<!-- Partie édition des disponibilités -->
@@ -25,7 +25,7 @@
 		<h5>Edition</h5>
 		<div class="row">
 			<h6>Rechercher une disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="four columns">
 					<label for="mois">Mois</label>
 					<input class="u-full-width" type="text" value="<?php echo $mois ?>" id="mois" name="mois">
@@ -42,7 +42,7 @@
 		<?php if (!empty($listeDispos)) {?>
 		<div class="row">
 			<h6>Choisir la disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="nine columns">
 					<label for="idDispo">Disponibilité</label>
 					<select name="idDispo" class="u-full-width">
@@ -50,6 +50,7 @@
 							foreach ($listeDispos as $elem) {
 								$debut = date('l d (H:i)', strtotime($elem->getDebutDispo()));
 								$fin = date('l d (H:i)', strtotime($elem->getFinDispo()));
+								if ($elem->getIdDispo() == $_POST['idDispo']) echo '<option selected value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
 								echo '<option value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
 							}
 						?>
@@ -65,7 +66,7 @@
 		<?php if (isset($dispoEditee)) {?>
 		<div class="row">
 			<h6>Editer la disponibilité</h6>
-			<form action="index.php?page=disponibilites" method="post">
+			<form method="post">
 				<div class="three columns">
 					<label for="modifId">ID</label>
 					<input class="u-full-width" readonly type="text" id="modifId" name="modifId" value="<?php echo $dispoEditee->getIdDispo();?>">

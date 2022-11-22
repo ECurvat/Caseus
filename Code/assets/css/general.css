@@ -70,8 +70,8 @@ body {
 }
 
 .mainscreen {
-    height: 100vh ;
-    width: 100vw ;
+    height: 100vh;
+    width: 100vw;
 }
 
 .container {
@@ -83,6 +83,7 @@ navbar {
     flex-direction: column;
     background-image: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4), var(--gradient-5));
     height: 100vh;
+    font-size: 2vmin;
 }
 
 navbar > div {
