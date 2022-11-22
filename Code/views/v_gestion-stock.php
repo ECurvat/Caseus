@@ -76,7 +76,7 @@
 <?php } else if (isset($_POST['choixSortie'])) {?>
 <div class="row">
     <p>Notice : ajouter une ligne avec le bouton +, choisir le produit concerné et indiquer la quantité restante en fin de service</p>
-    Nombre de produit(s) dans la livraison : <span id="nbLignesSortie">0</span>
+    Nombre de produit(s) dans la pesée : <span id="nbLignesSortie">0</span>
     <input class="button-success" type="button" value="+" name="sortieAjouterLigne"> 
 </div>
 <form method="post" id="sortie">
