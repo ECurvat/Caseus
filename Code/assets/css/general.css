@@ -1,3 +1,29 @@
+/*CSS for all*/
+
+/*Declaration variables*/
+:root{
+    --primary-1: #F2F2F2FF;
+    --primary-2: #D9D9D9FF;
+
+    --secondary-1: #6B6B6BFF;
+    --secondary-2: #4B4949FF;
+
+    --white: #FFFFFF;
+    --success-green: #5cb85c;
+    --danger-red: #d9534f;
+
+/*    Gradient colors */
+    --gradient-1: #ea5753;
+    --gradient-2: #f1634f;
+    --gradient-3: #f7704b;
+    --gradient-4: #fb7d47;
+    --gradient-5: #ff8a44;
+
+/*    Categories colors */
+    --cat-grey: #D9D9D9;
+    --subcat-grey: #F0F0F0;
+}
+
 ol, ul {
     list-style: none;
 }
@@ -9,25 +35,30 @@ a, button {
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 }
+@media (max-width: 640px) {
+    a{
+        font-size: 10px;
+    }
+    .subcategory{
+        text-indent: 10px;
+    }
+}
 
 html {
-    min-width: 350px;
+    min-width: 350px;  
     font-family: 'Inter', 'Open Sans', 'Karla', sans-serif;
     scroll-behavior: smooth;
 }
 
 body {
-    --primary-1: hsl(0deg, 0%, 95%);
-    --primary-2: hsl(0deg, 0%, 85%);
-
-    --secondary-1: hsl(0deg, 0%, 42%);
-    --secondary-2: hsl(0deg, 1%, 29%);
-
     min-height: 100vh;
     min-height: 100dvh;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @media(min-width: 640px){
+        font-size: 0.5em;
+    }
 }
 
 body:has(.no-scroll) {
@@ -50,7 +81,7 @@ body {
 navbar {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to bottom, #ea5753, #f1634f, #f7704b, #fb7d47, #ff8a44);
+    background-image: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4), var(--gradient-5));
     height: 100vh;
 }
 
@@ -60,16 +91,21 @@ navbar > div {
 }
 
 .category {
-    background-color: #D9D9D9;
+    background-color: var(--cat-grey);
 }
 
 .subcategory {
-    background-color: #F0F0F0;
-    text-indent: 40px;
+    background-color: var(--subcat-grey);
+    text-indent: 10px;
+}
+@media(max-width: 640px){
+    .subcategory{
+        text-indent: 20px;
+    }
 }
 
 .active {
-    background-color: #FFFFFF;
+    background-color: var(--white);
 }
 
 #logo {
@@ -84,11 +120,11 @@ navbar > div {
 .msg-danger {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #d9534f;
+    border: 1px solid var(--danger-red);
 }
 
 .msg-success {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #5cb85c;
+    border: 1px solid var(--success-green);
 }
