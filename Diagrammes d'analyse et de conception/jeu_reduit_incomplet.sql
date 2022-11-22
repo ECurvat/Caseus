@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 08 nov. 2022 à 15:25
+-- Généré le : mar. 22 nov. 2022 à 16:31
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -44,7 +44,8 @@ CREATE TABLE `conge` (
   `ID_ETAT` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
   `DEBUT_CONGE` date DEFAULT NULL,
-  `FIN_CONGE` date DEFAULT NULL
+  `FIN_CONGE` date DEFAULT NULL,
+  `DATE_DEMANDE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -69,8 +70,8 @@ INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO
 (2, 1, '2022-12-01 05:00:00', '2022-12-01 22:30:00'),
 (3, 2, '2022-11-05 12:00:00', '2022-11-05 21:00:00'),
 (10, 1, '2022-11-12 01:00:00', '2022-11-12 18:00:00'),
-(14, 3, '2022-11-09 15:27:00', '2022-11-09 22:27:00'),
-(16, 3, '2022-11-03 10:30:00', '2022-11-03 19:30:00');
+(16, 3, '2022-11-03 10:30:00', '2022-11-03 19:30:00'),
+(17, 3, '2022-11-08 19:45:00', '2022-11-08 22:45:00');
 
 -- --------------------------------------------------------
 
@@ -111,8 +112,8 @@ CREATE TABLE `employe` (
 --
 
 INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`) VALUES
-(1, NULL, NULL, 'poly@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(2, NULL, NULL, 'assi@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'ASSI'),
+(1, 'COURTET', 'Tom', 'poly@gmail.com', '2022-10-01', '1 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(2, 'AGHUMYAN', 'Mesrop', 'assi@gmail.com', '2022-10-10', '2 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'ASSI'),
 (3, NULL, NULL, 'mana@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'MANA');
 
 -- --------------------------------------------------------
@@ -207,6 +208,17 @@ CREATE TABLE `produit` (
   `QUANTITE_EN_STOCK` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `produit`
+--
+
+INSERT INTO `produit` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF`, `QUANTITE_EN_STOCK`) VALUES
+(1, 2, 'Pâte à pizza', '2022-11-20 22:25:58', '10'),
+(2, 1, 'Champignons', '2022-11-16 21:20:18', '49'),
+(3, 3, 'Sauce tomate ', '2022-11-20 20:02:53', '20'),
+(4, 1, 'Fromage', '2022-11-20 22:25:58', '5'),
+(5, 2, 'Boîte', '2022-11-16 21:20:18', '126');
+
 -- --------------------------------------------------------
 
 --
@@ -239,6 +251,15 @@ CREATE TABLE `unite` (
   `ID_UNITE` int(11) NOT NULL,
   `NOM_UNITE` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `unite`
+--
+
+INSERT INTO `unite` (`ID_UNITE`, `NOM_UNITE`) VALUES
+(1, 'kg'),
+(2, 'unités'),
+(3, 'litres');
 
 --
 -- Index pour les tables déchargées
@@ -349,7 +370,7 @@ ALTER TABLE `conge`
 -- AUTO_INCREMENT pour la table `disponibilite`
 --
 ALTER TABLE `disponibilite`
-  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `echange_travail`
@@ -391,13 +412,13 @@ ALTER TABLE `planning`
 -- AUTO_INCREMENT pour la table `produit`
 --
 ALTER TABLE `produit`
-  MODIFY `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `unite`
 --
 ALTER TABLE `unite`
-  MODIFY `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
