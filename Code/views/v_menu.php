@@ -19,7 +19,7 @@ $positionCourante = $_SESSION['compte']->getPosition();
     <?php endif; ?>
     <?php if ($positionCourante == 'MANA'): ?>
         <div class="subcategory <?php echo ($page=='gestion-horaires' ? "active":'')?>"><a href="index.php?page=gestion-horaires">Horaires</a></div>
-        <div class="subcategory <?php echo ($page=='gestion-conges' ? "active":'')?>">Congés</div>
+        <div class="subcategory <?php echo ($page=='gestion-conges' ? "active":'')?>"><a href="index.php?page=gestion-conges">Congés</a></div>
         <div class="subcategory <?php echo ($page=='gestion-employes' ? "active":'')?>"><a href="index.php?page=gestion-employes">Employés</a></div>
         <div class="subcategory <?php echo ($page=='statistiques' ? "active":'')?>">Statistiques</div>
     <?php endif; ?>

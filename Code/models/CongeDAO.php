@@ -28,4 +28,17 @@ class CongeDAO extends DAO {
         return $result;
     }
 
+    public function getCongeEnAttente() {
+        $result = $this->queryAll('SELECT * FROM CONGE WHERE ID_ETAT = 3');
+        if ($result) {
+            $listeCongesEnAttente = array();
+            foreach ($result as $elem) {
+                $conge = new Conge($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5]);
+                array_push($listeCongesEnAttente, $conge);
+            }
+            return $listeCongesEnAttente;
+        }
+        return null;
+    }
+
 }
