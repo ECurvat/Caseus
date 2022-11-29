@@ -12,6 +12,7 @@ define('ERREUR_CONNEXION',"Email ou mot de passe incorrect");
 define('PAS_DE_PLANNING',"Aucun planning trouvé pour la semaine et l'année spécifiées");
 define('PAS_DE_DISPO',"Aucune disponibilité trouvée");
 define('PAS_DE_PRODUIT', "Aucun produit trouvé");
+define('PAS_DE_CONGE', "Aucune demande trouvée pour l'année renseignée");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
