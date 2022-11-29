@@ -39,15 +39,25 @@
 		<tr>
 			<td>Début :</td>
 			<?php for ($i=1; $i <= 7; $i++) { 
-				if (isset($listeJours[$i])) echo '<td>'.$listeJours[$i]->getDebutJournee().'</td>';
-				else echo '<td></td>';
+				if (isset($listeJours[$i])) {
+					if($listeJours[$i]->getConge() == 1) {
+						echo '<td>CONGÉ</td>';
+					} else {
+						echo '<td>'.$listeJours[$i]->getDebutJournee().'</td>';
+					}
+				} else echo '<td></td>';
 			}?>
 		</tr>
 		<tr>
 			<td>Fin :</td>
 			<?php for ($i=1; $i <= 7; $i++) { 
-				if (isset($listeJours[$i])) echo '<td>'.$listeJours[$i]->getFinJournee().'</td>';
-				else echo '<td></td>';
+				if (isset($listeJours[$i])) {
+					if($listeJours[$i]->getConge() == 1) {
+						echo '<td>CONGÉ</td>';
+					} else {
+						echo '<td>'.$listeJours[$i]->getFinJournee().'</td>';
+					}
+				} else echo '<td></td>';
 			}?>
 		</tr>
 	</tbody>

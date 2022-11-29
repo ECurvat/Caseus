@@ -24,3 +24,8 @@ if (!empty($listeCongesEnAttente)) {
         $listeEmployes[$elem] = $employeDAO->getEmployeParId($elem);
     }
 }
+
+// trouver le numéro du/des plannings concernés par la plage de congés 
+// si il en existe certains, regarder s'il existe des jours déjà mis --> les supprimer
+//                           ajouter dans les plannings, sur les dates concernés, les jours avec 'congé' = 1
+// sinon créer les plannings et ajouter les jours avec 'congé' = 1

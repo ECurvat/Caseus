@@ -8,7 +8,7 @@ class JourDAO extends DAO {
         if ($result) {
             $listeJours = array();
             foreach ($result as $elem) {
-                $jour = new Jour($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5], $elem[6]);
+                $jour = new Jour($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5], $elem[6], $elem[7]);
                 $listeJours[$elem[3]] = $jour;
             }
             return $listeJours;
