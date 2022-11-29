@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 22 nov. 2022 à 16:31
+-- Généré le : mar. 29 nov. 2022 à 18:25
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -47,6 +47,17 @@ CREATE TABLE `conge` (
   `FIN_CONGE` date DEFAULT NULL,
   `DATE_DEMANDE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `conge`
+--
+
+INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_CONGE`, `DATE_DEMANDE`) VALUES
+(1, 3, 1, '2022-11-27', '2022-11-27', '2022-11-27'),
+(6, 4, 1, '2022-11-01', '2022-11-30', '2022-11-27'),
+(7, 4, 3, '2022-11-21', '2022-11-27', '2022-11-29'),
+(8, 4, 3, '2022-11-28', '2022-11-30', '2022-11-29'),
+(9, 5, 3, '2022-12-05', '2022-12-31', '2022-11-29');
 
 -- --------------------------------------------------------
 
@@ -133,7 +144,10 @@ CREATE TABLE `etat` (
 
 INSERT INTO `etat` (`ID_ETAT`, `NOM_ETAT`) VALUES
 (1, 'Publié'),
-(2, 'Caché');
+(2, 'Caché'),
+(3, 'En attente'),
+(4, 'Acceptée'),
+(5, 'Refusée');
 
 -- --------------------------------------------------------
 
@@ -148,19 +162,23 @@ CREATE TABLE `jour` (
   `N_JOUR` int(11) NOT NULL,
   `RETARD` tinyint(1) DEFAULT NULL,
   `DEBUT_JOURNEE` time DEFAULT NULL,
-  `FIN_JOURNEE` time DEFAULT NULL
+  `FIN_JOURNEE` time DEFAULT NULL,
+  `CONGE` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `jour`
 --
 
-INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, `DEBUT_JOURNEE`, `FIN_JOURNEE`) VALUES
-(1, 1, NULL, 1, 0, '10:00:00', '18:00:00'),
-(2, 1, NULL, 2, 0, '10:00:00', '18:00:00'),
-(3, 1, NULL, 3, 1, '10:00:00', '18:00:00'),
-(4, 1, NULL, 6, 0, '15:00:00', '23:00:00'),
-(5, 1, NULL, 7, 0, '15:00:00', '23:00:00');
+INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, `DEBUT_JOURNEE`, `FIN_JOURNEE`, `CONGE`) VALUES
+(1, 1, NULL, 1, 0, '10:00:00', '18:00:00', 0),
+(2, 1, NULL, 2, 0, '10:00:00', '18:00:00', 0),
+(3, 1, NULL, 3, 1, '10:00:00', '18:00:00', 0),
+(4, 1, NULL, 6, 0, '15:00:00', '23:00:00', 0),
+(5, 1, NULL, 7, 0, '15:00:00', '23:00:00', 0),
+(6, 2, NULL, 1, NULL, NULL, NULL, 1),
+(7, 2, NULL, 2, NULL, NULL, NULL, 1),
+(8, 2, NULL, 3, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +210,8 @@ CREATE TABLE `planning` (
 --
 
 INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `ANNEE_PLANNING`) VALUES
-(1, 1, 1, 44, 2022);
+(1, 1, 1, 44, 2022),
+(2, 3, 1, 48, 2022);
 
 -- --------------------------------------------------------
 
@@ -364,7 +383,7 @@ ALTER TABLE `unite`
 -- AUTO_INCREMENT pour la table `conge`
 --
 ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `disponibilite`
@@ -388,13 +407,13 @@ ALTER TABLE `employe`
 -- AUTO_INCREMENT pour la table `etat`
 --
 ALTER TABLE `etat`
-  MODIFY `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `jour`
 --
 ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `livraison`
@@ -406,7 +425,7 @@ ALTER TABLE `livraison`
 -- AUTO_INCREMENT pour la table `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
