@@ -1,6 +1,14 @@
 <?php 
 require_once(PATH_MODELS.'CongeDAO.php');
 $congeDAO = new CongeDAO(true);
+
+
+if (isset($_POST['accepter'])) {
+    $congeDAO->accepterConge($_POST['idDemande']);
+} else if (isset($_POST['refuser'])) {
+    $congeDAO->refuserConge($_POST['idDemande']);
+}
+
 $listeCongesEnAttente = $congeDAO->getCongeEnAttente();
 
 if (!empty($listeCongesEnAttente)) {
@@ -15,6 +23,4 @@ if (!empty($listeCongesEnAttente)) {
     foreach ($idEmps as $elem) {
         $listeEmployes[$elem] = $employeDAO->getEmployeParId($elem);
     }
-    print_r($listeEmployes);
 }
-
