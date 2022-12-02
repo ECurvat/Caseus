@@ -13,6 +13,7 @@ define('PAS_DE_PLANNING',"Aucun planning trouvé pour la semaine et l'année sp�
 define('PAS_DE_DISPO',"Aucune disponibilité trouvée");
 define('PAS_DE_PRODUIT', "Aucun produit trouvé");
 define('PAS_DE_CONGE', "Aucune demande trouvée pour l'année renseignée");
+define('PAS_DE_DEMANDE', "Aucune demande à traiter");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");

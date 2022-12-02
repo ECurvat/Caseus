@@ -5,8 +5,10 @@ $congeDAO = new CongeDAO(true);
 
 if (isset($_POST['accepter'])) {
     $congeDAO->accepterConge($_POST['idDemande']);
+    $alert = choixAlert('succes_operation');
 } else if (isset($_POST['refuser'])) {
     $congeDAO->refuserConge($_POST['idDemande']);
+    $alert = choixAlert('succes_operation');
 }
 
 $listeCongesEnAttente = $congeDAO->getCongeEnAttente();
@@ -23,6 +25,8 @@ if (!empty($listeCongesEnAttente)) {
     foreach ($idEmps as $elem) {
         $listeEmployes[$elem] = $employeDAO->getEmployeParId($elem);
     }
+} else {
+    $alert = choixAlert('pas_de_demande');
 }
 
 // trouver le numéro du/des plannings concernés par la plage de congés 
