@@ -51,4 +51,15 @@ class CongeDAO extends DAO {
         return null;
     }
 
+    public function getCongeParId($id) {
+        $result = $this->queryAll('SELECT * FROM CONGE 
+                                    WHERE ID_DEMANDE = ?', array($id));
+        if ($result) {
+            $result = $result[0];
+            $conge = new Conge($result[0], $result[1], $result[2], $result[3], $result[4], $result[5]);
+            return $conge;
+        }
+        return null;
+    }
+
 }

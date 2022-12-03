@@ -8,7 +8,7 @@
 
 <!--  Début de la page -->
 <h5>Demandes en attente</h5>
-<?php if($alert['messageAlert'] != PAS_DE_DEMANDE){?>
+<?php if(!empty($listeCongesEnAttente)) {?>
 <form method="post">
     <div class="six columns">
         <label for="idDemande">Demandes à traiter</label>
@@ -30,7 +30,7 @@
         <input class="button-danger u-full-width" type="submit" value="Refuser" name="refuser">
     </div>
 </form>
-<?php }?>
+<?php } ?>
 <!--  Fin de la page -->
 
 <!--  Pied de page -->

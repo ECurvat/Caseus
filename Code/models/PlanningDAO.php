@@ -12,4 +12,9 @@ class PlanningDAO extends DAO {
         return null;
     }
 
+    public function addPlanning($para) {
+        $result = $this->queryRow('INSERT INTO PLANNING (ID_EMPLOYE, ID_ETAT, N_SEMAINE, ANNEE_PLANNING) VALUES (?, 1, ?, ?)', $para);
+        return $result;
+    }
+
 }
