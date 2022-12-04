@@ -28,4 +28,38 @@ class CongeDAO extends DAO {
         return $result;
     }
 
+    public function accepterConge($id) {
+        $result = $this->queryRow('UPDATE CONGE SET ID_ETAT = 4 WHERE ID_DEMANDE = ?', array($id));
+        return $result;
+    }
+
+    public function refuserConge($id) {
+        $result = $this->queryRow('UPDATE CONGE SET ID_ETAT = 5 WHERE ID_DEMANDE = ?', array($id));
+        return $result;
+    }
+
+    public function getCongeEnAttente() {
+        $result = $this->queryAll('SELECT * FROM CONGE WHERE ID_ETAT = 3');
+        if ($result) {
+            $listeCongesEnAttente = array();
+            foreach ($result as $elem) {
+                $conge = new Conge($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5]);
+                array_push($listeCongesEnAttente, $conge);
+            }
+            return $listeCongesEnAttente;
+        }
+        return null;
+    }
+
+    public function getCongeParId($id) {
+        $result = $this->queryAll('SELECT * FROM CONGE 
+                                    WHERE ID_DEMANDE = ?', array($id));
+        if ($result) {
+            $result = $result[0];
+            $conge = new Conge($result[0], $result[1], $result[2], $result[3], $result[4], $result[5]);
+            return $conge;
+        }
+        return null;
+    }
+
 }

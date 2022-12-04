@@ -44,23 +44,38 @@
         <table class="u-full-width">
             <thead>
             <tr>
-                <th>Id demande</th>
+                <th>Id</th>
                 <th>Début</th>
                 <th>Fin</th>
                 <th>Date de la demande</th>
-                <th>Etat demande</th>
+                <th>Etat</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($listeConges as $elem) {
-                echo '<tr>';
+            <?php 
+                
+                foreach ($listeConges as $elem) {
+                    switch ($elem->getIdEtat()) {
+                        case 3:
+                            $status = "warning";
+                            break;
+                        case 4:
+                            $status = "success";
+                            break;
+                        case 5:
+                            $status = "danger";
+                            break;
+                        default:
+                            break;
+                    }
+                    echo '<tr>';
                     echo '<td>'.$elem->getIdDemande().'</td>';
                     echo '<td>'.$elem->getDebut().'</td>';
                     echo '<td>'.$elem->getFin().'</td>';
                     echo '<td>'.$elem->getDateDemande().'</td>';
-                    echo '<td>'.$listeEtats[$elem->getIdEtat() - 1]->getNomEtat().'</td>';
-                    echo '<td><button class="button-danger u-full-width" type="submit" name="del'.$elem->getIdDemande().'"><i class="fa-regular fa-trash-can"></i></button></td>';
+                    echo '<td><span class="'.$status.'">'.$listeEtats[$elem->getIdEtat() - 1]->getNomEtat().'</span></td>';
+                    echo '<td><button class="button u-full-width" type="submit" name="del'.$elem->getIdDemande().'"><i class="fa-regular fa-trash-can"></i></button></td>';
                 echo '</tr>';
             }
             ?>
