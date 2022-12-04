@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 29 nov. 2022 à 18:25
+-- Généré le : dim. 04 déc. 2022 à 13:44
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -53,11 +53,17 @@ CREATE TABLE `conge` (
 --
 
 INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_CONGE`, `DATE_DEMANDE`) VALUES
-(1, 3, 1, '2022-11-27', '2022-11-27', '2022-11-27'),
+(1, 5, 1, '2022-11-27', '2022-11-27', '2022-11-27'),
 (6, 4, 1, '2022-11-01', '2022-11-30', '2022-11-27'),
 (7, 4, 3, '2022-11-21', '2022-11-27', '2022-11-29'),
 (8, 4, 3, '2022-11-28', '2022-11-30', '2022-11-29'),
-(9, 5, 3, '2022-12-05', '2022-12-31', '2022-11-29');
+(12, 4, 3, '2022-12-19', '2022-12-20', '2022-12-02'),
+(13, 4, 3, '2022-12-05', '2023-01-01', '2022-12-02'),
+(14, 4, 3, '2023-01-02', '2023-01-09', '2022-12-02'),
+(15, 4, 3, '2022-12-05', '2022-12-19', '2022-12-02'),
+(16, 4, 3, '2022-12-12', '2022-12-29', '2022-12-03'),
+(17, 5, 3, '2022-12-03', '2022-12-13', '2022-12-03'),
+(18, 4, 3, '2022-12-02', '2022-12-03', '2022-12-04');
 
 -- --------------------------------------------------------
 
@@ -87,15 +93,16 @@ INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO
 -- --------------------------------------------------------
 
 --
--- Structure de la table `echange_travail`
+-- Structure de la table `echange`
 --
 
-CREATE TABLE `echange_travail` (
+CREATE TABLE `echange` (
   `ID_ECHANGE` int(11) NOT NULL,
   `ID_ETAT` int(11) NOT NULL,
-  `ID_JOUR` int(11) NOT NULL,
-  `ID_EMPLOYE` int(11) NOT NULL,
-  `MAN_ID_EMPLOYE` int(11) DEFAULT NULL,
+  `ID_JOUR_EMETTEUR` int(11) NOT NULL,
+  `ID_EMPLOYE_EMETTEUR` int(11) NOT NULL,
+  `ID_JOUR_RECEPTEUR` int(11) NOT NULL,
+  `ID_EMPLOYE_RECEPTEUR` int(11) NOT NULL,
   `DATE_PROPOSITION` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -178,7 +185,27 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, 
 (5, 1, NULL, 7, 0, '15:00:00', '23:00:00', 0),
 (6, 2, NULL, 1, NULL, NULL, NULL, 1),
 (7, 2, NULL, 2, NULL, NULL, NULL, 1),
-(8, 2, NULL, 3, NULL, NULL, NULL, 1);
+(8, 2, NULL, 3, NULL, NULL, NULL, 1),
+(9, 11, NULL, 1, NULL, NULL, NULL, 1),
+(10, 11, NULL, 2, NULL, NULL, NULL, 1),
+(11, 11, NULL, 3, NULL, NULL, NULL, 1),
+(12, 11, NULL, 4, NULL, NULL, NULL, 1),
+(13, 11, NULL, 5, NULL, NULL, NULL, 1),
+(14, 11, NULL, 6, NULL, NULL, NULL, 1),
+(15, 11, NULL, 7, NULL, NULL, NULL, 1),
+(16, 5, NULL, 1, NULL, NULL, NULL, 1),
+(17, 5, NULL, 2, NULL, NULL, NULL, 1),
+(18, 5, NULL, 3, NULL, NULL, NULL, 1),
+(19, 5, NULL, 4, NULL, NULL, NULL, 1),
+(20, 5, NULL, 5, NULL, NULL, NULL, 1),
+(21, 5, NULL, 6, NULL, NULL, NULL, 1),
+(22, 5, NULL, 7, NULL, NULL, NULL, 1),
+(23, 6, NULL, 1, NULL, NULL, NULL, 1),
+(24, 6, NULL, 2, NULL, NULL, NULL, 1),
+(25, 6, NULL, 3, NULL, NULL, NULL, 1),
+(26, 6, NULL, 4, NULL, NULL, NULL, 1),
+(27, 2, NULL, 5, NULL, NULL, NULL, 1),
+(28, 2, NULL, 6, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +238,13 @@ CREATE TABLE `planning` (
 
 INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `ANNEE_PLANNING`) VALUES
 (1, 1, 1, 44, 2022),
-(2, 3, 1, 48, 2022);
+(2, 3, 1, 48, 2022),
+(5, 3, 1, 51, 2022),
+(6, 3, 1, 52, 2022),
+(8, 3, 1, 1, 2023),
+(9, 3, 1, 2, 2023),
+(10, 3, 1, 49, 2022),
+(11, 3, 1, 50, 2022);
 
 -- --------------------------------------------------------
 
@@ -237,17 +270,6 @@ INSERT INTO `produit` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF
 (3, 3, 'Sauce tomate ', '2022-11-20 20:02:53', '20'),
 (4, 1, 'Fromage', '2022-11-20 22:25:58', '5'),
 (5, 2, 'Boîte', '2022-11-16 21:20:18', '126');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `recoit`
---
-
-CREATE TABLE `recoit` (
-  `ID_ECHANGE` int(11) NOT NULL,
-  `ID_EMPLOYE` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -307,14 +329,15 @@ ALTER TABLE `disponibilite`
   ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
 
 --
--- Index pour la table `echange_travail`
+-- Index pour la table `echange`
 --
-ALTER TABLE `echange_travail`
+ALTER TABLE `echange`
   ADD PRIMARY KEY (`ID_ECHANGE`),
-  ADD KEY `FK_CONCERNE2` (`ID_JOUR`),
   ADD KEY `FK_EST_PRECISE_PAR` (`ID_ETAT`),
-  ADD KEY `FK_TRAITE` (`MAN_ID_EMPLOYE`),
-  ADD KEY `FK_PROPOSE` (`ID_EMPLOYE`);
+  ADD KEY `FK_JOUR_RECEPTEUR` (`ID_JOUR_RECEPTEUR`),
+  ADD KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
+  ADD KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
+  ADD KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE;
 
 --
 -- Index pour la table `employe`
@@ -358,12 +381,6 @@ ALTER TABLE `produit`
   ADD KEY `FK_EST_EN` (`ID_UNITE`);
 
 --
--- Index pour la table `recoit`
---
-ALTER TABLE `recoit`
-  ADD PRIMARY KEY (`ID_ECHANGE`,`ID_EMPLOYE`);
-
---
 -- Index pour la table `supervise`
 --
 ALTER TABLE `supervise`
@@ -383,7 +400,7 @@ ALTER TABLE `unite`
 -- AUTO_INCREMENT pour la table `conge`
 --
 ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `disponibilite`
@@ -392,9 +409,9 @@ ALTER TABLE `disponibilite`
   MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT pour la table `echange_travail`
+-- AUTO_INCREMENT pour la table `echange`
 --
-ALTER TABLE `echange_travail`
+ALTER TABLE `echange`
   MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -413,7 +430,7 @@ ALTER TABLE `etat`
 -- AUTO_INCREMENT pour la table `jour`
 --
 ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT pour la table `livraison`
@@ -425,7 +442,7 @@ ALTER TABLE `livraison`
 -- AUTO_INCREMENT pour la table `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
@@ -464,19 +481,20 @@ ALTER TABLE `disponibilite`
   ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
 
 --
--- Contraintes pour la table `echange_travail`
+-- Contraintes pour la table `echange`
 --
-ALTER TABLE `echange_travail`
-  ADD CONSTRAINT `FK_CONCERNE2` FOREIGN KEY (`ID_JOUR`) REFERENCES `jour` (`ID_JOUR`),
+ALTER TABLE `echange`
+  ADD CONSTRAINT `FK_EMPLOYE_EMETTEUR` FOREIGN KEY (`ID_EMPLOYE_EMETTEUR`) REFERENCES `employe` (`ID_EMPLOYE`),
+  ADD CONSTRAINT `FK_EMPLOYE_RECEPTEUR` FOREIGN KEY (`ID_EMPLOYE_RECEPTEUR`) REFERENCES `employe` (`ID_EMPLOYE`),
   ADD CONSTRAINT `FK_EST_PRECISE_PAR` FOREIGN KEY (`ID_ETAT`) REFERENCES `etat` (`ID_ETAT`),
-  ADD CONSTRAINT `FK_PROPOSE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`),
-  ADD CONSTRAINT `FK_TRAITE` FOREIGN KEY (`MAN_ID_EMPLOYE`) REFERENCES `manager` (`ID_EMPLOYE`);
+  ADD CONSTRAINT `FK_JOUR_EMETTEUR` FOREIGN KEY (`ID_JOUR_EMETTEUR`) REFERENCES `jour` (`ID_JOUR`),
+  ADD CONSTRAINT `FK_JOUR_RECEPTEUR` FOREIGN KEY (`ID_JOUR_RECEPTEUR`) REFERENCES `jour` (`ID_JOUR`);
 
 --
 -- Contraintes pour la table `jour`
 --
 ALTER TABLE `jour`
-  ADD CONSTRAINT `FK_CONCERNE` FOREIGN KEY (`ID_ECHANGE`) REFERENCES `echange_travail` (`ID_ECHANGE`),
+  ADD CONSTRAINT `FK_CONCERNE` FOREIGN KEY (`ID_ECHANGE`) REFERENCES `echange` (`ID_ECHANGE`),
   ADD CONSTRAINT `FK_CONTIENT` FOREIGN KEY (`ID_PLANNING`) REFERENCES `planning` (`ID_PLANNING`);
 
 --
@@ -491,12 +509,6 @@ ALTER TABLE `planning`
 --
 ALTER TABLE `produit`
   ADD CONSTRAINT `FK_EST_EN` FOREIGN KEY (`ID_UNITE`) REFERENCES `unite` (`ID_UNITE`);
-
---
--- Contraintes pour la table `recoit`
---
-ALTER TABLE `recoit`
-  ADD CONSTRAINT `FK_RECOIT` FOREIGN KEY (`ID_ECHANGE`) REFERENCES `echange_travail` (`ID_ECHANGE`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
