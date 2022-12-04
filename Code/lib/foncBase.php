@@ -32,6 +32,12 @@ function choixAlert($message)
 		case 'pas_de_demande' :
 			$alert['messageAlert'] = PAS_DE_DEMANDE;
 			break;
+		case 'pas_de_jour' :
+			$alert['messageAlert'] = PAS_DE_JOUR;
+			break;
+		case 'conge_trouve' :
+			$alert['messageAlert'] = CONGE_TROUVE;
+			break;
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
 			break;

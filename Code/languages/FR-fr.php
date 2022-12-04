@@ -14,6 +14,8 @@ define('PAS_DE_DISPO',"Aucune disponibilité trouvée");
 define('PAS_DE_PRODUIT', "Aucun produit trouvé");
 define('PAS_DE_CONGE', "Aucune demande trouvée pour l'année renseignée");
 define('PAS_DE_DEMANDE', "Aucune demande à traiter");
+define('PAS_DE_JOUR', "Aucun jour de travail trouvé");
+define('CONGE_TROUVE', "Vous avez un jour de congé prévu à la date renseignée");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
