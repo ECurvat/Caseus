@@ -5,4 +5,7 @@ if (isset($_POST['choixJour'])) {
     $annee = date("Y", strtotime($_POST['choixJour']));
 }
 require_once(PATH_MODELS.$page.'.php');
+
+
+
 require_once(PATH_VIEWS.$page.'.php'); 

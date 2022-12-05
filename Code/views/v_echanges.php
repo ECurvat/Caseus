@@ -30,7 +30,30 @@
         </div>
     </div>
     <div class="eight columns">
-
+        <?php if (isset($joursEchangeables) && !empty($joursEchangeables)) {?>
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Id Jour</th>
+                        <th>Id Planning</th>
+                        <th>Debut</th>
+                        <th>Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    foreach ($joursEchangeables as $elem) {
+                        echo '<tr>';
+                        echo '<td>'.$elem->getIdJour().'</td>';
+                        echo '<td>'.$elem->getIdPlanning().'</td>';
+                        echo '<td>'.$elem->getDebutJournee().'</td>';
+                        echo '<td>'.$elem->getFinJournee().'</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+         <?php } ?>
     </div>
 </div>
 <!-- Choisir un jour

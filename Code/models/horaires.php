@@ -6,7 +6,7 @@ $listeEtats = $etatDAO->getListeEtats();
 $para = array($_SESSION['compte']->getId(), $semaine, $annee);
 require_once(PATH_MODELS.'PlanningDAO.php');
 $planningDAO = new PlanningDAO(true);
-$planning = $planningDAO->getPlanningCourant($para);
+$planning = $planningDAO->getPlanningParEmp($para);
 
 if (!is_null($planning)) {
     require_once(PATH_MODELS.'JourDAO.php');
