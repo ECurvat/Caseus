@@ -47,3 +47,22 @@ if (isset($_POST['choixJour'])) {
         }
     }
 }
+if (isset($_POST['echange'])) {
+    // alors un bouton pour échanger a été cliqué : sa valeur est de la forme idJourEmetteur|idJourRecepteur
+    require_once(PATH_MODELS.'EchangeDAO.php');
+    $echangeDAO = new EchangeDAO(true);
+    $idJourEmet =  explode("|", $_POST['echange'])[0];
+    $idJourRecep = explode("|", $_POST['echange'])[1];
+    $idEmpEmet = $_SESSION['compte']->getId();
+    // on récupère le jour entier du récépteur, sur lequel on récupère l'id de planning
+    // avec l'id de planning, on récupère le planning entier, sur lequel on récupère l'id d'employé
+    $idEmpRecep = $planningDAO->getPlanningParId($jourDAO->getJourParId($idJourRecep)->getIdPlanning())->getIdEmploye();
+
+    // avant d'ajouter l'échange, on vérifie que l'émetteur n'en a pas déjà un en attente
+    if ($echangeDAO->verifEchangeEnCours($idJourEmet) == null) {
+        $echangeDAO->addEchange(array($idJourEmet, $idEmpEmet, $idJourRecep, $idEmpRecep));
+        $alert = choixAlert('succes_operation');
+    }
+    else $alert = choixAlert('deja_echange');
+        
+}

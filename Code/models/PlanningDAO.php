@@ -30,4 +30,13 @@ class PlanningDAO extends DAO {
         return null;
     }
 
+    public function getPlanningParId($id) {
+        $result = $this->queryRow('SELECT * FROM PLANNING WHERE ID_PLANNING = ?', array($id));
+        if ($result) {
+            $planning = new Planning($result[0], $result[1], $result[2], $result[3], $result[4]);
+            return $planning;
+        }
+        return null;
+    }
+
 }

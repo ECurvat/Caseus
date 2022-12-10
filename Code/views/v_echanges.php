@@ -31,28 +31,32 @@
     </div>
     <div class="eight columns">
         <?php if (isset($joursEchangeables) && !empty($joursEchangeables)) {?>
-            <table class="u-full-width">
-                <thead>
-                    <tr>
-                        <th>Id Jour</th>
-                        <th>Id Planning</th>
-                        <th>Debut</th>
-                        <th>Fin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    foreach ($joursEchangeables as $elem) {
-                        echo '<tr>';
-                        echo '<td>'.$elem->getIdJour().'</td>';
-                        echo '<td>'.$elem->getIdPlanning().'</td>';
-                        echo '<td>'.$elem->getDebutJournee().'</td>';
-                        echo '<td>'.$elem->getFinJournee().'</td>';
-                        echo '</tr>';
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <form method="post" name="echangerJour">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Id Jour</th>
+                            <th>Id Planning</th>
+                            <th>Debut</th>
+                            <th>Fin</th>
+                            <th>Sélectionner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        foreach ($joursEchangeables as $elem) {
+                            echo '<tr>';
+                            echo '<td>'.$elem->getIdJour().'</td>';
+                            echo '<td>'.$elem->getIdPlanning().'</td>';
+                            echo '<td>'.$elem->getDebutJournee().'</td>';
+                            echo '<td>'.$elem->getFinJournee().'</td>';
+                            echo '<td><button class="button-success" type="submit" name="echange" value="'.$jourEmetteur->getIdJour().'|'.$elem->getIdJour().'"><i class="fa-solid fa-handshake"></i></button></td>';
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </form>
          <?php } ?>
     </div>
 </div>

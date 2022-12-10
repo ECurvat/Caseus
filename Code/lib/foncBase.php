@@ -38,6 +38,9 @@ function choixAlert($message)
 		case 'conge_trouve' :
 			$alert['messageAlert'] = CONGE_TROUVE;
 			break;
+		case 'deja_echange' :
+			$alert['messageAlert'] = DEJA_ECHANGE;
+			break;
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
 			break;
