@@ -17,7 +17,7 @@ class EchangeDAO extends DAO {
     }
 
     public function getEchangesEnvoyes($param) {
-        $result = $this->queryAll('SELECT * FROM ECHANGE WHERE ID_EMPLOYE_EMETTEUR = ?', $param);
+        $result = $this->queryAll('SELECT * FROM ECHANGE WHERE ID_EMPLOYE_EMETTEUR = ? AND EXTRACT(YEAR FROM DATE_PROPOSITION) = ?', $param);
         if ($result) {
             $listeEnvoyes = array();
             foreach ($result as $elem) {
@@ -25,6 +25,19 @@ class EchangeDAO extends DAO {
                 array_push($listeEnvoyes, $echange);
             }
             return $listeEnvoyes;
+        }
+        return null;
+    }
+
+    public function getEchangesRecus($param) {
+        $result = $this->queryAll('SELECT * FROM ECHANGE WHERE ID_ETAT = 3 AND ID_EMPLOYE_RECEPTEUR = ? AND EXTRACT(YEAR FROM DATE_PROPOSITION) = ?', $param);
+        if ($result) {
+            $listeRecus = array();
+            foreach ($result as $elem) {
+                $echange = new Echange($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5], $elem[6]);
+                array_push($listeRecus, $echange);
+            }
+            return $listeRecus;
         }
         return null;
     }

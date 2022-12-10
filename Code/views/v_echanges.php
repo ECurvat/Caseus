@@ -62,36 +62,60 @@
 </div>
 <div class="row">
     <div class="six columns">
-    <h5>Demandes que j'ai envoyées</h5>
-    <form method="post">
-        <div class="row">
-            <div class="six columns">
-                <label for="anneeEnvoi">Année</label>
-                <input class="u-full-width" type="text" value="<?php echo $anneeEnvoi ?>" id="anneeEnvoi" name="anneeEnvoi" required>
+        <h5>Demandes envoyées</h5>
+        <form method="post">
+            <div class="row">
+                <div class="six columns">
+                    <label for="anneeEnvoi">Année</label>
+                    <input class="u-full-width" type="text" value="<?php echo $anneeEnvoi ?>" id="anneeEnvoi" name="anneeEnvoi" required>
+                </div>
+                <div class="six columns">
+                    <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherEnvoi">
+                </div>
             </div>
-            <div class="six columns">
-                <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherEnvoi">
+            <div class="row">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Jour actuel</th>
+                            <th>Jour souhaité</th>
+                            <th>Date d'envoi</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i=0; $i < count($listeEnvoisPropre); $i++) { 
+                            echo '<tr>';
+                            echo '<td>'.$listeEnvoisPropre[$i][0].'</td>';
+                            echo '<td>'.$listeEnvoisPropre[$i][1]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][1]->getFinJournee().'</td>';
+                            echo '<td>'.$listeEnvoisPropre[$i][2]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][2]->getFinJournee().'</td>';
+                            echo '<td>'.$listeEnvoisPropre[$i][3].'</td>';
+                            echo '<td><button class="button button-danger u-full-width" type="submit" name="del'.$listeEnvoisPropre[$i][4].'"><i class="fa-regular fa-trash-can"></i></button></td>';
+                            echo '</tr>';
+                        }?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-    <div class="six columns">
-    <h5>Demandes qu'on m'a envoyées</h5>
-    <form method="post">
-        <div class="row">
-            <div class="six columns">
-                <label for="anneeRecep">Année</label>
-                <input class="u-full-width" type="text" value="<?php echo $anneeRecep ?>" id="anneeRecep" name="anneeRecep" required>
+        <div class="six columns">
+        <h5>Demandes reçues</h5>
+        <form method="post">
+            <div class="row">
+                <div class="six columns">
+                    <label for="anneeRecep">Année</label>
+                    <input class="u-full-width" type="text" value="<?php echo $anneeRecep ?>" id="anneeRecep" name="anneeRecep" required>
+                </div>
+                <div class="six columns">
+                    <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherRecep">
+                </div>
             </div>
-            <div class="six columns">
-                <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherRecep">
+            <div class="row">
+                <?php print_r($listeRecus)?>
             </div>
         </div>
-    </div>
     </div>
 </div>
-<!-- Choisir un jour
-Ca affiche sa journée de travail d'un côté, et de l'autre toutes les journées de travail des autres employés
-Bouton a côté de chaque journée pour la choisir et demander l'échange (validation ?) -->
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
