@@ -16,4 +16,17 @@ class EchangeDAO extends DAO {
         return true;
     }
 
+    public function getEchangesEnvoyes($param) {
+        $result = $this->queryAll('SELECT * FROM ECHANGE WHERE ID_EMPLOYE_EMETTEUR = ?', $param);
+        if ($result) {
+            $listeEnvoyes = array();
+            foreach ($result as $elem) {
+                $echange = new Echange($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5], $elem[6]);
+                array_push($listeEnvoyes, $echange);
+            }
+            return $listeEnvoyes;
+        }
+        return null;
+    }
+
 }

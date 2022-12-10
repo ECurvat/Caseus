@@ -60,6 +60,35 @@
          <?php } ?>
     </div>
 </div>
+<div class="row">
+    <div class="six columns">
+    <h5>Demandes que j'ai envoyées</h5>
+    <form method="post">
+        <div class="row">
+            <div class="six columns">
+                <label for="anneeEnvoi">Année</label>
+                <input class="u-full-width" type="text" value="<?php echo $anneeEnvoi ?>" id="anneeEnvoi" name="anneeEnvoi" required>
+            </div>
+            <div class="six columns">
+                <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherEnvoi">
+            </div>
+        </div>
+    </div>
+    <div class="six columns">
+    <h5>Demandes qu'on m'a envoyées</h5>
+    <form method="post">
+        <div class="row">
+            <div class="six columns">
+                <label for="anneeRecep">Année</label>
+                <input class="u-full-width" type="text" value="<?php echo $anneeRecep ?>" id="anneeRecep" name="anneeRecep" required>
+            </div>
+            <div class="six columns">
+                <input class="button-success u-full-width" type="submit" value="Rechercher" name="rechercherRecep">
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 <!-- Choisir un jour
 Ca affiche sa journée de travail d'un côté, et de l'autre toutes les journées de travail des autres employés
 Bouton a côté de chaque journée pour la choisir et demander l'échange (validation ?) -->
