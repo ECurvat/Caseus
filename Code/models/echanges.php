@@ -76,7 +76,10 @@ if (isset($_POST['echange'])) {
 }
 
 if (isset($_POST['supprimer'])) {
-    $echangeDAO->supprimerEchange($_POST['supprimer']);
+    // on vérifie que l'état est bien en attente. Suppression impossible s'il est déjà accepté (pratique) ou refusé (historique)
+    if ($echangeDAO->getEchangeParId($_POST['supprimer'])->getIdEtat() == 3) {
+        $echangeDAO->supprimerEchange($_POST['supprimer']);
+    } else $alert = choixAlert('supp_echange_impossible');
 }
 
 if (isset($_POST['accepter'])) {
