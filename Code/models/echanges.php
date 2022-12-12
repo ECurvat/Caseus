@@ -49,6 +49,13 @@ if (isset($_POST['choixJour'])) {
         }
     }
 }
+
+
+
+
+
+
+// Vérification si une demande d'échange est envoyée, supprimée, accéptée ou refusée
 if (isset($_POST['echange'])) {
     // alors un bouton pour échanger a été cliqué : sa valeur est de la forme idJourEmetteur|idJourRecepteur
     $idJourEmet =  explode("|", $_POST['echange'])[0];
@@ -60,11 +67,30 @@ if (isset($_POST['echange'])) {
 
     // avant d'ajouter l'échange, on vérifie que l'émetteur n'en a pas déjà un en attente
     if ($echangeDAO->verifEchangeEnCours($idJourEmet) == null) {
-        $echangeDAO->addEchange(array($idJourEmet, $idEmpEmet, $idJourRecep, $idEmpRecep));
+        $echangeDAO->ajouterEchange(array($idJourEmet, $idEmpEmet, $idJourRecep, $idEmpRecep));
         $alert = choixAlert('succes_operation');
     }
     else $alert = choixAlert('deja_echange');
 }
+
+if (isset($_POST['supprimer'])) {
+    $echangeDAO->supprimerEchange($_POST['supprimer']);
+}
+
+if (isset($_POST['accepter'])) {
+    $echangeDAO->changerEtatEchange(array(4, $_POST['accepter']));
+    // puis s'occuper d'échanger les journées
+}
+
+if (isset($_POST['refuser'])) {
+    $echangeDAO->changerEtatEchange(array(5, $_POST['refuser']));
+}
+
+// ajouter l'état des échanges envoyés
+// si il est accepté = pas possible de le supprimer (pas de bouton poubelle)
+
+
+
 
 $listeEnvois = $echangeDAO->getEchangesEnvoyes(array($_SESSION['compte']->getId(), $anneeEnvoi));
 $listeEnvoisPropre = array();
@@ -110,12 +136,3 @@ if(!is_null($listeRecus)) {
             ));
     }
 }
-
-
-
-// modèle pour demandes reçues :
-// date d'envoi
-// jour actuel
-// jour si accepté
-// accepter
-// refuser
