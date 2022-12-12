@@ -80,18 +80,31 @@
                             <th>Date</th>
                             <th>Jour actuel</th>
                             <th>Jour souhaité</th>
-                            <th>Date d'envoi</th>
+                            <th>Etat</th>
                             <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for ($i=0; $i < count($listeEnvoisPropre); $i++) { 
+                        <?php for ($i=0; $i < count($listeEnvoisPropre); $i++) {
+                            switch ($listeEnvoisPropre[$i][3]->getIdEtat()) {
+                                case 3:
+                                    $status = "warning";
+                                    break;
+                                case 4:
+                                    $status = "success";
+                                    break;
+                                case 5:
+                                    $status = "danger";
+                                    break;
+                                default:
+                                    break;
+                            }
                             echo '<tr>';
                             echo '<td>'.$listeEnvoisPropre[$i][0].'</td>';
                             echo '<td>'.$listeEnvoisPropre[$i][1]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][1]->getFinJournee().'</td>';
                             echo '<td>'.$listeEnvoisPropre[$i][2]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][2]->getFinJournee().'</td>';
-                            echo '<td>'.$listeEnvoisPropre[$i][3].'</td>';
-                            echo '<td><button class="button button-warning u-full-width" type="submit" name="supprimer" value="'.$listeEnvoisPropre[$i][4].'"><i class="fa-regular fa-trash-can"></i></button></td>';
+                            echo '<td><span class="'.$status.'">'.$listeEnvoisPropre[$i][3]->getNomEtat().'</span></td>';
+                            echo '<td><button class="button button-warning" type="submit" name="supprimer" value="'.$listeEnvoisPropre[$i][4].'"><i class="fa-regular fa-trash-can"></i></button></td>';
                             echo '</tr>';
                         }?>
                     </tbody>
@@ -127,8 +140,8 @@
                             echo '<td>'.$listeRecusPropre[$i][0].'</td>';
                             echo '<td>'.$listeRecusPropre[$i][1]->getDebutJournee().'<br>'.$listeRecusPropre[$i][1]->getFinJournee().'</td>';
                             echo '<td>'.$listeRecusPropre[$i][2]->getDebutJournee().'<br>'.$listeRecusPropre[$i][2]->getFinJournee().'</td>';
-                            echo '<td><button class="button button-success u-full-width" type="submit" name="accepter" value="'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-check"></i></button></td>';
-                            echo '<td><button class="button button-danger u-full-width" type="submit" name="refuser" value="'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-xmark"></i></button></td>';
+                            echo '<td><button class="button button-success" type="submit" name="accepter" value="'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-check"></i></button></td>';
+                            echo '<td><button class="button button-danger" type="submit" name="refuser" value="'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-xmark"></i></button></td>';
                             echo '</tr>';
                         }?>
                     </tbody>

@@ -5,6 +5,8 @@ require_once(PATH_MODELS.'JourDAO.php');
 $jourDAO = new JourDAO(true);
 require_once(PATH_MODELS.'EchangeDAO.php');
 $echangeDAO = new EchangeDAO(true);
+require_once(PATH_MODELS.'EtatDAO.php');
+$etatDAO = new EtatDAO(true);
 
 if (isset($_POST['choixJour'])) {
     // on vérifie que l'émetteur a un planning et jour de travail pour le jour précisé
@@ -109,7 +111,7 @@ if(!is_null($listeEnvois)) {
             $jour->format('Y-m-d'),
             $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
             $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
-            $listeEnvois[$i]->getDateProposition(),
+            $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
             $listeEnvois[$i]->getIdEchange()
             ));
     }

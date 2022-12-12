@@ -19,7 +19,7 @@ class EchangeDAO extends DAO {
     }
 
     public function verifEchangeEnCours($idJourEmet) {
-        $result = $this->queryRow('SELECT * FROM ECHANGE WHERE ID_ETAT = 3 AND ID_JOUR_EMETTEUR = ?', array($idJourEmet));
+        $result = $this->queryRow('SELECT * FROM ECHANGE WHERE ID_JOUR_EMETTEUR = ?', array($idJourEmet));
         if (!$result) {
             return null;
         }

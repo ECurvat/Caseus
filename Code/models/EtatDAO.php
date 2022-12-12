@@ -16,4 +16,12 @@ class EtatDAO extends DAO {
         return null;
     }
 
+    public function getEtatParId($id) {
+        $result = $this->queryRow('SELECT * FROM ETAT WHERE ID_ETAT = ?', array($id));
+        if ($result) {
+            return new Etat($result[0], $result[1]);
+        }
+        return null;
+    }
+
 }
