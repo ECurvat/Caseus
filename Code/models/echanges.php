@@ -68,26 +68,50 @@ if (isset($_POST['echange'])) {
 
 $listeEnvois = $echangeDAO->getEchangesEnvoyes(array($_SESSION['compte']->getId(), $anneeEnvoi));
 $listeEnvoisPropre = array();
-for ($i=0; $i < count($listeEnvois); $i++) {
-    // on récupère le planning de l'émetteur (récépteur marche aussi) pour trouver le jour concerné
-    $planningEmetteur = $planningDAO->getPlanningParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdPlanning());
+if(!is_null($listeEnvois)) {
+    for ($i=0; $i < count($listeEnvois); $i++) {
+        // on récupère le planning de l'émetteur (récépteur marche aussi) pour trouver le jour concerné
+        $planningEmetteur = $planningDAO->getPlanningParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdPlanning());
 
-    // on cherche le premier jour de la semaine du planning de l'émetteur (récépteur marche aussi)
-    $premJour = new DateTime(date('Y-m-d',strtotime($planningEmetteur->getAnneePlanning().'W'.$planningEmetteur->getNSemaine())));
-    
-    // on trouve quel jour du planning est concerné
-    $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour() - 1;
-    $jour = $premJour->modify('+'.$nbJoursAAjouter.' day');
-    array_push($listeEnvoisPropre, array(
-                                    $jour->format('Y-m-d'),
-                                    $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
-                                    $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
-                                    $listeEnvois[$i]->getDateProposition(),
-                                    $listeEnvois[$i]->getIdEchange()
-                                    ));
+        // on cherche le premier jour de la semaine du planning de l'émetteur (récépteur marche aussi)
+        $premJour = new DateTime(date('Y-m-d',strtotime($planningEmetteur->getAnneePlanning().'W'.$planningEmetteur->getNSemaine())));
+        
+        // on trouve quel jour du planning est concerné
+        $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour() - 1;
+        $jour = $premJour->modify('+'.$nbJoursAAjouter.' day');
+        array_push($listeEnvoisPropre, array(
+            $jour->format('Y-m-d'),
+            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
+            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
+            $listeEnvois[$i]->getDateProposition(),
+            $listeEnvois[$i]->getIdEchange()
+            ));
+    }
 }
 
 $listeRecus = $echangeDAO->getEchangesRecus(array($_SESSION['compte']->getId(), $anneeRecep));
+$listeRecusPropre = array();
+if(!is_null($listeRecus)) {
+    for ($i=0; $i < count($listeRecus); $i++) {
+        // on récupère le planning de l'émetteur (récépteur marche aussi) pour trouver le jour concerné
+        $planningEmetteur = $planningDAO->getPlanningParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getIdPlanning());
+    
+        // on cherche le premier jour de la semaine du planning de l'émetteur (récépteur marche aussi)
+        $premJour = new DateTime(date('Y-m-d',strtotime($planningEmetteur->getAnneePlanning().'W'.$planningEmetteur->getNSemaine())));
+        
+        // on trouve quel jour du planning est concerné
+        $nbJoursAAjouter = $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getNJour() - 1;
+        $jour = $premJour->modify('+'.$nbJoursAAjouter.' day');
+        array_push($listeRecusPropre, array(
+            $jour->format('Y-m-d'),
+            $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
+            $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
+            $listeRecus[$i]->getIdEchange()
+            ));
+    }
+}
+
+
 
 // modèle pour demandes reçues :
 // date d'envoi

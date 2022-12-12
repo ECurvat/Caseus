@@ -14,7 +14,7 @@
             <form method="post">
                 <div class="six columns">
                     <label for="choixJour">Jour</label>
-                    <input class="u-full-width" type="date" id="choixJour" name="choixJour" required>
+                    <input class="u-full-width" type="date" id="choixJour" name="choixJour" min="<?php echo date("Y-m-d");?>"required>
                 </div>
                 <div class="six columns">
                     <input class="u-full-width button-primary" type="submit" name="submitChoixJour" value="Rechercher">
@@ -91,7 +91,7 @@
                             echo '<td>'.$listeEnvoisPropre[$i][1]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][1]->getFinJournee().'</td>';
                             echo '<td>'.$listeEnvoisPropre[$i][2]->getDebutJournee().'<br>'.$listeEnvoisPropre[$i][2]->getFinJournee().'</td>';
                             echo '<td>'.$listeEnvoisPropre[$i][3].'</td>';
-                            echo '<td><button class="button button-danger u-full-width" type="submit" name="del'.$listeEnvoisPropre[$i][4].'"><i class="fa-regular fa-trash-can"></i></button></td>';
+                            echo '<td><button class="button button-warning u-full-width" type="submit" name="del'.$listeEnvoisPropre[$i][4].'"><i class="fa-regular fa-trash-can"></i></button></td>';
                             echo '</tr>';
                         }?>
                     </tbody>
@@ -111,7 +111,28 @@
                 </div>
             </div>
             <div class="row">
-                <?php print_r($listeRecus)?>
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Jour actuel</th>
+                            <th>Jour proposé</th>
+                            <th>Accepter</th>
+                            <th>Refuser</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i=0; $i < count($listeRecusPropre); $i++) { 
+                            echo '<tr>';
+                            echo '<td>'.$listeRecusPropre[$i][0].'</td>';
+                            echo '<td>'.$listeRecusPropre[$i][1]->getDebutJournee().'<br>'.$listeRecusPropre[$i][1]->getFinJournee().'</td>';
+                            echo '<td>'.$listeRecusPropre[$i][2]->getDebutJournee().'<br>'.$listeRecusPropre[$i][2]->getFinJournee().'</td>';
+                            echo '<td><button class="button button-success u-full-width" type="submit" name="accepter'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-check"></i></button></td>';
+                            echo '<td><button class="button button-danger u-full-width" type="submit" name="refuser'.$listeRecusPropre[$i][3].'"><i class="fa-regular fa-circle-xmark"></i></button></td>';
+                            echo '</tr>';
+                        }?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -119,4 +140,4 @@
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
-<?php require_once(PATH_VIEWS.'footer.php'); 
+<?php require_once(PATH_VIEWS.'footer.php');
