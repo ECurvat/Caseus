@@ -93,3 +93,28 @@ navbar > div {
     border-radius: 4px;
     border: 1px solid #5cb85c;
 }
+
+input.button-primary,
+input.button-danger,
+input.button-success,
+input.button-warning {
+    margin-top: 29px;
+}
+
+.success {
+    background-color: #5cb85c;
+}
+
+.warning {
+    background-color: #f0ad4e;
+}
+
+.danger {
+    background-color: #d9534f;
+}
+
+span {
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}

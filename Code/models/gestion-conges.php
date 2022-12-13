@@ -20,13 +20,13 @@ if (isset($_POST['accepter'])) {
     // on parcours toutes les semaines concernées par le congé accepté
     for($semaine = $semDebut; $semaine <= $semFin; $semaine++) {
         // pour chaque semaine : on regarde s'il y a un planning
-        $planningSemaine = $planningDAO->getPlanningCourant(array($idEmp, $semaine, $anneeConcernee));
+        $planningSemaine = $planningDAO->getPlanningParEmp(array($idEmp, $semaine, $anneeConcernee));
         if($planningSemaine == null) {
             // alors on le créé
             $planningDAO->addPlanning(array($idEmp, $semaine, $anneeConcernee));
         }
         // on récupère le planning s'il a été créé
-        $planningSemaine = $planningDAO->getPlanningCourant(array($idEmp, $semaine, $anneeConcernee));
+        $planningSemaine = $planningDAO->getPlanningParEmp(array($idEmp, $semaine, $anneeConcernee));
 
         // on va parcourir tous les jours de la semaine, s'ils sont >= au début et <= à la fin alors soit on le créé soit on met congé à 1
         // on trouve le premier jour de la semaine choisie
