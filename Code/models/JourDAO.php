@@ -45,4 +45,32 @@ class JourDAO extends DAO {
         return $result;
     }
 
+    public function echangerJours($idJour1, $idJour2) {
+        // on met le jour 1 dans une variable
+        $result1 = $this->queryRow('SELECT * FROM JOUR WHERE ID_JOUR = ?', array($idJour1));
+        if ($result1) {
+            $jour1 = new Jour($result1[0], $result1[1], $result1[2], $result1[3], $result1[4], $result1[5], $result1[6], $result1[7]);
+            // on change début et fin du jour 1 en début et fin du jour 2
+            $result2 = $this->queryRow('UPDATE JOUR 
+                                        SET DEBUT_JOURNEE = (SELECT * FROM (SELECT DEBUT_JOURNEE FROM JOUR WHERE ID_JOUR = ?)tblTmp1), 
+                                        FIN_JOURNEE = (SELECT * FROM (SELECT FIN_JOURNEE FROM JOUR WHERE ID_JOUR = ?)tblTmp2) 
+                                        WHERE ID_JOUR = ?', 
+                                        array(
+                                            $idJour2, 
+                                            $idJour2, 
+                                            $idJour1));
+            // on change debut et fin du jour 2 en debut et fin de $jour1
+            $result3 = $this->queryRow('UPDATE JOUR 
+                                        SET DEBUT_JOURNEE = ?, FIN_JOURNEE = ?
+                                        WHERE ID_JOUR = ?', 
+                                        array(
+                                            (string)date("H:i:s", strtotime($jour1->getDebutJournee())), 
+                                            (string)date("H:i:s", strtotime($jour1->getFinJournee())), 
+                                            $idJour2
+                                        ));
+            return $result2 && $result3;
+        }        
+        return null;
+    }
+
 }

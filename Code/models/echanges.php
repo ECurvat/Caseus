@@ -1,11 +1,11 @@
 <?php
-require_once(PATH_MODELS.'PlanningDAO.php');
+require_once(PATH_MODELS . 'PlanningDAO.php');
 $planningDAO = new PlanningDAO(true);
-require_once(PATH_MODELS.'JourDAO.php');
+require_once(PATH_MODELS . 'JourDAO.php');
 $jourDAO = new JourDAO(true);
-require_once(PATH_MODELS.'EchangeDAO.php');
+require_once(PATH_MODELS . 'EchangeDAO.php');
 $echangeDAO = new EchangeDAO(true);
-require_once(PATH_MODELS.'EtatDAO.php');
+require_once(PATH_MODELS . 'EtatDAO.php');
 $etatDAO = new EtatDAO(true);
 
 if (isset($_POST['choixJour'])) {
@@ -20,15 +20,15 @@ if (isset($_POST['choixJour'])) {
             $alert = choixAlert('pas_de_jour');
         } else {
             if ($jourEmetteur->getConge() == 1) {
-                $alert = choixAlert('conge_trouve');                
+                $alert = choixAlert('conge_trouve');
             } else {
                 // tout est ok : on cherche les gens qui travaillent (pas congé) pour le jour sélectionné
                 // sélectionner tous les plannings de la bonne semaine
                 $planningsAutres = $planningDAO->getPlanningsTousEmps(array($semaine, $annee));
                 if (!empty($planningsAutres)) {
                     // on retire le planning de l'employé qui cherche à échanger
-                    for($i = 0; $i < sizeof($planningsAutres); $i++) {
-                        if($planningsAutres[$i]->getIdEmploye() == $_SESSION['compte']->getId()) {
+                    for ($i = 0; $i < sizeof($planningsAutres); $i++) {
+                        if ($planningsAutres[$i]->getIdEmploye() == $_SESSION['compte']->getId()) {
                             array_splice($planningsAutres, $i, 1);
                         }
                     }
@@ -44,7 +44,7 @@ if (isset($_POST['choixJour'])) {
                     } else {
                         $alert = choixAlert('pas_de_planning');
                     }
-                } else { 
+                } else {
                     $alert = choixAlert('pas_de_planning');
                 }
             }
@@ -71,8 +71,7 @@ if (isset($_POST['echange'])) {
     if ($echangeDAO->verifEchangeEnCours($idJourEmet) == null) {
         $echangeDAO->ajouterEchange(array($idJourEmet, $idEmpEmet, $idJourRecep, $idEmpRecep));
         $alert = choixAlert('succes_operation');
-    }
-    else $alert = choixAlert('deja_echange');
+    } else $alert = choixAlert('deja_echange');
 }
 
 if (isset($_POST['supprimer'])) {
@@ -83,8 +82,9 @@ if (isset($_POST['supprimer'])) {
 }
 
 if (isset($_POST['accepter'])) {
+    $echangeCourant = $echangeDAO->getEchangeParId($_POST['accepter']);
+    $jourDAO->echangerJours($echangeCourant->getIdJourEmet(), $echangeCourant->getIdJourRecep());
     $echangeDAO->changerEtatEchange(array(4, $_POST['accepter']));
-    // puis s'occuper d'échanger les journées
 }
 
 if (isset($_POST['refuser'])) {
@@ -99,45 +99,45 @@ if (isset($_POST['refuser'])) {
 
 $listeEnvois = $echangeDAO->getEchangesEnvoyes(array($_SESSION['compte']->getId(), $anneeEnvoi));
 $listeEnvoisPropre = array();
-if(!is_null($listeEnvois)) {
-    for ($i=0; $i < count($listeEnvois); $i++) {
+if (!is_null($listeEnvois)) {
+    for ($i = 0; $i < count($listeEnvois); $i++) {
         // on récupère le planning de l'émetteur (récépteur marche aussi) pour trouver le jour concerné
         $planningEmetteur = $planningDAO->getPlanningParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdPlanning());
 
         // on cherche le premier jour de la semaine du planning de l'émetteur (récépteur marche aussi)
-        $premJour = new DateTime(date('Y-m-d',strtotime($planningEmetteur->getAnneePlanning().'W'.$planningEmetteur->getNSemaine())));
-        
+        $premJour = new DateTime(date('Y-m-d', strtotime($planningEmetteur->getAnneePlanning() . 'W' . $planningEmetteur->getNSemaine())));
+
         // on trouve quel jour du planning est concerné
         $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour() - 1;
-        $jour = $premJour->modify('+'.$nbJoursAAjouter.' day');
+        $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('Y-m-d'),
             $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
             $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
             $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
             $listeEnvois[$i]->getIdEchange()
-            ));
+        ));
     }
 }
 
 $listeRecus = $echangeDAO->getEchangesRecus(array($_SESSION['compte']->getId(), $anneeRecep));
 $listeRecusPropre = array();
-if(!is_null($listeRecus)) {
-    for ($i=0; $i < count($listeRecus); $i++) {
+if (!is_null($listeRecus)) {
+    for ($i = 0; $i < count($listeRecus); $i++) {
         // on récupère le planning de l'émetteur (récépteur marche aussi) pour trouver le jour concerné
         $planningEmetteur = $planningDAO->getPlanningParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getIdPlanning());
-    
+
         // on cherche le premier jour de la semaine du planning de l'émetteur (récépteur marche aussi)
-        $premJour = new DateTime(date('Y-m-d',strtotime($planningEmetteur->getAnneePlanning().'W'.$planningEmetteur->getNSemaine())));
-        
+        $premJour = new DateTime(date('Y-m-d', strtotime($planningEmetteur->getAnneePlanning() . 'W' . $planningEmetteur->getNSemaine())));
+
         // on trouve quel jour du planning est concerné
         $nbJoursAAjouter = $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getNJour() - 1;
-        $jour = $premJour->modify('+'.$nbJoursAAjouter.' day');
+        $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
             $jour->format('Y-m-d'),
             $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
             $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
             $listeRecus[$i]->getIdEchange()
-            ));
+        ));
     }
 }
