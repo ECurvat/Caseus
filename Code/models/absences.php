@@ -10,7 +10,6 @@ if (isset($_POST['idAbsence'])) {
 if (isset($_POST['ajouter']) &&
     isset($_POST['ajoutDebut']) &&
     isset($_POST['ajoutFin'])) {
-        echo 'envoyé';
     // ici, c'est le formulaire d'ajout qui a été envoyé
     if (($_POST['ajoutDebut'] > $_POST['ajoutFin']) ||
     (explode("T", $_POST['ajoutDebut'])[0] != explode("T", $_POST['ajoutFin'])[0])) {
