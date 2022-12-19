@@ -21,8 +21,6 @@ if (isset($_POST['ajouter']) &&
     }
 }
 
-$listeAbsences = $absenceDAO->getAbsenceParDateParEmploye($para);
-
 if (isset($_POST['modifier'])) {
     // ici, c'est le formulaire pour modifier une dispo qui a été envoyé
     if (($_POST['modifDebut'] > $_POST['modifFin']) ||
@@ -40,3 +38,4 @@ if (isset($_POST['supprimer'])) {
     $absenceDAO->supprimerAbsenceParId($_POST['modifId']);
     $alert = choixAlert('succes_operation');
 }
+$listeAbsences = $absenceDAO->getAbsenceParDateParEmploye($para);
