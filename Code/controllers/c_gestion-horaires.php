@@ -20,30 +20,28 @@ if (isset($_POST['mois']) &&
 }
 
 require_once(PATH_MODELS.$page.'.php');
-if(!empty($listeDispos)) {
-    //Tri des dates des dispos récuperées par ordre croissant pour affichage
+if(!empty($listeAbsences)) {
+    //Tri des dates des absences récuperées par ordre croissant pour affichage
     function compareDate($date1, $date2){
         return strtotime($date1) - strtotime($date2);
     }
 
     $datesTriees = array();
-    foreach ($listeDispos as $elem) {
-        array_push($datesTriees, date("Y-m-d",strtotime($elem->getDebutDispo()))); // tri des dates Y-m-d uniquement
+    foreach ($listeAbsences as $elem) {
+        array_push($datesTriees, date("Y-m-d",strtotime($elem->getDebut()))); // tri des dates Y-m-d uniquement
     }
     $datesTriees = array_unique($datesTriees);
     usort($datesTriees, "compareDate"); // tri avec la fonction des dates
 
     //On crée un array avec les ids des employés qu'on va trier par ordre croissant
     $idEmpTries = array();
-    foreach($listeDispos as $elem) {
+    foreach($listeAbsences as $elem) {
         array_push($idEmpTries, $elem->getIdEmploye());
     };
     $idEmpTries = array_unique($idEmpTries);
     sort($idEmpTries); // tri par ordre croissant des id trouvés
 } else {
-    $alert = choixAlert('pas_de_dispo');
+    $alert = choixAlert('pas_d_absence');
 }
-
-
 
 require_once(PATH_VIEWS.$page.'.php'); 

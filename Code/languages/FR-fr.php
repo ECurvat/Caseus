@@ -10,7 +10,7 @@ define('ERREUR_REQUETE',"Une erreur s'est produite dans la requête");
 define('RIEN_TROUVE',"Aucune ligne retournée lors de la requête");
 define('ERREUR_CONNEXION',"Email ou mot de passe incorrect");
 define('PAS_DE_PLANNING',"Aucun planning trouvé pour la semaine et l'année spécifiées");
-define('PAS_DE_DISPO',"Aucune disponibilité trouvée");
+define('PAS_D_ABSENCE',"Aucune absence trouvée");
 define('PAS_DE_PRODUIT', "Aucun produit trouvé");
 define('PAS_DE_CONGE', "Aucune demande trouvée pour l'année renseignée");
 define('PAS_DE_DEMANDE', "Aucune demande à traiter");

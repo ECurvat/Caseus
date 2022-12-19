@@ -15,5 +15,5 @@ if (isset($_POST['mois']) &&
 }
 
 require_once(PATH_MODELS.$page.'.php');
-if (empty($listeDispos)) $alert = choixAlert('pas_de_dispo');
+if (empty($listeAbsences) && !isset($_POST['idAbsence'])) $alert = choixAlert('pas_d_absence');
 require_once(PATH_VIEWS.$page.'.php'); 

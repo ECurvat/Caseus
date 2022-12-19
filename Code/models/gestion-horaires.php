@@ -1,5 +1,5 @@
 <?php
 $para = array($mois, $annee);
-require_once(PATH_MODELS.'DisponibiliteDAO.php');
-$disponibiliteDAO = new DisponibiliteDAO(true);
-$listeDispos = $disponibiliteDAO->getDispoParDate($para);
+require_once(PATH_MODELS . 'AbsenceDAO.php');
+$absenceDAO = new AbsenceDAO(true);
+$listeAbsences = $absenceDAO->getAbsenceParDate($para);
