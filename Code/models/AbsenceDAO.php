@@ -43,6 +43,21 @@ class AbsenceDAO extends DAO {
         return null;
     }
 
+    public function getAbsenceParJourEtEmp($para) {
+        $result = $this->queryAll('SELECT * FROM ABSENCE 
+        WHERE ID_EMPLOYE = ? 
+        AND DATE(DEBUT_ABSENCE) = ?', $para);
+        if ($result) {
+            $listeAbsences = array();
+            foreach ($result as $elem) {
+                $abs = new Absence($elem[0], $elem[1], $elem[2], $elem[3]);
+                array_push($listeAbsences, $abs);
+            }
+            return $listeAbsences;
+        }
+        return null;
+    }
+
     public function modifierAbsenceParId($absModifiee) {
         $param = array(str_replace("T", " ", $absModifiee->getDebut()), str_replace("T", " ", $absModifiee->getFin()), (int) $absModifiee->getIdAbsence());
         $result = $this->queryRow('UPDATE ABSENCE SET 
