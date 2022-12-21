@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : dim. 04 déc. 2022 à 13:44
+-- Généré le : mer. 21 déc. 2022 à 10:32
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -24,9 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `absence`
+--
+
+DROP TABLE IF EXISTS `absence`;
+CREATE TABLE `absence` (
+  `ID_ABSENCE` int(11) NOT NULL,
+  `ID_EMPLOYE` int(11) NOT NULL,
+  `DEBUT_ABSENCE` datetime DEFAULT NULL,
+  `FIN_ABSENCE` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `absence`
+--
+
+INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE`) VALUES
+(1, 1, '2022-11-09 15:00:00', '2022-11-09 23:59:00'),
+(2, 1, '2022-12-01 05:00:00', '2022-12-01 22:30:00'),
+(3, 2, '2022-11-05 12:00:00', '2022-11-05 21:00:00'),
+(10, 1, '2022-11-12 01:00:00', '2022-11-12 18:00:00'),
+(16, 3, '2022-11-03 10:30:00', '2022-11-03 19:45:00'),
+(18, 3, '2022-12-20 12:02:00', '2022-12-20 12:20:00'),
+(19, 1, '2022-12-06 10:21:00', '2022-12-06 14:10:00');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `comprend`
 --
 
+DROP TABLE IF EXISTS `comprend`;
 CREATE TABLE `comprend` (
   `ID_LIVRAISON` int(11) NOT NULL,
   `ID_PRODUIT` int(11) NOT NULL,
@@ -39,6 +67,7 @@ CREATE TABLE `comprend` (
 -- Structure de la table `conge`
 --
 
+DROP TABLE IF EXISTS `conge`;
 CREATE TABLE `conge` (
   `ID_DEMANDE` int(11) NOT NULL,
   `ID_ETAT` int(11) NOT NULL,
@@ -58,37 +87,10 @@ INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_
 (7, 4, 3, '2022-11-21', '2022-11-27', '2022-11-29'),
 (8, 4, 3, '2022-11-28', '2022-11-30', '2022-11-29'),
 (12, 4, 3, '2022-12-19', '2022-12-20', '2022-12-02'),
-(13, 4, 3, '2022-12-05', '2023-01-01', '2022-12-02'),
 (14, 4, 3, '2023-01-02', '2023-01-09', '2022-12-02'),
-(15, 4, 3, '2022-12-05', '2022-12-19', '2022-12-02'),
-(16, 4, 3, '2022-12-12', '2022-12-29', '2022-12-03'),
-(17, 5, 3, '2022-12-03', '2022-12-13', '2022-12-03'),
-(18, 4, 3, '2022-12-02', '2022-12-03', '2022-12-04');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `disponibilite`
---
-
-CREATE TABLE `disponibilite` (
-  `ID_DISPO` int(11) NOT NULL,
-  `ID_EMPLOYE` int(11) NOT NULL,
-  `DEBUT_DISPO` datetime DEFAULT NULL,
-  `FIN_DISPO` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `disponibilite`
---
-
-INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO`) VALUES
-(1, 1, '2022-11-09 15:00:00', '2022-11-09 23:59:00'),
-(2, 1, '2022-12-01 05:00:00', '2022-12-01 22:30:00'),
-(3, 2, '2022-11-05 12:00:00', '2022-11-05 21:00:00'),
-(10, 1, '2022-11-12 01:00:00', '2022-11-12 18:00:00'),
-(16, 3, '2022-11-03 10:30:00', '2022-11-03 19:30:00'),
-(17, 3, '2022-11-08 19:45:00', '2022-11-08 22:45:00');
+(18, 4, 3, '2022-12-02', '2022-12-03', '2022-12-04'),
+(19, 4, 3, '2022-12-19', '2022-12-25', '2022-12-05'),
+(20, 5, 2, '2022-12-12', '2022-12-16', '2022-12-12');
 
 -- --------------------------------------------------------
 
@@ -96,6 +98,7 @@ INSERT INTO `disponibilite` (`ID_DISPO`, `ID_EMPLOYE`, `DEBUT_DISPO`, `FIN_DISPO
 -- Structure de la table `echange`
 --
 
+DROP TABLE IF EXISTS `echange`;
 CREATE TABLE `echange` (
   `ID_ECHANGE` int(11) NOT NULL,
   `ID_ETAT` int(11) NOT NULL,
@@ -106,12 +109,23 @@ CREATE TABLE `echange` (
   `DATE_PROPOSITION` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `echange`
+--
+
+INSERT INTO `echange` (`ID_ECHANGE`, `ID_ETAT`, `ID_JOUR_EMETTEUR`, `ID_EMPLOYE_EMETTEUR`, `ID_JOUR_RECEPTEUR`, `ID_EMPLOYE_RECEPTEUR`, `DATE_PROPOSITION`) VALUES
+(7, 4, 9, 3, 32, 2, '2022-12-10'),
+(9, 5, 30, 2, 29, 3, '2022-12-12'),
+(11, 5, 32, 2, 9, 3, '2022-12-12'),
+(13, 4, 33, 2, 11, 3, '2022-12-13');
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `employe`
 --
 
+DROP TABLE IF EXISTS `employe`;
 CREATE TABLE `employe` (
   `ID_EMPLOYE` int(11) NOT NULL,
   `NOM` varchar(255) DEFAULT NULL,
@@ -140,6 +154,7 @@ INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBA
 -- Structure de la table `etat`
 --
 
+DROP TABLE IF EXISTS `etat`;
 CREATE TABLE `etat` (
   `ID_ETAT` int(11) NOT NULL,
   `NOM_ETAT` varchar(255) DEFAULT NULL
@@ -162,6 +177,7 @@ INSERT INTO `etat` (`ID_ETAT`, `NOM_ETAT`) VALUES
 -- Structure de la table `jour`
 --
 
+DROP TABLE IF EXISTS `jour`;
 CREATE TABLE `jour` (
   `ID_JOUR` int(11) NOT NULL,
   `ID_PLANNING` int(11) NOT NULL,
@@ -186,9 +202,9 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, 
 (6, 2, NULL, 1, NULL, NULL, NULL, 1),
 (7, 2, NULL, 2, NULL, NULL, NULL, 1),
 (8, 2, NULL, 3, NULL, NULL, NULL, 1),
-(9, 11, NULL, 1, NULL, NULL, NULL, 1),
+(9, 11, NULL, 1, NULL, '08:00:00', '16:00:00', 0),
 (10, 11, NULL, 2, NULL, NULL, NULL, 1),
-(11, 11, NULL, 3, NULL, NULL, NULL, 1),
+(11, 11, NULL, 3, NULL, '05:00:00', '12:00:00', 0),
 (12, 11, NULL, 4, NULL, NULL, NULL, 1),
 (13, 11, NULL, 5, NULL, NULL, NULL, 1),
 (14, 11, NULL, 6, NULL, NULL, NULL, 1),
@@ -205,7 +221,12 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, 
 (25, 6, NULL, 3, NULL, NULL, NULL, 1),
 (26, 6, NULL, 4, NULL, NULL, NULL, 1),
 (27, 2, NULL, 5, NULL, NULL, NULL, 1),
-(28, 2, NULL, 6, NULL, NULL, NULL, 1);
+(28, 2, NULL, 6, NULL, NULL, NULL, 1),
+(29, 10, NULL, 1, NULL, '07:00:00', '15:00:00', 0),
+(30, 13, NULL, 1, NULL, '15:00:00', '22:00:00', 0),
+(31, 14, NULL, 1, NULL, '17:00:00', '23:30:00', 0),
+(32, 15, NULL, 1, NULL, '16:00:00', '23:00:00', 0),
+(33, 15, NULL, 3, NULL, '16:00:00', '23:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -213,6 +234,7 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, 
 -- Structure de la table `livraison`
 --
 
+DROP TABLE IF EXISTS `livraison`;
 CREATE TABLE `livraison` (
   `ID_LIVRAISON` int(11) NOT NULL,
   `DATE_LIVRAISON` date DEFAULT NULL
@@ -224,6 +246,7 @@ CREATE TABLE `livraison` (
 -- Structure de la table `planning`
 --
 
+DROP TABLE IF EXISTS `planning`;
 CREATE TABLE `planning` (
   `ID_PLANNING` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
@@ -244,7 +267,10 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 (8, 3, 1, 1, 2023),
 (9, 3, 1, 2, 2023),
 (10, 3, 1, 49, 2022),
-(11, 3, 1, 50, 2022);
+(11, 3, 1, 50, 2022),
+(13, 2, 1, 49, 2022),
+(14, 1, 1, 49, 2022),
+(15, 2, 1, 50, 2022);
 
 -- --------------------------------------------------------
 
@@ -252,6 +278,7 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 -- Structure de la table `produit`
 --
 
+DROP TABLE IF EXISTS `produit`;
 CREATE TABLE `produit` (
   `ID_PRODUIT` int(11) NOT NULL,
   `ID_UNITE` int(11) NOT NULL,
@@ -274,9 +301,39 @@ INSERT INTO `produit` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+CREATE TABLE `service` (
+  `ID_SERVICE` varchar(1) NOT NULL,
+  `NOMBRE` int(2) NOT NULL DEFAULT '1',
+  `DEBUT_SERVICE` time NOT NULL,
+  `FIN_SERVICE` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `service`
+--
+
+INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) VALUES
+('a', 1, '09:00:00', '13:30:00'),
+('b', 2, '10:00:00', '14:30:00'),
+('c', 1, '11:00:00', '15:30:00'),
+('d', 1, '08:30:00', '16:00:00'),
+('e', 1, '16:00:00', '20:30:00'),
+('f', 1, '17:00:00', '21:30:00'),
+('g', 3, '18:00:00', '22:30:00'),
+('h', 1, '18:30:00', '23:00:00'),
+('i', 2, '15:30:00', '23:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `supervise`
 --
 
+DROP TABLE IF EXISTS `supervise`;
 CREATE TABLE `supervise` (
   `ID_EMPLOYE` int(11) NOT NULL,
   `ID_LIVRAISON` int(11) NOT NULL
@@ -288,6 +345,7 @@ CREATE TABLE `supervise` (
 -- Structure de la table `unite`
 --
 
+DROP TABLE IF EXISTS `unite`;
 CREATE TABLE `unite` (
   `ID_UNITE` int(11) NOT NULL,
   `NOM_UNITE` varchar(255) DEFAULT NULL
@@ -307,6 +365,13 @@ INSERT INTO `unite` (`ID_UNITE`, `NOM_UNITE`) VALUES
 --
 
 --
+-- Index pour la table `absence`
+--
+ALTER TABLE `absence`
+  ADD PRIMARY KEY (`ID_ABSENCE`),
+  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
+
+--
 -- Index pour la table `comprend`
 --
 ALTER TABLE `comprend`
@@ -320,13 +385,6 @@ ALTER TABLE `conge`
   ADD PRIMARY KEY (`ID_DEMANDE`),
   ADD KEY `FK_DEMANDE` (`ID_EMPLOYE`),
   ADD KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`);
-
---
--- Index pour la table `disponibilite`
---
-ALTER TABLE `disponibilite`
-  ADD PRIMARY KEY (`ID_DISPO`),
-  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
 
 --
 -- Index pour la table `echange`
@@ -381,6 +439,12 @@ ALTER TABLE `produit`
   ADD KEY `FK_EST_EN` (`ID_UNITE`);
 
 --
+-- Index pour la table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`ID_SERVICE`);
+
+--
 -- Index pour la table `supervise`
 --
 ALTER TABLE `supervise`
@@ -397,22 +461,22 @@ ALTER TABLE `unite`
 --
 
 --
+-- AUTO_INCREMENT pour la table `absence`
+--
+ALTER TABLE `absence`
+  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT pour la table `conge`
 --
 ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT pour la table `disponibilite`
---
-ALTER TABLE `disponibilite`
-  MODIFY `ID_DISPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `echange`
 --
 ALTER TABLE `echange`
-  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `employe`
@@ -430,7 +494,7 @@ ALTER TABLE `etat`
 -- AUTO_INCREMENT pour la table `jour`
 --
 ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `livraison`
@@ -442,7 +506,7 @@ ALTER TABLE `livraison`
 -- AUTO_INCREMENT pour la table `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
@@ -461,6 +525,12 @@ ALTER TABLE `unite`
 --
 
 --
+-- Contraintes pour la table `absence`
+--
+ALTER TABLE `absence`
+  ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
+
+--
 -- Contraintes pour la table `comprend`
 --
 ALTER TABLE `comprend`
@@ -473,12 +543,6 @@ ALTER TABLE `comprend`
 ALTER TABLE `conge`
   ADD CONSTRAINT `FK_DEMANDE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`),
   ADD CONSTRAINT `FK_EST_QUALIFIE_PAR` FOREIGN KEY (`ID_ETAT`) REFERENCES `etat` (`ID_ETAT`);
-
---
--- Contraintes pour la table `disponibilite`
---
-ALTER TABLE `disponibilite`
-  ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
 
 --
 -- Contraintes pour la table `echange`
