@@ -15,10 +15,11 @@ $semTest = 49;
 $anTest = 2022;
 //                                                      Gestion des employés polyvalents
 $srvPoly = array();
-
+$affectation = array();
 
 function affecterService($jour, $idEmp, $srv) {
     $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+    $GLOBALS['affectation'][$jour][$idEmp] = $srv;
     if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
         unset($GLOBALS['srvPoly'][$jour][$key]);
     }
@@ -44,6 +45,7 @@ $listePoly = $employeDAO->getEmployesParRang('POLY');
 $nbSrvPoly = array();
 foreach ($listePoly as $elem) {
     $nbSrvPoly[$elem->getId()] = array(0, 0, 0, 0, 0, 0, 0);
+    $affectation[$elem->getId()] = array();
 }
 // on trouve le premier jour de la semaine et le dernier jour de la semaine
 $jourCourant = new DateTime(date('Y-m-d',strtotime($anTest.'W'.$semTest)));
@@ -62,10 +64,7 @@ for($i = 0; $i<7; $i++) {
     }
 
     if (!empty($listeAbsPoly)) {
-        // on va traiter les absences qu'il y a
-        // si le polyvalent a une absence, on va regarder s'il peut faire un service de matin
-        // si il peut on lui met, sinon on regarde si son absence lui permet de faire un service de soir
-        // si il peut on lui met, sinon rien
+        // on traite les absences en priorité, et on regarde si on peut affecter un service avec les conditions de l'absence
         foreach ($listeAbsPoly as $idEmp => $tabAbs) {
             // dans abs, on a un tableau d'absences pour le polyvalent qu'on regarde
             foreach ($tabAbs as $nbAbs => $abs) {
@@ -87,3 +86,6 @@ for($i = 0; $i<7; $i++) {
     }
     $jourCourant->modify('+1 day');
 }
+echo '<pre>';
+print_r($affectation);
+echo '</pre>';
