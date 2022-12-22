@@ -74,10 +74,10 @@ for($i = 0; $i<7; $i++) {
                 foreach ($srvPoly[$i] as $srv) {
                     $ds = date("H:i:s", strtotime($srv->getDebut()));
                     $fs = date("H:i:s", strtotime($srv->getFin()));
-                    if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
+                    if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
                     }
-                    if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
+                    if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
                     }
                 }
@@ -86,7 +86,18 @@ for($i = 0; $i<7; $i++) {
     }
     $jourCourant->modify('+1 day');
 }
-echo '<pre>';
-print_r($affectation);
-print_r($nbSrvPoly);
-echo '</pre>';
+for ($i=0; $i < 7; $i++) { 
+    foreach ($listePoly as $poly) {
+        if($nbSrvPoly[$poly->getId()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
+            // parcours de la liste des services restants
+                affecterService($i, $poly->getId(), $srvPoly[$i][array_rand($srvPoly[$i])]);
+        }
+    }
+}
+// echo '<pre>';
+// print_r($affectation);
+// print_r($nbSrvPoly);
+// print_r($srvPoly);
+// echo '</pre>';
+
+// todo : shuffle employee array so they don't have the same service every week
