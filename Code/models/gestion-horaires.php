@@ -8,11 +8,22 @@ $employeDAO = new EmployeDAO(true);
 require_once(PATH_MODELS . 'ServiceDAO.php');
 $serviceDAO = new ServiceDAO(true);
 
+
+
 // Partie principale : création des emplois du temps
 $semTest = 49;
 $anTest = 2022;
 //                                                      Gestion des employés polyvalents
 $srvPoly = array();
+
+
+function affecterService($jour, $idEmp, $srv) {
+    $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+    if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
+        unset($GLOBALS['srvPoly'][$jour][$key]);
+    }
+}
+
 for($i = 0; $i<7; $i++) {
     $srvPoly[$i] = array();
     // on crée un tableau avec les services pour chaque jour de la semaine
@@ -26,6 +37,9 @@ for($i = 0; $i<7; $i++) {
         }
     }
 }
+
+
+
 $listePoly = $employeDAO->getEmployesParRang('POLY');
 $nbSrvPoly = array();
 foreach ($listePoly as $elem) {
@@ -64,17 +78,11 @@ for($i = 0; $i<7; $i++) {
                     $fs = date("H:i:s", strtotime($srv->getFin()));
                     echo '<br>        ' . $da . " et " . $ds . "     //////////    " . $fa . " et " . $fs;
                     if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
-                        $nbSrvPoly[$abs->getIdEmploye()][$i] = 1;
-                        if(($key = array_search($srv, $srvPoly[$i], TRUE)) !== FALSE) {
-                            unset($srvPoly[$i][$key]);
-                        }
+                        affecterService($i, $abs->getIdEmploye(), $srv);
                         echo 'DA < DS et FA < DS';
                     }
                     if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
-                        $nbSrvPoly[$abs->getIdEmploye()][$i] = 1;
-                        if(($key = array_search($srv, $srvPoly[$i], TRUE)) !== FALSE) {
-                            unset($srvPoly[$i][$key]);
-                        }
+                        affecterService($i, $abs->getIdEmploye(), $srv);
                         echo 'DS < DA et FS < DA';
                     }
                 }
@@ -86,4 +94,3 @@ for($i = 0; $i<7; $i++) {
     }
     $jourCourant->modify('+1 day');
 }
-
