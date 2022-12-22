@@ -72,25 +72,18 @@ for($i = 0; $i<7; $i++) {
                 // le formattage ci-dessous permet d'enlever la date et de ne garder que l'heure
                 $da = date("H:i:s", strtotime($abs->getDebut()));
                 $fa = date("H:i:s", strtotime($abs->getFin()));
-                echo '<BR>DA  //////////   DS  ////////////////////////////////////////////  FA   ///////////    FS';
                 foreach ($srvPoly[$i] as $srv) {
                     $ds = date("H:i:s", strtotime($srv->getDebut()));
                     $fs = date("H:i:s", strtotime($srv->getFin()));
-                    echo '<br>        ' . $da . " et " . $ds . "     //////////    " . $fa . " et " . $fs;
                     if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
-                        echo 'DA < DS et FA < DS';
                     }
                     if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
-                        echo 'DS < DA et FS < DA';
                     }
                 }
             }
         }
-        echo '<pre>';
-        print_r($srvPoly[$i]);
-        echo '</pre>';
     }
     $jourCourant->modify('+1 day');
 }
