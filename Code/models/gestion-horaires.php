@@ -25,6 +25,7 @@ function affecterService($jour, $idEmp, $srv) {
     }
 }
 
+$listePoly = $employeDAO->getEmployesParRang('POLY');
 for($i = 0; $i<7; $i++) {
     $srvPoly[$i] = array();
     // on crée un tableau avec les services pour chaque jour de la semaine
@@ -37,15 +38,14 @@ for($i = 0; $i<7; $i++) {
             }
         }
     }
+    foreach ($listePoly as $elem) {
+        $affectation[$i][$elem->getId()] = NULL;
+    }
 }
 
-
-
-$listePoly = $employeDAO->getEmployesParRang('POLY');
 $nbSrvPoly = array();
 foreach ($listePoly as $elem) {
     $nbSrvPoly[$elem->getId()] = array(0, 0, 0, 0, 0, 0, 0);
-    $affectation[$elem->getId()] = array();
 }
 // on trouve le premier jour de la semaine et le dernier jour de la semaine
 $jourCourant = new DateTime(date('Y-m-d',strtotime($anTest.'W'.$semTest)));
@@ -88,4 +88,5 @@ for($i = 0; $i<7; $i++) {
 }
 echo '<pre>';
 print_r($affectation);
+print_r($nbSrvPoly);
 echo '</pre>';
