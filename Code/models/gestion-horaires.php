@@ -19,6 +19,7 @@ $affectation = array();
 
 function affecterService($jour, $idEmp, $srv) {
     $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+    $GLOBALS['totSrvPoly'][$idEmp] += 1;
     $GLOBALS['affectation'][$jour][$idEmp] = $srv;
     if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
         unset($GLOBALS['srvPoly'][$jour][$key]);
@@ -44,8 +45,10 @@ for($i = 0; $i<7; $i++) {
 }
 
 $nbSrvPoly = array();
+$totSrvPoly = array();
 foreach ($listePoly as $elem) {
     $nbSrvPoly[$elem->getId()] = array(0, 0, 0, 0, 0, 0, 0);
+    $totSrvPoly[$elem->getId()] = 0;
 }
 // on trouve le premier jour de la semaine et le dernier jour de la semaine
 $jourCourant = new DateTime(date('Y-m-d',strtotime($anTest.'W'.$semTest)));
@@ -86,18 +89,21 @@ for($i = 0; $i<7; $i++) {
     }
     $jourCourant->modify('+1 day');
 }
+
 for ($i=0; $i < 7; $i++) { 
-    foreach ($listePoly as $poly) {
-        if($nbSrvPoly[$poly->getId()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
-            // parcours de la liste des services restants
-                affecterService($i, $poly->getId(), $srvPoly[$i][array_rand($srvPoly[$i])]);
+    foreach ($totSrvPoly as $key => $value) {
+        if($nbSrvPoly[$key][$i] == 0 && $totSrvPoly[$key] != 5 && !empty($srvPoly[$i])) {
+            affecterService($i, $key, $srvPoly[$i][array_rand($srvPoly[$i])]);
         }
     }
+    // tri pour affecter en priorité les employés qui travaillent peu
+    asort($totSrvPoly);
 }
-// echo '<pre>';
-// print_r($affectation);
-// print_r($nbSrvPoly);
-// print_r($srvPoly);
-// echo '</pre>';
 
-// todo : shuffle employee array so they don't have the same service every week
+echo '<pre>';
+// print_r($affectation);
+// print_r($totSrvPoly);
+// print_r($srvPoly);
+echo '</pre>';
+// todo :
+// traiter les jours qui ont le plus de SNA ?
