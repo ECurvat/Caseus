@@ -77,13 +77,15 @@ for($i = 0; $i<7; $i++) {
                 foreach ($srvPoly[$i] as $srv) {
                     $ds = date("H:i:s", strtotime($srv->getDebut()));
                     $fs = date("H:i:s", strtotime($srv->getFin()));
+                    // si l'absence se passe avant le début et la fin du service
                     if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
                     }
+                    // si l'absence se passe après le début et la fin du service
                     if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
                         affecterService($i, $abs->getIdEmploye(), $srv);
                     }
-                }
+                } 
             }
         }
     }
@@ -99,11 +101,4 @@ for ($i=0; $i < 7; $i++) {
     // tri pour affecter en priorité les employés qui travaillent peu
     asort($totSrvPoly);
 }
-
-echo '<pre>';
-// print_r($affectation);
-// print_r($totSrvPoly);
-// print_r($srvPoly);
-echo '</pre>';
-// todo :
-// traiter les jours qui ont le plus de SNA ?
+// todo : traiter les jours qui ont le plus de SNA ?
