@@ -19,6 +19,21 @@ if (isset($_POST['mois']) &&
     $annee = date("Y");
 }
 
+if (isset($_POST['semainePlanning']) && 
+    is_numeric($_POST['semainePlanning']) && 
+    isset($_POST['anneePlanning']) && 
+    is_numeric($_POST['anneePlanning']) &&
+    $_POST['semainePlanning'] > 0 &&
+    $_POST['semainePlanning'] < 53) {
+    //Mois et années choisis par l'utilisateur
+    $semainePlanning = htmlspecialchars($_POST['semainePlanning']);
+    $anneePlanning = htmlspecialchars($_POST['anneePlanning']);
+} else {
+    //Mois et années choisis automatiquement en fonction du jour
+    $semainePlanning = date("W");
+    $anneePlanning = date("Y");
+}
+
 require_once(PATH_MODELS.$page.'.php');
 if(!empty($listeAbsences)) {
     //Tri des dates des absences récuperées par ordre croissant pour affichage

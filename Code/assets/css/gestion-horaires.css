@@ -1,0 +1,22 @@
+.matin {
+    color: #3498DB;
+}
+
+.soir {
+    color: #9B59B6;
+}
+
+.repos {
+    color: #E74C3C;
+}
+
+
+i.success {
+    color: #5cb85c;
+    background-color: transparent;
+}
+
+i.danger {
+    color: #d9534f;
+    background-color: transparent;
+}
