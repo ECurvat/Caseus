@@ -23,10 +23,10 @@
             </form>
         </div>
         <div class="row">
-            <?php if (isset($jourEmetteur) && $jourEmetteur && ($jourEmetteur->getConge() == 0)) { ?>
+            <?php if (isset($jourEmetteur) && $jourEmetteur && ($jourEmetteur->getIdService() != 'y')) { ?>
                 <p>Jour prévu pour la date sélectionnée :</p>
-                <p>Début : <?php echo $jourEmetteur->getDebutJournee() ?><br>
-                    Fin : <?php echo $jourEmetteur->getFinJournee() ?></p>
+                <p>Début : <?php echo $listeServicesIndex[$jourEmetteur->getIdService()]->getDebut() ?><br>
+                    Fin : <?php echo $listeServicesIndex[$jourEmetteur->getIdService()]->getFin() ?></p>
             <?php } ?>
         </div>
     </div>
@@ -49,8 +49,8 @@
                             echo '<tr>';
                             echo '<td>' . $elem->getIdJour() . '</td>';
                             echo '<td>' . $elem->getIdPlanning() . '</td>';
-                            echo '<td>' . $elem->getDebutJournee() . '</td>';
-                            echo '<td>' . $elem->getFinJournee() . '</td>';
+                            echo '<td>' . $listeServicesIndex[$elem->getIdService()]->getDebut() . '</td>';
+                            echo '<td>' . $listeServicesIndex[$elem->getIdService()]->getFin() . '</td>';
                             echo '<td><button class="button-success" type="submit" name="echange" value="' . $jourEmetteur->getIdJour() . '|' . $elem->getIdJour() . '"><i class="fa-solid fa-handshake"></i></button></td>';
                             echo '</tr>';
                         }
@@ -102,10 +102,10 @@
                             }
                             echo '<tr>';
                             echo '<td>' . $listeEnvoisPropre[$i][0] . '</td>';
-                            if ($listeEnvoisPropre[$i][3]->getIdEtat() == 4) echo '<td colspan="2">Nouveau jour : <br>' . $listeEnvoisPropre[$i][1]->getDebutJournee() . ' - ' . $listeEnvoisPropre[$i][1]->getFinJournee() . '</td>';
+                            if ($listeEnvoisPropre[$i][3]->getIdEtat() == 4) echo '<td colspan="2">Nouveau jour : <br>' . $listeEnvoisPropre[$i][1]->getDebut() . ' - ' . $listeEnvoisPropre[$i][1]->getFin() . '</td>';
                             else {
-                                echo '<td>' . $listeEnvoisPropre[$i][1]->getDebutJournee() . '<br>' . $listeEnvoisPropre[$i][1]->getFinJournee() . '</td>';
-                                echo '<td>' . $listeEnvoisPropre[$i][2]->getDebutJournee() . '<br>' . $listeEnvoisPropre[$i][2]->getFinJournee() . '</td>';
+                                echo '<td>' . $listeEnvoisPropre[$i][1]->getDebut() . '<br>' . $listeEnvoisPropre[$i][1]->getFin() . '</td>';
+                                echo '<td>' . $listeEnvoisPropre[$i][2]->getDebut() . '<br>' . $listeEnvoisPropre[$i][2]->getFin() . '</td>';
                             }
                             echo '<td><span class="' . $status . '">' . $listeEnvoisPropre[$i][3]->getNomEtat() . '</span></td>';
                             echo '<td><button class="button button-warning" type="submit" name="supprimer" value="' . $listeEnvoisPropre[$i][4] . '"><i class="fa-regular fa-trash-can"></i></button></td>';
@@ -142,8 +142,8 @@
                         <?php for ($i = 0; $i < count($listeRecusPropre); $i++) {
                             echo '<tr>';
                             echo '<td>' . $listeRecusPropre[$i][0] . '</td>';
-                            echo '<td>' . $listeRecusPropre[$i][1]->getDebutJournee() . '<br>' . $listeRecusPropre[$i][1]->getFinJournee() . '</td>';
-                            echo '<td>' . $listeRecusPropre[$i][2]->getDebutJournee() . '<br>' . $listeRecusPropre[$i][2]->getFinJournee() . '</td>';
+                            echo '<td>' . $listeRecusPropre[$i][1]->getDebut() . '<br>' . $listeRecusPropre[$i][1]->getFin() . '</td>';
+                            echo '<td>' . $listeRecusPropre[$i][2]->getDebut() . '<br>' . $listeRecusPropre[$i][2]->getFin() . '</td>';
                             echo '<td><button class="button button-success" type="submit" name="accepter" value="' . $listeRecusPropre[$i][3] . '"><i class="fa-regular fa-circle-check"></i></button></td>';
                             echo '<td><button class="button button-danger" type="submit" name="refuser" value="' . $listeRecusPropre[$i][3] . '"><i class="fa-regular fa-circle-xmark"></i></button></td>';
                             echo '</tr>';

@@ -40,10 +40,10 @@
 			<td>Début :</td>
 			<?php for ($i=1; $i <= 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getConge() == 1) {
+					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';
 					} else {
-						echo '<td>'.$listeJours[$i]->getDebutJournee().'</td>';
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getDebut().'</td>';
 					}
 				} else echo '<td></td>';
 			}?>
@@ -52,10 +52,10 @@
 			<td>Fin :</td>
 			<?php for ($i=1; $i <= 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getConge() == 1) {
+					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';
 					} else {
-						echo '<td>'.$listeJours[$i]->getFinJournee().'</td>';
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getFin().'</td>';
 					}
 				} else echo '<td></td>';
 			}?>

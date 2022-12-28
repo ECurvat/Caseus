@@ -112,4 +112,5 @@ if (isset($_POST['generer'])) {
         asort($totSrvPoly);
     }
     // todo : traiter les jours qui ont le plus de SNA ?
+    // todo : vérifier si pas congé mdr
 }

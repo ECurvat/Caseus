@@ -16,4 +16,13 @@ class ServiceDAO extends DAO {
         return null;
     }
 
+    public function getServiceParId($id) {
+        $result = $this->queryRow('SELECT * FROM SERVICE WHERE ID_SERVICE = ?', array($id));
+        if ($result) {
+            $service = new Service($result[0], $result[1], $result[2], $result[3]);
+            return $service;
+        }
+        return null;
+    }
+
 }

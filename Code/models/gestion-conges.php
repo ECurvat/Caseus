@@ -43,7 +43,7 @@ if (isset($_POST['accepter'])) {
                     $jourDAO->addJourConge(array($planningSemaine->getIdPlanning(), $i + 1));
                 } else {
                     // il existe déjà : s'il n'est pas déjà en congé, on le met en congé
-                    if($jourCourant->getConge() == 0) {
+                    if($jourCourant->getIdService() != 'y') {
                         $jourDAO->changeToConge($jourCourant->getIdJour());
                     }
                 }
@@ -76,8 +76,3 @@ if (!empty($listeCongesEnAttente)) {
 } else {
     $alert = choixAlert('pas_de_demande');
 }
-
-// trouver le numéro du/des plannings concernés par la plage de congés 
-// si il en existe certains, regarder s'il existe des jours déjà mis --> les supprimer
-//                           ajouter dans les plannings, sur les dates concernés, les jours avec 'congé' = 1
-// sinon créer les plannings et ajouter les jours avec 'congé' = 1
