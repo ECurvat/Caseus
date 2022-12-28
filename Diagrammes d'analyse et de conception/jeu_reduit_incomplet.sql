@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 21 déc. 2022 à 10:32
+-- Généré le : mer. 28 déc. 2022 à 11:26
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -46,7 +46,10 @@ INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE
 (10, 1, '2022-11-12 01:00:00', '2022-11-12 18:00:00'),
 (16, 3, '2022-11-03 10:30:00', '2022-11-03 19:45:00'),
 (18, 3, '2022-12-20 12:02:00', '2022-12-20 12:20:00'),
-(19, 1, '2022-12-06 10:21:00', '2022-12-06 14:10:00');
+(19, 1, '2022-12-06 10:21:00', '2022-12-06 14:10:00'),
+(20, 1, '2022-12-11 18:00:00', '2022-12-11 23:00:00'),
+(21, 4, '2022-12-06 10:00:00', '2022-12-06 15:00:00'),
+(22, 1, '2022-12-19 08:00:00', '2022-12-19 23:10:00');
 
 -- --------------------------------------------------------
 
@@ -84,13 +87,9 @@ CREATE TABLE `conge` (
 INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_CONGE`, `DATE_DEMANDE`) VALUES
 (1, 5, 1, '2022-11-27', '2022-11-27', '2022-11-27'),
 (6, 4, 1, '2022-11-01', '2022-11-30', '2022-11-27'),
-(7, 4, 3, '2022-11-21', '2022-11-27', '2022-11-29'),
-(8, 4, 3, '2022-11-28', '2022-11-30', '2022-11-29'),
-(12, 4, 3, '2022-12-19', '2022-12-20', '2022-12-02'),
 (14, 4, 3, '2023-01-02', '2023-01-09', '2022-12-02'),
-(18, 4, 3, '2022-12-02', '2022-12-03', '2022-12-04'),
-(19, 4, 3, '2022-12-19', '2022-12-25', '2022-12-05'),
-(20, 5, 2, '2022-12-12', '2022-12-16', '2022-12-12');
+(20, 5, 2, '2022-12-12', '2022-12-16', '2022-12-12'),
+(22, 4, 3, '2022-12-26', '2022-12-28', '2022-12-28');
 
 -- --------------------------------------------------------
 
@@ -117,7 +116,8 @@ INSERT INTO `echange` (`ID_ECHANGE`, `ID_ETAT`, `ID_JOUR_EMETTEUR`, `ID_EMPLOYE_
 (7, 4, 9, 3, 32, 2, '2022-12-10'),
 (9, 5, 30, 2, 29, 3, '2022-12-12'),
 (11, 5, 32, 2, 9, 3, '2022-12-12'),
-(13, 4, 33, 2, 11, 3, '2022-12-13');
+(13, 4, 33, 2, 11, 3, '2022-12-13'),
+(16, 4, 26, 3, 34, 2, '2022-12-28');
 
 -- --------------------------------------------------------
 
@@ -146,7 +146,19 @@ CREATE TABLE `employe` (
 INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`) VALUES
 (1, 'COURTET', 'Tom', 'poly@gmail.com', '2022-10-01', '1 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
 (2, 'AGHUMYAN', 'Mesrop', 'assi@gmail.com', '2022-10-10', '2 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'ASSI'),
-(3, NULL, NULL, 'mana@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'MANA');
+(3, NULL, NULL, 'mana@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'MANA'),
+(4, 'Curvat', 'Elliot', 'poly2@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(5, 'Curvat', 'Elliot', 'poly3@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(6, 'Curvat', 'Elliot', 'poly4@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(7, 'Curvat', 'Elliot', 'poly5@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(8, 'Curvat', 'Elliot', 'poly6@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(9, 'Curvat', 'Elliot', 'poly7@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(10, 'Curvat', 'Elliot', 'poly8@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(11, 'Curvat', 'Elliot', 'poly9@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(12, 'Curvat', 'Elliot', 'poly10@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(13, 'Curvat', 'Elliot', 'poly11@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(14, 'Curvat', 'Elliot', 'poly12@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
+(15, 'Curvat', 'Elliot', 'poly13@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY');
 
 -- --------------------------------------------------------
 
@@ -181,52 +193,49 @@ DROP TABLE IF EXISTS `jour`;
 CREATE TABLE `jour` (
   `ID_JOUR` int(11) NOT NULL,
   `ID_PLANNING` int(11) NOT NULL,
-  `ID_ECHANGE` int(11) DEFAULT NULL,
   `N_JOUR` int(11) NOT NULL,
-  `RETARD` tinyint(1) DEFAULT NULL,
-  `DEBUT_JOURNEE` time DEFAULT NULL,
-  `FIN_JOURNEE` time DEFAULT NULL,
-  `CONGE` tinyint(1) NOT NULL DEFAULT '0'
+  `ID_SERVICE` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `jour`
 --
 
-INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, `DEBUT_JOURNEE`, `FIN_JOURNEE`, `CONGE`) VALUES
-(1, 1, NULL, 1, 0, '10:00:00', '18:00:00', 0),
-(2, 1, NULL, 2, 0, '10:00:00', '18:00:00', 0),
-(3, 1, NULL, 3, 1, '10:00:00', '18:00:00', 0),
-(4, 1, NULL, 6, 0, '15:00:00', '23:00:00', 0),
-(5, 1, NULL, 7, 0, '15:00:00', '23:00:00', 0),
-(6, 2, NULL, 1, NULL, NULL, NULL, 1),
-(7, 2, NULL, 2, NULL, NULL, NULL, 1),
-(8, 2, NULL, 3, NULL, NULL, NULL, 1),
-(9, 11, NULL, 1, NULL, '08:00:00', '16:00:00', 0),
-(10, 11, NULL, 2, NULL, NULL, NULL, 1),
-(11, 11, NULL, 3, NULL, '05:00:00', '12:00:00', 0),
-(12, 11, NULL, 4, NULL, NULL, NULL, 1),
-(13, 11, NULL, 5, NULL, NULL, NULL, 1),
-(14, 11, NULL, 6, NULL, NULL, NULL, 1),
-(15, 11, NULL, 7, NULL, NULL, NULL, 1),
-(16, 5, NULL, 1, NULL, NULL, NULL, 1),
-(17, 5, NULL, 2, NULL, NULL, NULL, 1),
-(18, 5, NULL, 3, NULL, NULL, NULL, 1),
-(19, 5, NULL, 4, NULL, NULL, NULL, 1),
-(20, 5, NULL, 5, NULL, NULL, NULL, 1),
-(21, 5, NULL, 6, NULL, NULL, NULL, 1),
-(22, 5, NULL, 7, NULL, NULL, NULL, 1),
-(23, 6, NULL, 1, NULL, NULL, NULL, 1),
-(24, 6, NULL, 2, NULL, NULL, NULL, 1),
-(25, 6, NULL, 3, NULL, NULL, NULL, 1),
-(26, 6, NULL, 4, NULL, NULL, NULL, 1),
-(27, 2, NULL, 5, NULL, NULL, NULL, 1),
-(28, 2, NULL, 6, NULL, NULL, NULL, 1),
-(29, 10, NULL, 1, NULL, '07:00:00', '15:00:00', 0),
-(30, 13, NULL, 1, NULL, '15:00:00', '22:00:00', 0),
-(31, 14, NULL, 1, NULL, '17:00:00', '23:30:00', 0),
-(32, 15, NULL, 1, NULL, '16:00:00', '23:00:00', 0),
-(33, 15, NULL, 3, NULL, '16:00:00', '23:00:00', 0);
+INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
+(1, 1, 1, 'a'),
+(2, 1, 2, 'a'),
+(3, 1, 3, 'a'),
+(4, 1, 6, 'a'),
+(5, 1, 7, 'a'),
+(6, 2, 1, 'a'),
+(7, 2, 2, 'a'),
+(8, 2, 3, 'a'),
+(9, 11, 1, 'a'),
+(10, 11, 2, 'a'),
+(11, 11, 3, 'a'),
+(12, 11, 4, 'a'),
+(13, 11, 5, 'a'),
+(14, 11, 6, 'a'),
+(15, 11, 7, 'a'),
+(16, 5, 1, 'a'),
+(17, 5, 2, 'd'),
+(18, 5, 3, 'a'),
+(19, 5, 4, 'a'),
+(20, 5, 5, 'a'),
+(21, 5, 6, 'a'),
+(22, 5, 7, 'a'),
+(23, 6, 1, 'y'),
+(24, 6, 2, 'y'),
+(25, 6, 3, 'y'),
+(26, 6, 4, 'f'),
+(27, 2, 5, 'a'),
+(28, 2, 6, 'a'),
+(29, 10, 1, 'a'),
+(30, 13, 1, 'a'),
+(31, 14, 1, 'a'),
+(32, 15, 1, 'a'),
+(33, 15, 3, 'a'),
+(34, 16, 4, 'b');
 
 -- --------------------------------------------------------
 
@@ -270,7 +279,8 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 (11, 3, 1, 50, 2022),
 (13, 2, 1, 49, 2022),
 (14, 1, 1, 49, 2022),
-(15, 2, 1, 50, 2022);
+(15, 2, 1, 50, 2022),
+(16, 2, 1, 52, 2022);
 
 -- --------------------------------------------------------
 
@@ -325,7 +335,9 @@ INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) V
 ('f', 1, '17:00:00', '21:30:00'),
 ('g', 3, '18:00:00', '22:30:00'),
 ('h', 1, '18:30:00', '23:00:00'),
-('i', 2, '15:30:00', '23:00:00');
+('i', 2, '15:30:00', '23:00:00'),
+('y', 0, '00:00:00', '23:59:59'),
+('z', 0, '00:00:00', '23:59:59');
 
 -- --------------------------------------------------------
 
@@ -414,8 +426,8 @@ ALTER TABLE `etat`
 --
 ALTER TABLE `jour`
   ADD PRIMARY KEY (`ID_JOUR`),
-  ADD KEY `FK_CONCERNE` (`ID_ECHANGE`),
-  ADD KEY `FK_CONTIENT` (`ID_PLANNING`);
+  ADD KEY `FK_CONTIENT` (`ID_PLANNING`),
+  ADD KEY `FK_JOUR_SERVICE` (`ID_SERVICE`);
 
 --
 -- Index pour la table `livraison`
@@ -464,25 +476,25 @@ ALTER TABLE `unite`
 -- AUTO_INCREMENT pour la table `absence`
 --
 ALTER TABLE `absence`
-  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `conge`
 --
 ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `echange`
 --
 ALTER TABLE `echange`
-  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `employe`
 --
 ALTER TABLE `employe`
-  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `etat`
@@ -494,7 +506,7 @@ ALTER TABLE `etat`
 -- AUTO_INCREMENT pour la table `jour`
 --
 ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT pour la table `livraison`
@@ -506,7 +518,7 @@ ALTER TABLE `livraison`
 -- AUTO_INCREMENT pour la table `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
@@ -558,8 +570,8 @@ ALTER TABLE `echange`
 -- Contraintes pour la table `jour`
 --
 ALTER TABLE `jour`
-  ADD CONSTRAINT `FK_CONCERNE` FOREIGN KEY (`ID_ECHANGE`) REFERENCES `echange` (`ID_ECHANGE`),
-  ADD CONSTRAINT `FK_CONTIENT` FOREIGN KEY (`ID_PLANNING`) REFERENCES `planning` (`ID_PLANNING`);
+  ADD CONSTRAINT `FK_CONTIENT` FOREIGN KEY (`ID_PLANNING`) REFERENCES `planning` (`ID_PLANNING`),
+  ADD CONSTRAINT `FK_JOUR_SERVICE` FOREIGN KEY (`ID_SERVICE`) REFERENCES `service` (`ID_SERVICE`);
 
 --
 -- Contraintes pour la table `planning`

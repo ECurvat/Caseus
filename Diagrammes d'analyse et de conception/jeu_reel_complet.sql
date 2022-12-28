@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 21 déc. 2022 à 10:33
+-- Généré le : mer. 28 déc. 2022 à 11:31
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -273,89 +273,85 @@ DROP TABLE IF EXISTS `JOUR`;
 CREATE TABLE `JOUR` (
   `ID_JOUR` int(11) NOT NULL,
   `ID_PLANNING` int(11) NOT NULL,
-  `ID_ECHANGE` int(11) DEFAULT NULL,
   `N_JOUR` int(11) NOT NULL,
-  `RETARD` tinyint(1) DEFAULT NULL,
-  `DEBUT_JOURNEE` time DEFAULT NULL,
-  `FIN_JOURNEE` time DEFAULT NULL,
-  `CONGE` tinyint(1) NOT NULL DEFAULT '0'
+  `ID_SERVICE` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `JOUR`
 --
 
-INSERT INTO `JOUR` (`ID_JOUR`, `ID_PLANNING`, `ID_ECHANGE`, `N_JOUR`, `RETARD`, `DEBUT_JOURNEE`, `FIN_JOURNEE`, `CONGE`) VALUES
-(1, 15, NULL, 2, 0, '09:00:00', '17:00:00', 0),
-(2, 15, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(3, 15, NULL, 1, 0, '15:00:00', '23:00:00', 0),
-(4, 15, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(5, 15, NULL, 3, 0, '12:00:00', '20:00:00', 0),
-(6, 16, NULL, 2, 0, '09:00:00', '17:00:00', 0),
-(7, 16, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(8, 16, NULL, 6, 0, '15:00:00', '23:00:00', 0),
-(9, 16, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(10, 16, NULL, 5, 0, '11:00:00', '19:00:00', 0),
-(11, 17, NULL, 2, 0, '12:00:00', '20:00:00', 0),
-(12, 17, NULL, 1, 0, '11:00:00', '19:00:00', 0),
-(13, 17, NULL, 3, 0, '15:00:00', '23:00:00', 0),
-(14, 17, NULL, 4, 0, '12:00:00', '20:00:00', 0),
-(15, 17, NULL, 5, 0, '11:00:00', '19:00:00', 0),
-(16, 18, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(17, 18, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(18, 18, NULL, 3, 0, '15:00:00', '23:00:00', 0),
-(19, 18, NULL, 6, 0, '09:00:00', '17:00:00', 0),
-(20, 18, NULL, 5, 0, '12:00:00', '20:00:00', 0),
-(21, 19, NULL, 1, 0, '11:00:00', '19:00:00', 0),
-(22, 19, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(23, 19, NULL, 5, 0, '15:00:00', '23:00:00', 0),
-(24, 19, NULL, 2, 0, '15:00:00', '23:00:00', 0),
-(25, 19, NULL, 3, 0, '12:00:00', '20:00:00', 0),
-(26, 20, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(27, 20, NULL, 6, 0, '11:00:00', '19:00:00', 0),
-(28, 20, NULL, 2, 0, '15:00:00', '23:00:00', 0),
-(29, 20, NULL, 5, 0, '09:00:00', '17:00:00', 0),
-(30, 20, NULL, 3, 0, '12:00:00', '20:00:00', 0),
-(31, 21, NULL, 5, 0, '09:00:00', '17:00:00', 0),
-(32, 21, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(33, 21, NULL, 1, 0, '11:00:00', '19:00:00', 0),
-(34, 21, NULL, 2, 0, '15:00:00', '23:00:00', 0),
-(35, 21, NULL, 6, 0, '12:00:00', '20:00:00', 0),
-(36, 22, NULL, 2, 0, '15:00:00', '23:00:00', 0),
-(37, 22, NULL, 4, 0, '11:00:00', '19:00:00', 0),
-(38, 22, NULL, 6, 0, '15:00:00', '23:00:00', 0),
-(39, 22, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(40, 22, NULL, 1, 0, '12:00:00', '20:00:00', 0),
-(41, 23, NULL, 3, 0, '09:00:00', '17:00:00', 0),
-(42, 23, NULL, 2, 0, '11:00:00', '19:00:00', 0),
-(43, 23, NULL, 5, 0, '15:00:00', '23:00:00', 0),
-(44, 23, NULL, 6, 0, '12:00:00', '20:00:00', 0),
-(45, 23, NULL, 1, 0, '12:00:00', '20:00:00', 0),
-(46, 24, NULL, 1, 0, '12:00:00', '20:00:00', 0),
-(47, 24, NULL, 7, 0, '11:00:00', '19:00:00', 0),
-(48, 24, NULL, 3, 0, '15:00:00', '23:00:00', 0),
-(49, 24, NULL, 4, 0, '09:00:00', '17:00:00', 0),
-(50, 24, NULL, 5, 0, '12:00:00', '20:00:00', 0),
-(51, 25, NULL, 2, 0, '11:00:00', '19:00:00', 0),
-(52, 25, NULL, 3, 0, '15:00:00', '23:00:00', 0),
-(53, 25, NULL, 6, 0, '15:00:00', '23:00:00', 0),
-(54, 25, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(55, 25, NULL, 5, 0, '15:00:00', '23:00:00', 0),
-(56, 26, NULL, 5, 0, '11:00:00', '19:00:00', 0),
-(57, 26, NULL, 3, 0, '11:00:00', '19:00:00', 0),
-(58, 26, NULL, 7, 0, '15:00:00', '23:00:00', 0),
-(59, 26, NULL, 1, 0, '09:00:00', '17:00:00', 0),
-(60, 26, NULL, 2, 0, '15:00:00', '23:00:00', 0),
-(61, 27, NULL, 4, 0, '09:00:00', '17:00:00', 0),
-(62, 27, NULL, 3, 0, '09:00:00', '17:00:00', 0),
-(63, 27, NULL, 2, 0, '09:00:00', '17:00:00', 0),
-(64, 27, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(65, 27, NULL, 5, 0, '09:00:00', '17:00:00', 0),
-(66, 28, NULL, 1, 0, '09:00:00', '17:00:00', 0),
-(67, 28, NULL, 3, 0, '12:00:00', '20:00:00', 0),
-(68, 28, NULL, 5, 0, '15:00:00', '23:00:00', 0),
-(69, 28, NULL, 7, 0, '09:00:00', '17:00:00', 0),
-(70, 28, NULL, 4, 0, '12:00:00', '20:00:00', 0);
+INSERT INTO `JOUR` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
+(1, 15, 2, 'a'),
+(2, 15, 4, 'a'),
+(3, 15, 1, 'a'),
+(4, 15, 7, 'a'),
+(5, 15, 3, 'a'),
+(6, 16, 2, 'a'),
+(7, 16, 4, 'a'),
+(8, 16, 6, 'a'),
+(9, 16, 7, 'a'),
+(10, 16, 5, 'a'),
+(11, 17, 2, 'a'),
+(12, 17, 1, 'a'),
+(13, 17, 3, 'a'),
+(14, 17, 4, 'a'),
+(15, 17, 5, 'a'),
+(16, 18, 7, 'a'),
+(17, 18, 4, 'a'),
+(18, 18, 3, 'a'),
+(19, 18, 6, 'a'),
+(20, 18, 5, 'a'),
+(21, 19, 1, 'a'),
+(22, 19, 4, 'a'),
+(23, 19, 5, 'a'),
+(24, 19, 2, 'a'),
+(25, 19, 3, 'a'),
+(26, 20, 7, 'a'),
+(27, 20, 6, 'a'),
+(28, 20, 2, 'a'),
+(29, 20, 5, 'a'),
+(30, 20, 3, 'a'),
+(31, 21, 5, 'a'),
+(32, 21, 4, 'a'),
+(33, 21, 1, 'a'),
+(34, 21, 2, 'a'),
+(35, 21, 6, 'a'),
+(36, 22, 2, 'a'),
+(37, 22, 4, 'a'),
+(38, 22, 6, 'a'),
+(39, 22, 7, 'a'),
+(40, 22, 1, 'a'),
+(41, 23, 3, 'a'),
+(42, 23, 2, 'a'),
+(43, 23, 5, 'a'),
+(44, 23, 6, 'a'),
+(45, 23, 1, 'a'),
+(46, 24, 1, 'a'),
+(47, 24, 7, 'a'),
+(48, 24, 3, 'a'),
+(49, 24, 4, 'a'),
+(50, 24, 5, 'a'),
+(51, 25, 2, 'a'),
+(52, 25, 3, 'a'),
+(53, 25, 6, 'a'),
+(54, 25, 7, 'a'),
+(55, 25, 5, 'a'),
+(56, 26, 5, 'a'),
+(57, 26, 3, 'a'),
+(58, 26, 7, 'a'),
+(59, 26, 1, 'a'),
+(60, 26, 2, 'a'),
+(61, 27, 4, 'a'),
+(62, 27, 3, 'a'),
+(63, 27, 2, 'a'),
+(64, 27, 7, 'a'),
+(65, 27, 5, 'a'),
+(66, 28, 1, 'a'),
+(67, 28, 3, 'a'),
+(68, 28, 5, 'a'),
+(69, 28, 7, 'a'),
+(70, 28, 4, 'a');
 
 -- --------------------------------------------------------
 
@@ -484,11 +480,11 @@ INSERT INTO `PRODUIT` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF
 -- --------------------------------------------------------
 
 --
--- Structure de la table `service`
+-- Structure de la table `SERVICE`
 --
 
-DROP TABLE IF EXISTS `service`;
-CREATE TABLE `service` (
+DROP TABLE IF EXISTS `SERVICE`;
+CREATE TABLE `SERVICE` (
   `ID_SERVICE` varchar(1) NOT NULL,
   `NOMBRE` int(2) NOT NULL DEFAULT '1',
   `DEBUT_SERVICE` time NOT NULL,
@@ -496,10 +492,10 @@ CREATE TABLE `service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `service`
+-- Déchargement des données de la table `SERVICE`
 --
 
-INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) VALUES
+INSERT INTO `SERVICE` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) VALUES
 ('a', 1, '09:00:00', '13:30:00'),
 ('b', 2, '10:00:00', '14:30:00'),
 ('c', 1, '11:00:00', '15:30:00'),
@@ -508,7 +504,9 @@ INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) V
 ('f', 1, '17:00:00', '21:30:00'),
 ('g', 3, '18:00:00', '22:30:00'),
 ('h', 1, '18:30:00', '23:00:00'),
-('i', 2, '15:30:00', '23:00:00');
+('i', 2, '15:30:00', '23:00:00'),
+('y', 0, '00:00:00', '23:59:59'),
+('z', 0, '00:00:00', '23:59:59');
 
 -- --------------------------------------------------------
 
@@ -611,8 +609,8 @@ ALTER TABLE `ETAT`
 --
 ALTER TABLE `JOUR`
   ADD PRIMARY KEY (`ID_JOUR`),
-  ADD KEY `FK_CONCERNE` (`ID_ECHANGE`),
-  ADD KEY `FK_CONTIENT` (`ID_PLANNING`);
+  ADD KEY `FK_CONTIENT` (`ID_PLANNING`),
+  ADD KEY `FK_JOUR_SERVICE` (`ID_SERVICE`);
 
 --
 -- Index pour la table `LIVRAISON`
@@ -636,9 +634,9 @@ ALTER TABLE `PRODUIT`
   ADD KEY `FK_EST_EN` (`ID_UNITE`);
 
 --
--- Index pour la table `service`
+-- Index pour la table `SERVICE`
 --
-ALTER TABLE `service`
+ALTER TABLE `SERVICE`
   ADD PRIMARY KEY (`ID_SERVICE`);
 
 --
@@ -756,8 +754,8 @@ ALTER TABLE `ECHANGE`
 -- Contraintes pour la table `JOUR`
 --
 ALTER TABLE `JOUR`
-  ADD CONSTRAINT `FK_CONCERNE` FOREIGN KEY (`ID_ECHANGE`) REFERENCES `ECHANGE_TRAVAIL` (`ID_ECHANGE`),
-  ADD CONSTRAINT `FK_CONTIENT` FOREIGN KEY (`ID_PLANNING`) REFERENCES `PLANNING` (`ID_PLANNING`);
+  ADD CONSTRAINT `FK_CONTIENT` FOREIGN KEY (`ID_PLANNING`) REFERENCES `PLANNING` (`ID_PLANNING`),
+  ADD CONSTRAINT `FK_JOUR_SERVICE` FOREIGN KEY (`ID_SERVICE`) REFERENCES `SERVICE` (`ID_SERVICE`);
 
 --
 -- Contraintes pour la table `PLANNING`
