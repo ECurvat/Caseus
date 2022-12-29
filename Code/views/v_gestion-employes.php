@@ -36,6 +36,7 @@
         <th>Date</th>
         <th>Adresse</th>
         <th>Position</th>
+        <th>Heures sup</th>
     </tr>
 </thead>
 <tbody>
@@ -48,6 +49,8 @@
         echo '<td>'.$emp->getEmbauche().'</td>';
         echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().', '.$emp->getVille().'</td>';
         echo '<td>'.$emp->getPosition().'</td>';
+        ($emp->getHeuresSup() == '0') ? $val = '<td>Non</td>' : $val = '<td>Oui</td>';
+        echo $val;
         echo '</tr>';
     }
     ?>
@@ -92,12 +95,20 @@
             </div>
         </div>
         <div class="row">
-            <label for="ajoutPosition">Position</label>
-			<select name="ajoutPosition" class="u-full-width">
-                <option value="POLY">Employé polyvalent</option>
-                <option value="ASSI">Assistant manager</option>
-                <option value="MANA">Manager</option>
-            </select>
+            <div class="nine columns">
+                <label for="ajoutPosition">Position</label>
+                <select name="ajoutPosition" class="u-full-width">
+                    <option value="POLY">Employé polyvalent</option>
+                    <option value="ASSI">Assistant manager</option>
+                    <option value="MANA">Manager</option>
+                </select>
+            </div>
+            <div class="three columns">
+                <label>
+                    <input type="checkbox" id="ajoutSup" name="ajoutSup">
+                    <span class="label-checkbox">Heures sup ok ?</span>
+                </label>
+            </div>
         </div>
         <input class="button-success u-full-width" type="submit" value="Ajouter" name="ajoutValider">
     </form>

@@ -134,6 +134,13 @@ if (isset($_POST['generer'])) {
         // tri pour affecter en priorité les employés qui travaillent peu
         asort($totSrvPoly);
     }
-    // todo : traiter les jours qui ont le plus de SNA ?
-    // todo : vérifier si pas congé mdr
+    echo '<pre>';
+    print_r($affectation);
+    echo '</pre>';
 }
+
+
+// pour les jours où il y a des SNA
+// on parcourt tous les services attribués ce jour
+// s'il y a des repos --> on regarde si l'employé est ok pour du sup
+// si il est ok, on lui met le service à la place de son repos
