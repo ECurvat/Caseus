@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 28 déc. 2022 à 11:31
+-- Généré le : jeu. 29 déc. 2022 à 10:48
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -209,34 +209,35 @@ CREATE TABLE `EMPLOYE` (
   `CODE_POSTAL` int(11) DEFAULT NULL,
   `VILLE` varchar(255) DEFAULT NULL,
   `MDP` varchar(255) NOT NULL DEFAULT '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe',
-  `POSITION` varchar(255) NOT NULL DEFAULT 'POLY'
+  `POSITION` varchar(255) NOT NULL DEFAULT 'POLY',
+  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `EMPLOYE`
 --
 
-INSERT INTO `EMPLOYE` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`) VALUES
-(1, 'Sealand', 'Arte', 'asealand0@sina.com.cn', '2021-09-18', '338 Namekagon Plaza', NULL, 'Sosándra', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'MANA'),
-(2, 'Misson', 'Tildie', 'tmisson1@ebay.com', '2020-10-31', '0 Arkansas Crossing', NULL, 'Bitung', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'MANA'),
-(3, 'Pinke', 'Fayth', 'fpinke2@tiny.cc', '2022-10-19', '100 Roxbury Trail', 4785, 'Finzes', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI'),
-(4, 'Voas', 'Bentley', 'bvoas3@amazon.co.jp', '2021-09-05', '13 Jenifer Avenue', NULL, 'Purworejo', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI'),
-(5, 'Fancy', 'Ange', 'afancy4@mozilla.com', '2021-11-09', '43390 East Drive', NULL, 'Yanwukou', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI'),
-(6, 'Cowpertwait', 'Dannie', 'dcowpertwait5@yellowpages.com', '2022-06-30', '3 Harper Pass', NULL, 'Nusajaya', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI'),
-(7, 'Pandey', 'Dionisio', 'dpandey6@vinaora.com', '2021-04-30', '9 Sundown Plaza', 31110, 'Nakhon Ratchasima', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(8, 'Vakhrushev', 'Traci', 'tvakhrushev7@adobe.com', '2021-07-13', '1982 Towne Park', NULL, 'Bokaa', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(9, 'Warsop', 'Nikolaos', 'nwarsop8@businessweek.com', '2021-06-19', '027 Golf Course Avenue', NULL, 'Hougong', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(10, 'Gadsby', 'Kelbee', 'kgadsby9@thetimes.co.uk', '2021-06-06', '65709 Arkansas Terrace', 188992, 'Svetogorsk', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(11, 'Soigne', 'Velma', 'vsoignea@xinhuanet.com', '2021-12-14', '08909 Hoepker Pass', NULL, 'Peristerona', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(12, 'Jedryka', 'Joseph', 'jjedrykab@engadget.com', '2020-12-10', '95 Hoard Avenue', 96925, 'Yigo Village', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(13, 'Shreenan', 'Jasper', 'jshreenanc@jiathis.com', '2021-07-05', '69 Cascade Drive', 58330, 'Juripiranga', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(14, 'Gleave', 'Mannie', 'mgleaved@cargocollective.com', '2021-10-09', '48190 Esker Park', NULL, 'Madara', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(15, 'Smallman', 'Gustave', 'gsmallmane@vinaora.com', '2021-08-13', '63 Sheridan Pass', 7100, 'Monte da Boavista', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(16, 'Lyal', 'Reider', 'rlyalf@engadget.com', '2021-12-30', '5278 Bunker Hill Lane', NULL, 'Pavlohrad', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(17, 'Conisbee', 'Nickola', 'nconisbeeg@gmpg.org', '2021-01-10', '0551 Texas Drive', 2900, 'San Nicolás de los Arroyos', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(18, 'Burmaster', 'Kali', 'kburmasterh@eventbrite.com', '2022-01-26', '9 Holmberg Park', 2755, 'Almoínhas Velhas', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(19, 'Fayre', 'Flo', 'ffayrei@altervista.org', '2022-08-22', '54 Bluestem Pass', 606125, 'Gorbatov', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY'),
-(20, 'Oldcroft', 'Marve', 'moldcroftj@ihg.com', '2021-02-23', '6725 Northwestern Street', 182460, 'Vybor', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY');
+INSERT INTO `EMPLOYE` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`, `HEURES_SUP`) VALUES
+(1, 'Sealand', 'Arte', 'asealand0@sina.com.cn', '2021-09-18', '338 Namekagon Plaza', NULL, 'Sosándra', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'MANA', 0),
+(2, 'Misson', 'Tildie', 'tmisson1@ebay.com', '2020-10-31', '0 Arkansas Crossing', NULL, 'Bitung', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'MANA', 0),
+(3, 'Pinke', 'Fayth', 'fpinke2@tiny.cc', '2022-10-19', '100 Roxbury Trail', 4785, 'Finzes', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI', 0),
+(4, 'Voas', 'Bentley', 'bvoas3@amazon.co.jp', '2021-09-05', '13 Jenifer Avenue', NULL, 'Purworejo', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI', 0),
+(5, 'Fancy', 'Ange', 'afancy4@mozilla.com', '2021-11-09', '43390 East Drive', NULL, 'Yanwukou', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI', 0),
+(6, 'Cowpertwait', 'Dannie', 'dcowpertwait5@yellowpages.com', '2022-06-30', '3 Harper Pass', NULL, 'Nusajaya', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'ASSI', 0),
+(7, 'Pandey', 'Dionisio', 'dpandey6@vinaora.com', '2021-04-30', '9 Sundown Plaza', 31110, 'Nakhon Ratchasima', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(8, 'Vakhrushev', 'Traci', 'tvakhrushev7@adobe.com', '2021-07-13', '1982 Towne Park', NULL, 'Bokaa', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(9, 'Warsop', 'Nikolaos', 'nwarsop8@businessweek.com', '2021-06-19', '027 Golf Course Avenue', NULL, 'Hougong', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(10, 'Gadsby', 'Kelbee', 'kgadsby9@thetimes.co.uk', '2021-06-06', '65709 Arkansas Terrace', 188992, 'Svetogorsk', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(11, 'Soigne', 'Velma', 'vsoignea@xinhuanet.com', '2021-12-14', '08909 Hoepker Pass', NULL, 'Peristerona', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(12, 'Jedryka', 'Joseph', 'jjedrykab@engadget.com', '2020-12-10', '95 Hoard Avenue', 96925, 'Yigo Village', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(13, 'Shreenan', 'Jasper', 'jshreenanc@jiathis.com', '2021-07-05', '69 Cascade Drive', 58330, 'Juripiranga', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(14, 'Gleave', 'Mannie', 'mgleaved@cargocollective.com', '2021-10-09', '48190 Esker Park', NULL, 'Madara', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(15, 'Smallman', 'Gustave', 'gsmallmane@vinaora.com', '2021-08-13', '63 Sheridan Pass', 7100, 'Monte da Boavista', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(16, 'Lyal', 'Reider', 'rlyalf@engadget.com', '2021-12-30', '5278 Bunker Hill Lane', NULL, 'Pavlohrad', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(17, 'Conisbee', 'Nickola', 'nconisbeeg@gmpg.org', '2021-01-10', '0551 Texas Drive', 2900, 'San Nicolás de los Arroyos', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(18, 'Burmaster', 'Kali', 'kburmasterh@eventbrite.com', '2022-01-26', '9 Holmberg Park', 2755, 'Almoínhas Velhas', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(19, 'Fayre', 'Flo', 'ffayrei@altervista.org', '2022-08-22', '54 Bluestem Pass', 606125, 'Gorbatov', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0),
+(20, 'Oldcroft', 'Marve', 'moldcroftj@ihg.com', '2021-02-23', '6725 Northwestern Street', 182460, 'Vybor', '$2y$10$cvyHw2LaX3XRmouK0EpsLORDleSIRWdfrLhlpuC9vsOM3RnFXqLTe', 'POLY', 0);
 
 -- --------------------------------------------------------
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 28 déc. 2022 à 11:26
+-- Généré le : jeu. 29 déc. 2022 à 10:48
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -49,7 +49,11 @@ INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE
 (19, 1, '2022-12-06 10:21:00', '2022-12-06 14:10:00'),
 (20, 1, '2022-12-11 18:00:00', '2022-12-11 23:00:00'),
 (21, 4, '2022-12-06 10:00:00', '2022-12-06 15:00:00'),
-(22, 1, '2022-12-19 08:00:00', '2022-12-19 23:10:00');
+(22, 1, '2022-12-19 08:00:00', '2022-12-19 23:10:00'),
+(23, 1, '2022-12-29 08:00:00', '2022-12-29 23:10:00'),
+(24, 7, '2022-12-28 08:00:00', '2022-12-28 23:10:00'),
+(25, 10, '2022-12-31 03:00:00', '2022-12-31 20:00:00'),
+(29, 14, '2022-12-31 03:00:00', '2022-12-31 20:00:00');
 
 -- --------------------------------------------------------
 
@@ -89,7 +93,8 @@ INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_
 (6, 4, 1, '2022-11-01', '2022-11-30', '2022-11-27'),
 (14, 4, 3, '2023-01-02', '2023-01-09', '2022-12-02'),
 (20, 5, 2, '2022-12-12', '2022-12-16', '2022-12-12'),
-(22, 4, 3, '2022-12-26', '2022-12-28', '2022-12-28');
+(22, 4, 3, '2022-12-25', '2022-12-28', '2022-12-28'),
+(23, 4, 1, '2022-12-27', '2022-12-28', '2022-12-29');
 
 -- --------------------------------------------------------
 
@@ -136,29 +141,30 @@ CREATE TABLE `employe` (
   `CODE_POSTAL` int(11) DEFAULT NULL,
   `VILLE` varchar(255) DEFAULT NULL,
   `MDP` varchar(255) NOT NULL,
-  `POSITION` varchar(255) NOT NULL DEFAULT 'POLY'
+  `POSITION` varchar(255) NOT NULL DEFAULT 'POLY',
+  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `employe`
 --
 
-INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`) VALUES
-(1, 'COURTET', 'Tom', 'poly@gmail.com', '2022-10-01', '1 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(2, 'AGHUMYAN', 'Mesrop', 'assi@gmail.com', '2022-10-10', '2 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'ASSI'),
-(3, NULL, NULL, 'mana@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'MANA'),
-(4, 'Curvat', 'Elliot', 'poly2@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(5, 'Curvat', 'Elliot', 'poly3@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(6, 'Curvat', 'Elliot', 'poly4@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(7, 'Curvat', 'Elliot', 'poly5@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(8, 'Curvat', 'Elliot', 'poly6@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(9, 'Curvat', 'Elliot', 'poly7@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(10, 'Curvat', 'Elliot', 'poly8@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(11, 'Curvat', 'Elliot', 'poly9@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(12, 'Curvat', 'Elliot', 'poly10@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(13, 'Curvat', 'Elliot', 'poly11@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(14, 'Curvat', 'Elliot', 'poly12@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY'),
-(15, 'Curvat', 'Elliot', 'poly13@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY');
+INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBAUCHE`, `ADRESSE`, `CODE_POSTAL`, `VILLE`, `MDP`, `POSITION`, `HEURES_SUP`) VALUES
+(1, 'COURTET', 'Tom', 'poly@gmail.com', '2022-10-01', '1 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(2, 'AGHUMYAN', 'Mesrop', 'assi@gmail.com', '2022-10-10', '2 rue de la Technologie', 69100, 'VILLEURBANNE', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'ASSI', 0),
+(3, NULL, NULL, 'mana@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'MANA', 0),
+(4, 'Curvat', 'Elliot', 'poly2@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(5, 'Curvat', 'Elliot', 'poly3@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(6, 'Curvat', 'Elliot', 'poly4@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(7, 'Curvat', 'Elliot', 'poly5@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(8, 'Curvat', 'Elliot', 'poly6@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(9, 'Curvat', 'Elliot', 'poly7@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(10, 'Curvat', 'Elliot', 'poly8@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(11, 'Curvat', 'Elliot', 'poly9@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(12, 'Curvat', 'Elliot', 'poly10@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(13, 'Curvat', 'Elliot', 'poly11@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(14, 'Curvat', 'Elliot', 'poly12@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 0),
+(15, 'Curvat', 'Elliot', 'poly13@gmail.com', '2022-10-10', '541 Chemin Des Bulliances', 38460, 'Chamagnieu', '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', 'POLY', 1);
 
 -- --------------------------------------------------------
 
@@ -223,7 +229,7 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (19, 5, 4, 'a'),
 (20, 5, 5, 'a'),
 (21, 5, 6, 'a'),
-(22, 5, 7, 'a'),
+(22, 5, 7, 'y'),
 (23, 6, 1, 'y'),
 (24, 6, 2, 'y'),
 (25, 6, 3, 'y'),
@@ -235,7 +241,11 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (31, 14, 1, 'a'),
 (32, 15, 1, 'a'),
 (33, 15, 3, 'a'),
-(34, 16, 4, 'b');
+(34, 16, 4, 'b'),
+(35, 17, 2, 'y'),
+(36, 17, 3, 'y'),
+(37, 17, 4, 'y'),
+(38, 17, 5, 'y');
 
 -- --------------------------------------------------------
 
@@ -280,7 +290,8 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 (13, 2, 1, 49, 2022),
 (14, 1, 1, 49, 2022),
 (15, 2, 1, 50, 2022),
-(16, 2, 1, 52, 2022);
+(16, 2, 1, 52, 2022),
+(17, 1, 1, 52, 2022);
 
 -- --------------------------------------------------------
 
@@ -476,13 +487,13 @@ ALTER TABLE `unite`
 -- AUTO_INCREMENT pour la table `absence`
 --
 ALTER TABLE `absence`
-  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `conge`
 --
 ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `echange`
@@ -494,7 +505,7 @@ ALTER TABLE `echange`
 -- AUTO_INCREMENT pour la table `employe`
 --
 ALTER TABLE `employe`
-  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `etat`
@@ -506,7 +517,7 @@ ALTER TABLE `etat`
 -- AUTO_INCREMENT pour la table `jour`
 --
 ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT pour la table `livraison`
@@ -518,7 +529,7 @@ ALTER TABLE `livraison`
 -- AUTO_INCREMENT pour la table `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
