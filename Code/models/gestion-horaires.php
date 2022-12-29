@@ -134,9 +134,22 @@ if (isset($_POST['generer'])) {
         // tri pour affecter en priorité les employés qui travaillent peu
         asort($totSrvPoly);
     }
-    echo '<pre>';
-    print_r($affectation);
-    echo '</pre>';
+
+    for ($i=0; $i < 7; $i++) {
+        if (!empty($srvPoly[$i])) {
+            // on parcourt tous les employés et on regarde si il travaille
+            foreach ($listePoly as $poly) {
+                if ($affectation[$i][$poly->getId()] == NULL) {
+                    // on regarde si il est ok pour des heures sup
+                    if ($poly->getHeuresSup() == '1') {
+                        affecterService($i, $poly->getId(), $srvPoly[$i][array_rand($srvPoly[$i])]);
+                    }
+                }
+            }
+            
+        }
+    }
+
 }
 
 

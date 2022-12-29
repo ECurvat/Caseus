@@ -118,7 +118,7 @@
 									break;
 								case 'y':
 									$class = 'conges';
-									$icon = '<i class="fa-solid fa-plane-departure"></i>';
+									$icon = '<i class="fa-solid fa-plane"></i>';
 									break;
 								case 'z':
 									$class = 'repos';
@@ -149,7 +149,6 @@
 							}
 							echo '</td>';
 						}
-						// echo '<td>' . $affectation[$i][$poly->getId()]->getId() . '</td>';
 					}
 					?>
 					<td></td>
