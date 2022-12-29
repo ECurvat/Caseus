@@ -7,9 +7,14 @@ require_once(PATH_MODELS . 'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
 require_once(PATH_MODELS . 'ServiceDAO.php');
 $serviceDAO = new ServiceDAO(true);
+require_once(PATH_MODELS . 'CongeDAO.php');
+$congeDAO = new CongeDAO(true);
+$listeConges = $congeDAO->getListeCongesAcceptesParDate(array($mois, $annee, $mois, $annee));
+
 
 
 if (isset($_POST['generer'])) {
+    
     // Partie principale : création des emplois du temps
     //                                                      Gestion des employés polyvalents
     $srvPoly = array();
@@ -18,7 +23,7 @@ if (isset($_POST['generer'])) {
     function affecterService($jour, $idEmp, $srv) {    
         $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
         $GLOBALS['affectation'][$jour][$idEmp] = $srv;
-        if ($srv != $GLOBALS['repos']) {
+        if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
             $GLOBALS['totSrvPoly'][$idEmp] += 1;
             if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
                 unset($GLOBALS['srvPoly'][$jour][$key]);
@@ -45,9 +50,11 @@ if (isset($_POST['generer'])) {
     }
 
     foreach($listeServices as $srv) {
+        if($srv->getId() == 'y') {
+            $conge = $srv;
+        }
         if ($srv->getId() == 'z') {
             $repos = $srv;
-            break;
         }
     }
 
@@ -57,6 +64,22 @@ if (isset($_POST['generer'])) {
         $nbSrvPoly[$elem->getId()] = array(0, 0, 0, 0, 0, 0, 0);
         $totSrvPoly[$elem->getId()] = 0;
     }
+
+    if(!empty($listeConges)) {
+        foreach ($listeConges as $elem) {
+            $debut = new DateTime($elem->getDebut());
+            $fin = new DateTime($elem->getFin());
+            $debSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
+            $finSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning.'+6 days')));
+            // echo strtotime($debSemaine->format("Y-m-d")) . ' ' . strtotime($finSemaine->format("Y-m-d")) . '<Br>';
+            for($k = $debut; $k <= $fin; $k->modify('+1 day')){
+                if($k <= $finSemaine && $k >= $debSemaine) {
+                    affecterService($k->format("w"), $elem->getIdEmploye(), $conge);
+                }
+            }
+        }
+    }
+
     // on trouve le premier jour de la semaine et le dernier jour de la semaine
     $jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
     // on boucle sur tous les jours de la semaine

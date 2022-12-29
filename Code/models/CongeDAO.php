@@ -62,4 +62,24 @@ class CongeDAO extends DAO {
         return null;
     }
 
+    public function getListeCongesAcceptesParDate($para) {
+        $result = $this->queryAll('SELECT * FROM CONGE 
+                                    WHERE ID_ETAT = 4 AND 
+                                    (
+                                        (EXTRACT(MONTH FROM DEBUT_CONGE) = ? AND EXTRACT(YEAR FROM DEBUT_CONGE) = ?) 
+                                        OR 
+                                        (EXTRACT(MONTH FROM FIN_CONGE) = ? AND EXTRACT(YEAR FROM FIN_CONGE) = ?)
+                                    )', 
+                                    $para);
+        if ($result) {
+            $listeCongesAcceptes = array();
+            foreach ($result as $elem) {
+                $conge = new Conge($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5]);
+                array_push($listeCongesAcceptes, $conge);
+            }
+            return $listeCongesAcceptes;
+        }
+        return null;
+    }
+
 }

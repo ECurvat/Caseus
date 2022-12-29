@@ -116,6 +116,10 @@
 									$class = 'soir';
 									$icon = '<i class="fa-solid fa-moon"></i>';
 									break;
+								case 'y':
+									$class = 'conges';
+									$icon = '<i class="fa-solid fa-plane-departure"></i>';
+									break;
 								case 'z':
 									$class = 'repos';
 									$icon = '<i class="fa-solid fa-bed"></i>';
