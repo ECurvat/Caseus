@@ -18,22 +18,37 @@ if (isset($_POST['generer'])) {
     // Partie principale : création des emplois du temps
     //                                                      Gestion des employés polyvalents
     $srvPoly = array();
+    $srvAssiMana = array();
     $affectation = array();
 
-    function affecterService($jour, $idEmp, $srv) {    
-        $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+    function affecterService($jour, $idEmp, $srv) {
         $GLOBALS['affectation'][$jour][$idEmp] = $srv;
-        if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
-            $GLOBALS['totSrvPoly'][$idEmp] += 1;
-            if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
-                unset($GLOBALS['srvPoly'][$jour][$key]);
+        if($GLOBALS['employeDAO']->getEmployeParId($idEmp)->getPosition() == 'POLY') {
+            $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+            if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
+                $GLOBALS['totSrvPoly'][$idEmp] += 1;
+                if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
+                    unset($GLOBALS['srvPoly'][$jour][$key]);
+                }
+            }
+        } else {
+            $GLOBALS['nbSrvAssiMana'][$idEmp][$jour] = 1;
+            if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
+                $GLOBALS['totSrvAssiMana'][$idEmp] += 1;
+                if(($key = array_search($srv, $GLOBALS['srvAssiMana'][$jour], TRUE)) !== FALSE) {
+                    unset($GLOBALS['srvAssiMana'][$jour][$key]);
+                }
             }
         }
+        
     }
 
     $listePoly = $employeDAO->getEmployesParRang('POLY');
+    $listeAssiMana = array_merge($employeDAO->getEmployesParRang('ASSI'), $employeDAO->getEmployesParRang('MANA'));
+
     for($i = 0; $i<7; $i++) {
         $srvPoly[$i] = array();
+        $srvAssiMana[$i] = array();
         // on crée un tableau avec les services pour chaque jour de la semaine
         $listeServices = $serviceDAO->getListeServices();
         foreach ($listeServices as $service) {
@@ -42,9 +57,16 @@ if (isset($_POST['generer'])) {
                 for($j = 0; $j<$service->getNombre(); $j++) {
                     array_push($srvPoly[$i], $service);
                 }
+            } else {
+                for($j = 0; $j<$service->getNombre(); $j++) {
+                    array_push($srvAssiMana[$i], $service);
+                }
             }
         }
         foreach ($listePoly as $elem) {
+            $affectation[$i][$elem->getId()] = NULL;
+        }
+        foreach ($listeAssiMana as $elem) {
             $affectation[$i][$elem->getId()] = NULL;
         }
     }
@@ -58,6 +80,7 @@ if (isset($_POST['generer'])) {
         }
     }
 
+    //POLY
     $nbSrvPoly = array();
     $totSrvPoly = array();
     foreach ($listePoly as $elem) {
@@ -65,16 +88,29 @@ if (isset($_POST['generer'])) {
         $totSrvPoly[$elem->getId()] = 0;
     }
 
+    $nbSrvAssiMana = array();
+    $totSrvAssiMana = array();
+    foreach ($listeAssiMana as $elem) {
+        $nbSrvAssiMana[$elem->getId()] = array(0, 0, 0, 0, 0, 0, 0);
+        $totSrvAssiMana[$elem->getId()] = 0;
+    }
+
+    //POLY
     if(!empty($listeConges)) {
         foreach ($listeConges as $elem) {
             $debut = new DateTime($elem->getDebut());
             $fin = new DateTime($elem->getFin());
             $debSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
             $finSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning.'+6 days')));
-            // echo strtotime($debSemaine->format("Y-m-d")) . ' ' . strtotime($finSemaine->format("Y-m-d")) . '<Br>';
+            echo 'id emp : ' . $elem->getIdEmploye() . '<br>';
             for($k = $debut; $k <= $fin; $k->modify('+1 day')){
                 if($k <= $finSemaine && $k >= $debSemaine) {
-                    affecterService($k->format("w"), $elem->getIdEmploye(), $conge);
+                    // -1 car on va de 0 à 6, alors que w va de 1 à 7
+                    
+                    if($k->format("w") == 0)
+                        affecterService(6, $elem->getIdEmploye(), $conge);
+                    else
+                        affecterService($k->format("w") - 1, $elem->getIdEmploye(), $conge);
                 }
             }
         }
@@ -149,6 +185,16 @@ if (isset($_POST['generer'])) {
             
         }
     }
+
+
+    //                                                      Gestion des assistants et managers
+    
+
+    // $srvAssiMana[$i] est initialisé dans la partie polyvalents et contient à chaque num de jour les services à affecter
+    
+    // echo '<pre>';
+    // print_r($srvAssiMana);
+    // echo '</pre>';
 
 }
 
