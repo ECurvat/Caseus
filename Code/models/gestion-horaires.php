@@ -171,7 +171,6 @@ if (isset($_POST['generer'])) {
                     foreach ($srvAssiMana[$i] as $srv) {
                         $ds = date("H:i:s", strtotime($srv->getDebut()));
                         $fs = date("H:i:s", strtotime($srv->getFin()));
-                        echo 'da : ' . $da . ' ds : '.$ds . ' fa '. $fa .' fs : '. $fs . '<br>';
                         if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvAssiMana[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvAssiMana[$abs->getIdEmploye()]) != 5) {
                             affecterService($i, $abs->getIdEmploye(), $srv);
                         }
@@ -181,7 +180,6 @@ if (isset($_POST['generer'])) {
                         
                     } 
                     if ($affectation[$i][$abs->getIdEmploye()] == NULL) {
-                        echo 'oui';
                         affecterService($i, $abs->getIdEmploye(), $repos);
                     }
                 }
@@ -198,8 +196,46 @@ if (isset($_POST['generer'])) {
                 affecterService($i, $key, $srvPoly[$i][array_rand($srvPoly[$i])]);
             }
         }
+        foreach ($totSrvAssiMana as $key => $value) {
+            if($nbSrvAssiMana[$key][$i] == 0 && $totSrvAssiMana[$key] != 5 && !empty($srvAssiMana[$i])) {
+                // on regarde si il reste un d à affecter
+                // echo '<pre>' . var_export($srvAssiMana[$i], true) . '</pre>';
+                foreach ($srvAssiMana[$i] as $srv) {
+                    if ($srv->getId() == 'd') {
+                        affecterService($i, $key, $srv);
+                        break;
+                    } else {
+                        // aucun service d trouvé
+                        if(count($srvAssiMana[$i]) == 2) {
+                            // il reste les deux i : on peut l'affecter sans se poser de question
+                            affecterService($i, $key, $srv);
+                        } else {
+                            // il ne reste qu'un seul i
+                            echo 'un seul i<br>';
+                            // on cherche qui a le premier i affecté
+                            foreach ($listeAssiMana as $assimana) {
+                                if ($affectation[$i][$assimana->getId()] != null && $affectation[$i][$assimana->getId()]->getId() == 'i') {
+                                    echo 'position de celui qui a le premier i : ' . $assimana->getPosition() . '<br>';
+                                    if (($assimana->getPosition() == "MANA" && $assimana->getPosition() == 'ASSI')
+                                    || ($assimana->getPosition() == "ASSI" && $assimana->getPosition() == 'ASSI')
+                                    || ($assimana->getPosition() == "ASSI" && $assimana->getPosition() == 'MANA')) {
+                                        affecterService($i, $key, $srv);
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                // si y a pas de d, on regarde si y a déjà un i qui a été affecté, et si oui à qui
+                // si aucun i n'a été affecté, on l'affecte à l'employé
+                // si un i a été affecté à un mana, et que l'employé actuel est un assi, on lui affecte
+                // si un i a été affecté à un assi, et que l'employé actuel est un mana OU un assi, on lui affecte
+            }
+        }
         // tri pour affecter en priorité les employés qui travaillent peu
         asort($totSrvPoly);
+        asort($totSrvAssiMana);
     }
 
     for ($i=0; $i < 7; $i++) {

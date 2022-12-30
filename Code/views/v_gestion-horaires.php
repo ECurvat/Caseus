@@ -179,7 +179,7 @@
 				<?php 
 				foreach ($listeAssiMana as $emp) {
 					echo '<tr>';
-					echo '<td>' . $emp->getId() . '</td>';
+					echo '<td>' . $emp->getId() . ' ' . $emp->getPosition() . '</td>';
 					for ($i=0; $i < 7; $i++) {
 						if ($affectation[$i][$emp->getId()] != null) {
 							switch($affectation[$i][$emp->getId()]->getId()) {
