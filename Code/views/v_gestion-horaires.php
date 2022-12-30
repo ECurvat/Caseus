@@ -183,16 +183,11 @@
 					for ($i=0; $i < 7; $i++) {
 						if ($affectation[$i][$emp->getId()] != null) {
 							switch($affectation[$i][$emp->getId()]->getId()) {
-								case 'a':
-								case 'b':
-								case 'c':
+								case 'd':
 									$class = 'matin';
 									$icon = '<i class="fa-solid fa-sun"></i>';
 									break;
-								case 'e':
-								case 'f':
-								case 'g':
-								case 'h':
+								case 'i':
 									$class = 'soir';
 									$icon = '<i class="fa-solid fa-moon"></i>';
 									break;

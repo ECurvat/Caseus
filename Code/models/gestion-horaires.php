@@ -15,8 +15,6 @@ $listeConges = $congeDAO->getListeCongesAcceptesParDate(array($mois, $annee, $mo
 
 if (isset($_POST['generer'])) {
     
-    // Partie principale : création des emplois du temps
-    //                                                      Gestion des employés polyvalents
     $srvPoly = array();
     $srvAssiMana = array();
     $affectation = array();
@@ -102,11 +100,8 @@ if (isset($_POST['generer'])) {
             $fin = new DateTime($elem->getFin());
             $debSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
             $finSemaine = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning.'+6 days')));
-            echo 'id emp : ' . $elem->getIdEmploye() . '<br>';
             for($k = $debut; $k <= $fin; $k->modify('+1 day')){
-                if($k <= $finSemaine && $k >= $debSemaine) {
-                    // -1 car on va de 0 à 6, alors que w va de 1 à 7
-                    
+                if($k <= $finSemaine && $k >= $debSemaine) {                    
                     if($k->format("w") == 0)
                         affecterService(6, $elem->getIdEmploye(), $conge);
                     else
@@ -131,6 +126,14 @@ if (isset($_POST['generer'])) {
                 unset($listeAbsPoly[$poly->getId()]);
             }
         }
+        $listeAbsAssiMana = array();
+        foreach ($listeAssiMana as $assiMana) {
+            $listeAbsAssiMana[$assiMana->getId()] = $absenceDAO->getAbsenceParJourEtEmp(array($assiMana->getId(), $dateJourCourant));
+            if($listeAbsAssiMana[$assiMana->getId()] == null) {
+                unset($listeAbsAssiMana[$assiMana->getId()]);
+            }
+        }
+        
 
         if (!empty($listeAbsPoly)) {
             // on traite les absences en priorité, et on regarde si on peut affecter un service avec les conditions de l'absence
@@ -144,20 +147,48 @@ if (isset($_POST['generer'])) {
                         $ds = date("H:i:s", strtotime($srv->getDebut()));
                         $fs = date("H:i:s", strtotime($srv->getFin()));
                         // si l'absence se passe avant le début et la fin du service
-                        if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
+                        if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$abs->getIdEmploye()]) != 5) {
                             affecterService($i, $abs->getIdEmploye(), $srv);
                         }
                         // si l'absence se passe après le début et la fin du service
-                        if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$poly->getId()]) != 5) {
+                        if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvPoly[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvPoly[$abs->getIdEmploye()]) != 5) {
                             affecterService($i, $abs->getIdEmploye(), $srv);
                         }
-                        if ($affectation[$i][$abs->getIdEmploye()] == NULL) {
-                            affecterService($i, $abs->getIdEmploye(), $repos);
-                        }
+                        
                     } 
+                    if ($affectation[$i][$abs->getIdEmploye()] == NULL) {
+                        affecterService($i, $abs->getIdEmploye(), $repos);
+                    }
                 }
             }
         }
+        if (!empty($listeAbsAssiMana)) {
+            
+            foreach($listeAbsAssiMana as $idEmp => $tabAbs) {
+                foreach ($tabAbs as $nbAbs => $abs) {
+                    $da = date("H:i:s", strtotime($abs->getDebut()));
+                    $fa = date("H:i:s", strtotime($abs->getFin()));
+                    foreach ($srvAssiMana[$i] as $srv) {
+                        $ds = date("H:i:s", strtotime($srv->getDebut()));
+                        $fs = date("H:i:s", strtotime($srv->getFin()));
+                        echo 'da : ' . $da . ' ds : '.$ds . ' fa '. $fa .' fs : '. $fs . '<br>';
+                        if (strtotime($da) < strtotime($ds) && strtotime($fa) < strtotime($ds) && $nbSrvAssiMana[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvAssiMana[$abs->getIdEmploye()]) != 5) {
+                            affecterService($i, $abs->getIdEmploye(), $srv);
+                        }
+                        if (strtotime($ds) < strtotime($da) && strtotime($fs) < strtotime($da) && $nbSrvAssiMana[$abs->getIdEmploye()][$i] == 0 && array_sum($nbSrvAssiMana[$abs->getIdEmploye()]) != 5) {
+                            affecterService($i, $abs->getIdEmploye(), $srv);
+                        }
+                        
+                    } 
+                    if ($affectation[$i][$abs->getIdEmploye()] == NULL) {
+                        echo 'oui';
+                        affecterService($i, $abs->getIdEmploye(), $repos);
+                    }
+                }
+            }
+        }
+        // echo '<pre>' . var_export($affectation, true) . '</pre>';
+
         $jourCourant->modify('+1 day');
     }
 
@@ -185,16 +216,6 @@ if (isset($_POST['generer'])) {
             
         }
     }
-
-
-    //                                                      Gestion des assistants et managers
-    
-
-    // $srvAssiMana[$i] est initialisé dans la partie polyvalents et contient à chaque num de jour les services à affecter
-    
-    // echo '<pre>';
-    // print_r($srvAssiMana);
-    // echo '</pre>';
 
 }
 
