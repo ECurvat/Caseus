@@ -243,6 +243,7 @@ if (isset($_POST['generer'])) {
         asort($totSrvAssiMana);
     }
 
+    // heures supplémentaires
     for ($i=0; $i < 7; $i++) {
         if (!empty($srvPoly[$i])) {
             // on parcourt tous les employés et on regarde si ils travaillent
@@ -251,6 +252,41 @@ if (isset($_POST['generer'])) {
                     // on regarde si il est ok pour des heures sup
                     if ($poly->getHeuresSup() == '1') {
                         affecterService($i, $poly->getId(), $srvPoly[$i][array_rand($srvPoly[$i])]);
+                    }
+                }
+            }
+        }
+        if(!empty($srvAssiMana[$i])) {
+            foreach ($listeAssiMana as $assimana) {
+                if ($affectation[$i][$assimana->getId()] == NULL) {
+                    // on regarde si il est ok pour des heures sup
+                    if ($assimana->getHeuresSup() == '1') {
+                        foreach ($srvAssiMana[$i] as $srv) {
+                            if ($srv->getId() == 'd') {
+                                affecterService($i, $assimana->getId(), $srv);
+                                break;
+                            } else {
+                                // aucun service d trouvé
+                                if(count($srvAssiMana[$i]) == 2) {
+                                    // il reste les deux i : on peut l'affecter sans se poser de question
+                                    affecterService($i, $assimana->getId(), $srv);
+                                } else {
+                                    // il ne reste qu'un seul i
+                                    // on cherche qui a le premier i affecté
+                                    foreach ($listeAssiMana as $premier) {
+                                        if ($affectation[$i][$premier->getId()] != null && $affectation[$i][$premier->getId()]->getId() == 'i') {
+                                            if (($premier->getPosition() == "MANA" && $assimana->getPosition() == 'ASSI')
+                                            || ($premier->getPosition() == "ASSI" && $assimana->getPosition() == 'ASSI')
+                                            || ($premier->getPosition() == "ASSI" && $assimana->getPosition() == 'MANA')) {
+                                                affecterService($i, $assimana->getId(), $srv);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
                     }
                 }
             }
