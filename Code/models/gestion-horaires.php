@@ -20,25 +20,26 @@ if (isset($_POST['generer'])) {
     $affectation = array();
 
     function affecterService($jour, $idEmp, $srv) {
-        $GLOBALS['affectation'][$jour][$idEmp] = $srv;
-        if($GLOBALS['employeDAO']->getEmployeParId($idEmp)->getPosition() == 'POLY') {
-            $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
-            if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
-                $GLOBALS['totSrvPoly'][$idEmp] += 1;
-                if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
-                    unset($GLOBALS['srvPoly'][$jour][$key]);
+        if($GLOBALS['affectation'][$jour][$idEmp] == null) {
+            $GLOBALS['affectation'][$jour][$idEmp] = $srv;
+            if($GLOBALS['employeDAO']->getEmployeParId($idEmp)->getPosition() == 'POLY') {
+                $GLOBALS['nbSrvPoly'][$idEmp][$jour] = 1;
+                if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
+                    $GLOBALS['totSrvPoly'][$idEmp] += 1;
+                    if(($key = array_search($srv, $GLOBALS['srvPoly'][$jour], TRUE)) !== FALSE) {
+                        unset($GLOBALS['srvPoly'][$jour][$key]);
+                    }
+                }
+            } else {
+                $GLOBALS['nbSrvAssiMana'][$idEmp][$jour] = 1;
+                if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
+                    $GLOBALS['totSrvAssiMana'][$idEmp] += 1;
+                    if(($key = array_search($srv, $GLOBALS['srvAssiMana'][$jour], TRUE)) !== FALSE) {
+                        unset($GLOBALS['srvAssiMana'][$jour][$key]);
+                    }
                 }
             }
-        } else {
-            $GLOBALS['nbSrvAssiMana'][$idEmp][$jour] = 1;
-            if ($srv != $GLOBALS['repos'] && $srv != $GLOBALS['conge']) {
-                $GLOBALS['totSrvAssiMana'][$idEmp] += 1;
-                if(($key = array_search($srv, $GLOBALS['srvAssiMana'][$jour], TRUE)) !== FALSE) {
-                    unset($GLOBALS['srvAssiMana'][$jour][$key]);
-                }
-            }
-        }
-        
+        }        
     }
 
     $listePoly = $employeDAO->getEmployesParRang('POLY');
@@ -185,7 +186,6 @@ if (isset($_POST['generer'])) {
                 }
             }
         }
-        // echo '<pre>' . var_export($affectation, true) . '</pre>';
 
         $jourCourant->modify('+1 day');
     }
@@ -199,7 +199,6 @@ if (isset($_POST['generer'])) {
         foreach ($totSrvAssiMana as $key => $value) {
             if($nbSrvAssiMana[$key][$i] == 0 && $totSrvAssiMana[$key] != 5 && !empty($srvAssiMana[$i])) {
                 // on regarde si il reste un d à affecter
-                // echo '<pre>' . var_export($srvAssiMana[$i], true) . '</pre>';
                 foreach ($srvAssiMana[$i] as $srv) {
                     if ($srv->getId() == 'd') {
                         affecterService($i, $key, $srv);
@@ -211,16 +210,22 @@ if (isset($_POST['generer'])) {
                             affecterService($i, $key, $srv);
                         } else {
                             // il ne reste qu'un seul i
-                            echo 'un seul i<br>';
                             // on cherche qui a le premier i affecté
                             foreach ($listeAssiMana as $assimana) {
                                 if ($affectation[$i][$assimana->getId()] != null && $affectation[$i][$assimana->getId()]->getId() == 'i') {
-                                    echo 'position de celui qui a le premier i : ' . $assimana->getPosition() . '<br>';
-                                    if (($assimana->getPosition() == "MANA" && $assimana->getPosition() == 'ASSI')
-                                    || ($assimana->getPosition() == "ASSI" && $assimana->getPosition() == 'ASSI')
-                                    || ($assimana->getPosition() == "ASSI" && $assimana->getPosition() == 'MANA')) {
-                                        affecterService($i, $key, $srv);
+                                    foreach ($listeAssiMana as $elem) {
+                                        // il faut parcourir tous les emp parce qu'on ne sait pas la position de l'employé courant
+                                        if ($elem->getId() == $key) {
+                                            if (($assimana->getPosition() == "MANA" && $elem->getPosition() == 'ASSI')
+                                            || ($assimana->getPosition() == "ASSI" && $elem->getPosition() == 'ASSI')
+                                            || ($assimana->getPosition() == "ASSI" && $elem->getPosition() == 'MANA')) {
+                                                affecterService($i, $key, $srv);
+                                                break;
+                                            }
+                                        }
                                     }
+                                    
+                                    
                                 }
                             }
                         }
@@ -240,7 +245,7 @@ if (isset($_POST['generer'])) {
 
     for ($i=0; $i < 7; $i++) {
         if (!empty($srvPoly[$i])) {
-            // on parcourt tous les employés et on regarde si il travaille
+            // on parcourt tous les employés et on regarde si ils travaillent
             foreach ($listePoly as $poly) {
                 if ($affectation[$i][$poly->getId()] == NULL) {
                     // on regarde si il est ok pour des heures sup
@@ -249,7 +254,6 @@ if (isset($_POST['generer'])) {
                     }
                 }
             }
-            
         }
     }
 
