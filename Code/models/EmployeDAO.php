@@ -44,4 +44,9 @@ class EmployeDAO extends DAO {
         return $result;
     }
 
+    public function updateMDP($para){
+        $result = $this->queryRow('UPDATE employe SET mdp=? WHERE id_employe = ?', $para);
+        return $result;
+    }
+
 }
