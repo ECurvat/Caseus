@@ -55,8 +55,13 @@ if(!empty($listeAbsences)) {
     };
     $idEmpTries = array_unique($idEmpTries);
     sort($idEmpTries); // tri par ordre croissant des id trouvés
-} else {
+}
+else if (isset($_POST['rechercher'])){
     $alert = choixAlert('pas_d_absence');
+}
+
+if (isset($_POST['generer']) && isset($planningGenere) && $planningGenere) {
+    $alert = choixAlert('planning_existant');
 }
 
 require_once(PATH_VIEWS.$page.'.php'); 

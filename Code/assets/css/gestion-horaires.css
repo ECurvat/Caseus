@@ -23,3 +23,8 @@ i.danger {
     color: #d9534f;
     background-color: transparent;
 }
+
+.label-checkbox {
+    color: black;
+    font-weight: initial;
+}

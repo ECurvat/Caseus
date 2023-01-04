@@ -44,6 +44,9 @@ function choixAlert($message)
 		case 'deja_echange' :
 			$alert['messageAlert'] = DEJA_ECHANGE;
 			break;
+		case 'planning_existant' :
+			$alert['messageAlert'] = PLANNING_EXISTANT;
+			break;
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
 			break;
