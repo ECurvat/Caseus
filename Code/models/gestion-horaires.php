@@ -323,23 +323,21 @@ if (isset($_POST['generer'])) {
         }
         // création des jours dans les plannings
         
+        if(isset($_POST['ignorer'])) {
+            foreach ($listeEmployes as $elem) {
+                $planningCourant = $planningDAO->getPlanningParEmp(array($elem->getId(), $semainePlanning, $anneePlanning));
+                $jourDAO->removeJoursParPlanning($planningCourant->getIdPlanning());
+            }
+        }
 
         foreach ($affectation as $numJour => $value) {
-            echo "jour : $numJour et value : ";
             foreach($value as $idEmp => $srv) {
-                echo "idEmp : $idEmp et srv : ";
                 if ($srv != null) {
                     $planningCourant = $planningDAO->getPlanningParEmp(array($idEmp, $semainePlanning, $anneePlanning));
-                    if (isset($_POST['ignorer'])) {
-                        $jourDAO->changeService(array($srv->getId(), $numJour, $planningCourant->getIdPlanning()));
-                    } else {
-                        $jourDAO->addJour(array($planningCourant->getIdPlanning(), $numJour, $srv->getId()));
-                    }
-                    
+                    $jourDAO->addJour(array($planningCourant->getIdPlanning(), $numJour, $srv->getId()));
                 }
                 
             }
-            echo '<br>';
         }
         
     }

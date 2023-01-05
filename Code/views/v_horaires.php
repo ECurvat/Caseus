@@ -30,7 +30,7 @@
 			<th></th>
 			<?php
 			foreach($datesSemaine as $dateJour) {
-				echo "<th>".date('l', strtotime($dateJour))[0].' '.date("j/m/y", strtotime($dateJour))."</th>";
+				echo "<th>".date('D', strtotime($dateJour)).' '.date("j/m/y", strtotime($dateJour))."</th>";
 			}
 			?>
 		</tr>
@@ -38,7 +38,7 @@
 	<tbody>
 		<tr>
 			<td>Début :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
+			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
 					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';
@@ -50,7 +50,7 @@
 		</tr>
 		<tr>
 			<td>Fin :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
+			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
 					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';

@@ -50,8 +50,8 @@ class JourDAO extends DAO {
         return $result;
     }
 
-    public function changeService($para) {
-        $result = $this->queryRow("UPDATE JOUR SET ID_SERVICE = ? WHERE N_JOUR = ? AND ID_PLANNING = ?", $para);
+    public function removeJoursParPlanning($id) {
+        $result = $this->queryRow("DELETE FROM JOUR WHERE ID_PLANNING = ?", array($id));
         return $result;
     }
 
