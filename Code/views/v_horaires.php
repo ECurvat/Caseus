@@ -30,7 +30,7 @@
 			<th></th>
 			<?php
 			foreach($datesSemaine as $dateJour) {
-				echo "<th>".date('l', strtotime($dateJour))."<br>".$dateJour."</th>";
+				echo "<th>".date('l', strtotime($dateJour))[0].' '.date("j/m/y", strtotime($dateJour))."</th>";
 			}
 			?>
 		</tr>
