@@ -10,6 +10,8 @@ require_once(PATH_MODELS . 'CongeDAO.php');
 $congeDAO = new CongeDAO(true);
 require_once(PATH_MODELS . 'PlanningDAO.php');
 $planningDAO = new PlanningDAO(true);
+require_once(PATH_MODELS . 'JourDAO.php');
+$jourDAO = new JourDAO(true);
 $listeAbsences = $absenceDAO->getAbsenceParDate($para);
 $listeConges = $congeDAO->getListeCongesAcceptesParDate(array($mois, $annee, $mois, $annee));
 
@@ -319,5 +321,26 @@ if (isset($_POST['generer'])) {
                 }
             }
         }
+        // création des jours dans les plannings
+        
+
+        foreach ($affectation as $numJour => $value) {
+            echo "jour : $numJour et value : ";
+            foreach($value as $idEmp => $srv) {
+                echo "idEmp : $idEmp et srv : ";
+                if ($srv != null) {
+                    $planningCourant = $planningDAO->getPlanningParEmp(array($idEmp, $semainePlanning, $anneePlanning));
+                    if (isset($_POST['ignorer'])) {
+                        $jourDAO->changeService(array($srv->getId(), $numJour, $planningCourant->getIdPlanning()));
+                    } else {
+                        $jourDAO->addJour(array($planningCourant->getIdPlanning(), $numJour, $srv->getId()));
+                    }
+                    
+                }
+                
+            }
+            echo '<br>';
+        }
+        
     }
 }

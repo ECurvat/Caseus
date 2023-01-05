@@ -35,6 +35,11 @@ class JourDAO extends DAO {
         return null;
     }
 
+    public function addJour($para) {
+        $result = $this->queryRow("INSERT INTO JOUR (ID_PLANNING, N_JOUR, ID_SERVICE) VALUES (?, ?, ?)", $para);
+        return $result;
+    }
+
     public function addJourConge($para) {
         $result = $this->queryRow("INSERT INTO JOUR (ID_PLANNING, N_JOUR, ID_SERVICE) VALUES (?, ?, 'y')", $para);
         return $result;
@@ -42,6 +47,11 @@ class JourDAO extends DAO {
 
     public function changeToConge($id) {
         $result = $this->queryRow("UPDATE JOUR SET ID_SERVICE = 'y' WHERE ID_JOUR = ?", array($id));
+        return $result;
+    }
+
+    public function changeService($para) {
+        $result = $this->queryRow("UPDATE JOUR SET ID_SERVICE = ? WHERE N_JOUR = ? AND ID_PLANNING = ?", $para);
         return $result;
     }
 
