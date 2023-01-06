@@ -11,19 +11,19 @@ if (isset($_POST['semaine']) &&
     $ddate = date("Y-m-d");
     $duedt = explode ("-", $ddate);
     $date = mktime (0, 0, 0, $duedt[1], $duedt[2], $duedt[0]);
-    $semaine = (int) date('W', $date);
+    $semaine = date('W', $date);
     $annee = date("Y");
 }
 
 //On trouve le premier jour de la semaine choisie
-$date = new DateTime(date('Y-m-d',strtotime($annee.'W'.$semaine)));
+$jourCourant = new DateTime(date('Y-m-d',strtotime($annee.'W'.$semaine)));
 
 //On met les dates de la semaine choisie dans un tableau
 $datesSemaine = array();
 
 for($i = 0; $i<7; $i++) {
-    array_push($datesSemaine, $date->format('d-m-Y'));
-    $date->modify('+1 day');
+    array_push($datesSemaine, $jourCourant->format('d-m-Y'));
+    $jourCourant->modify('+1 day');
 }
 
 require_once(PATH_MODELS.$page.'.php'); 

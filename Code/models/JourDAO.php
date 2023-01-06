@@ -8,8 +8,8 @@ class JourDAO extends DAO {
         if ($result) {
             $listeJours = array();
             foreach ($result as $elem) {
-                $jour = new Jour($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5], $elem[6], $elem[7]);
-                $listeJours[$elem[3]] = $jour;
+                $jour = new Jour($elem[0], $elem[1], $elem[2], $elem[3]);
+                $listeJours[$elem[2]] = $jour;
             }
             return $listeJours;
         }
@@ -20,7 +20,7 @@ class JourDAO extends DAO {
         $result = $this->queryAll('SELECT * FROM JOUR WHERE ID_PLANNING = ? AND N_JOUR = ?', $para);
         if ($result) {
             $result = $result[0];
-            $jour = new Jour($result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]);
+            $jour = new Jour($result[0], $result[1], $result[2], $result[3]);
             return $jour;
         }
         return null;
@@ -29,46 +29,54 @@ class JourDAO extends DAO {
     public function getJourParId($idJour) {
         $result = $this->queryRow('SELECT * FROM JOUR WHERE ID_JOUR = ?', array($idJour));
         if ($result) {
-            $jour = new Jour($result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]);
+            $jour = new Jour($result[0], $result[1], $result[2], $result[3]);
             return $jour;
         }
         return null;
     }
 
+    public function addJour($para) {
+        $result = $this->queryRow("INSERT INTO JOUR (ID_PLANNING, N_JOUR, ID_SERVICE) VALUES (?, ?, ?)", $para);
+        return $result;
+    }
+
     public function addJourConge($para) {
-        $result = $this->queryRow('INSERT INTO JOUR (ID_PLANNING, N_JOUR, CONGE) VALUES (?, ?, 1)', $para);
+        $result = $this->queryRow("INSERT INTO JOUR (ID_PLANNING, N_JOUR, ID_SERVICE) VALUES (?, ?, 'y')", $para);
         return $result;
     }
 
     public function changeToConge($id) {
-        $result = $this->queryRow('UPDATE JOUR SET CONGE = 1, RETARD = NULL, DEBUT_JOURNEE = NULL, FIN_JOURNEE = NULL WHERE ID_JOUR = ?', array($id));
+        $result = $this->queryRow("UPDATE JOUR SET ID_SERVICE = 'y' WHERE ID_JOUR = ?", array($id));
+        return $result;
+    }
+
+    public function removeJoursParPlanning($id) {
+        $result = $this->queryRow("DELETE FROM JOUR WHERE ID_PLANNING = ?", array($id));
         return $result;
     }
 
     public function echangerJours($idJour1, $idJour2) {
-        // on met le jour 1 dans une variable
+        // on met les 2 jours dans 2 variables
         $result1 = $this->queryRow('SELECT * FROM JOUR WHERE ID_JOUR = ?', array($idJour1));
+        $result2 = $this->queryRow('SELECT * FROM JOUR WHERE ID_JOUR = ?', array($idJour2));
         if ($result1) {
-            $jour1 = new Jour($result1[0], $result1[1], $result1[2], $result1[3], $result1[4], $result1[5], $result1[6], $result1[7]);
-            // on change début et fin du jour 1 en début et fin du jour 2
-            $result2 = $this->queryRow('UPDATE JOUR 
-                                        SET DEBUT_JOURNEE = (SELECT * FROM (SELECT DEBUT_JOURNEE FROM JOUR WHERE ID_JOUR = ?)tblTmp1), 
-                                        FIN_JOURNEE = (SELECT * FROM (SELECT FIN_JOURNEE FROM JOUR WHERE ID_JOUR = ?)tblTmp2) 
-                                        WHERE ID_JOUR = ?', 
-                                        array(
-                                            $idJour2, 
-                                            $idJour2, 
-                                            $idJour1));
-            // on change debut et fin du jour 2 en debut et fin de $jour1
+            $jour1 = new Jour($result1[0], $result1[1], $result1[2], $result1[3]);
+            $jour2 = new Jour($result2[0], $result2[1], $result2[2], $result2[3]);
+            // on change id_service du jour 1 en id_service du jour 2
             $result3 = $this->queryRow('UPDATE JOUR 
-                                        SET DEBUT_JOURNEE = ?, FIN_JOURNEE = ?
+                                        SET ID_SERVICE = ?
                                         WHERE ID_JOUR = ?', 
                                         array(
-                                            (string)date("H:i:s", strtotime($jour1->getDebutJournee())), 
-                                            (string)date("H:i:s", strtotime($jour1->getFinJournee())), 
-                                            $idJour2
-                                        ));
-            return $result2 && $result3;
+                                            $jour2->getIdService(), 
+                                            $idJour1));
+            // on change id_service du jour 2 en id_service du jour 1
+            $result4 = $this->queryRow('UPDATE JOUR 
+                                        SET ID_SERVICE = ?
+                                        WHERE ID_JOUR = ?', 
+                                        array(
+                                            $jour1->getIdService(), 
+                                            $idJour2));
+            return $result3 && $result4;
         }        
         return null;
     }

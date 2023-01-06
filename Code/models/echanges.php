@@ -7,6 +7,14 @@ require_once(PATH_MODELS . 'EchangeDAO.php');
 $echangeDAO = new EchangeDAO(true);
 require_once(PATH_MODELS . 'EtatDAO.php');
 $etatDAO = new EtatDAO(true);
+require_once(PATH_MODELS . 'ServiceDAO.php');
+$serviceDAO = new ServiceDAO(true);
+
+$listeServices = $serviceDAO->getListeServices();
+$listeServicesIndex = array();
+foreach ($listeServices as $elem) {
+    $listeServicesIndex[$elem->getId()] = $elem;
+}
 
 if (isset($_POST['choixJour'])) {
     // on vérifie que l'émetteur a un planning et jour de travail pour le jour précisé
@@ -19,7 +27,7 @@ if (isset($_POST['choixJour'])) {
         if (!$jourEmetteur) {
             $alert = choixAlert('pas_de_jour');
         } else {
-            if ($jourEmetteur->getConge() == 1) {
+            if ($jourEmetteur->getIdService() == 'y') {
                 $alert = choixAlert('conge_trouve');
             } else {
                 // tout est ok : on cherche les gens qui travaillent (pas congé) pour le jour sélectionné
@@ -37,7 +45,7 @@ if (isset($_POST['choixJour'])) {
                         // sélectionner les jours correspondant aux plannings 
                         foreach ($planningsAutres as $elem) {
                             $jourCourant = $jourDAO->getJourParPlanningEtNumero(array($elem->getIdPlanning(), date("N", strtotime($_POST['choixJour']))));
-                            if ($jourCourant != null && $jourCourant->getConge() == 0) {
+                            if ($jourCourant != null && $jourCourant->getIdService() != 'y') {
                                 array_push($joursEchangeables, $jourCourant);
                             }
                         }
@@ -112,8 +120,8 @@ if (!is_null($listeEnvois)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('Y-m-d'),
-            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
-            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
+            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdService()),
+            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep())->getIdService()),
             $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
             $listeEnvois[$i]->getIdEchange()
         ));
@@ -135,8 +143,8 @@ if (!is_null($listeRecus)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
             $jour->format('Y-m-d'),
-            $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
-            $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
+            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep())->getIdService()),
+            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getIdService()),
             $listeRecus[$i]->getIdEchange()
         ));
     }

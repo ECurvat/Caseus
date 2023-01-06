@@ -1,0 +1,30 @@
+.matin {
+    color: #3498DB;
+}
+
+.soir {
+    color: #9B59B6;
+}
+
+.repos {
+    color: #E74C3C;
+}
+
+.conges {
+    color: #27AE60;
+}
+
+i.success {
+    color: #5cb85c;
+    background-color: transparent;
+}
+
+i.danger {
+    color: #d9534f;
+    background-color: transparent;
+}
+
+.label-checkbox {
+    color: black;
+    font-weight: initial;
+}

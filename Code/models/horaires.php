@@ -15,3 +15,12 @@ if (!is_null($planning)) {
 } else {
     $alert = choixAlert('pas_de_planning');
 }
+
+require_once(PATH_MODELS . 'ServiceDAO.php');
+$serviceDAO = new ServiceDAO(true);
+
+$listeServices = $serviceDAO->getListeServices();
+$listeServicesIndex = array();
+foreach ($listeServices as $elem) {
+    $listeServicesIndex[$elem->getId()] = $elem;
+}

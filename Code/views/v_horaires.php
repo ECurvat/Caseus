@@ -30,7 +30,7 @@
 			<th></th>
 			<?php
 			foreach($datesSemaine as $dateJour) {
-				echo "<th>".date('l', strtotime($dateJour))."<br>".$dateJour."</th>";
+				echo "<th>".date('D', strtotime($dateJour)).' '.date("j/m/y", strtotime($dateJour))."</th>";
 			}
 			?>
 		</tr>
@@ -38,24 +38,24 @@
 	<tbody>
 		<tr>
 			<td>Début :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
+			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getConge() == 1) {
+					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';
 					} else {
-						echo '<td>'.$listeJours[$i]->getDebutJournee().'</td>';
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getDebut().'</td>';
 					}
 				} else echo '<td></td>';
 			}?>
 		</tr>
 		<tr>
 			<td>Fin :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
+			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getConge() == 1) {
+					if($listeJours[$i]->getIdService() == 'y') {
 						echo '<td>CONGÉ</td>';
 					} else {
-						echo '<td>'.$listeJours[$i]->getFinJournee().'</td>';
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getFin().'</td>';
 					}
 				} else echo '<td></td>';
 			}?>
