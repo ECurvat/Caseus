@@ -139,7 +139,9 @@
             <input class="button-danger u-full-width" type="submit" value="Supprimer" name="supprimerValider">
         </form>
     </div>
-<?php }?>
+<?php } elseif (isset($_POST['newMDP']))?>
+    <p>Le nouveau mot de passe est : <?php echo $newMDP?></p>
+
 <!--  Fin de la page -->
 
 <!--  Pied de page -->

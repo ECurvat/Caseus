@@ -21,12 +21,14 @@
 		<?php
 			if ($page != 'login') {
 				//Menu
+				echo '<div id="navbar-button"><i class="fa-solid fa-bars"></i><h2>Menu</h2></div>';
 				echo '<div class="container">';
 				echo '<div class="row mainscreen">';
 				echo '<div class="three columns" id="sidebar">';
 				include(PATH_VIEWS.'menu.php');
 				echo '</div>';
 				echo '<div class="nine columns" id="main">';
+
 			}
 		?>
 		<!-- Vue -->
