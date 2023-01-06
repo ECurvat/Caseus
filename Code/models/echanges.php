@@ -131,8 +131,8 @@ if (!is_null($listeEnvois)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('Y-m-d'),
-            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
-            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
+            $listeServicesIndex[$jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdService()],
+            $listeServicesIndex[$jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep())->getIdService()],
             $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
             $listeEnvois[$i]->getIdEchange()
         ));
