@@ -9,6 +9,8 @@ require_once(PATH_MODELS . 'EtatDAO.php');
 $etatDAO = new EtatDAO(true);
 require_once(PATH_MODELS . 'ServiceDAO.php');
 $serviceDAO = new ServiceDAO(true);
+require_once(PATH_MODELS . 'EmployeDAO.php');
+$employeDAO = new EmployeDAO(true);
 
 $listeServices = $serviceDAO->getListeServices();
 $listeServicesIndex = array();
@@ -35,9 +37,18 @@ if (isset($_POST['choixJour'])) {
                 $planningsAutres = $planningDAO->getPlanningsTousEmps(array($semaine, $annee));
                 if (!empty($planningsAutres)) {
                     // on retire le planning de l'employé qui cherche à échanger
-                    for ($i = 0; $i < sizeof($planningsAutres); $i++) {
-                        if ($planningsAutres[$i]->getIdEmploye() == $_SESSION['compte']->getId()) {
-                            array_splice($planningsAutres, $i, 1);
+                    // on enlève aussi les employés qui ont une position différente de celle de l'employé qui cherche à échanger
+                    foreach ($planningsAutres as $key => $planning) {
+                        if ($planning->getIdEmploye() == $_SESSION['compte']->getId()) {
+                            unset($planningsAutres[$key]);
+                        } else if ((($employeDAO->getEmployeParId($planning->getIdEmploye()))->getPosition() == 'MANA') && ($_SESSION['compte']->getPosition() == 'POLY')) {
+                            unset($planningsAutres[$key]);
+                        } else if ((($employeDAO->getEmployeParId($planning->getIdEmploye()))->getPosition() == 'ASSI' && ($_SESSION['compte']->getPosition() == 'POLY'))) {
+                            unset($planningsAutres[$key]);
+                        } else if ((($employeDAO->getEmployeParId($planning->getIdEmploye()))->getPosition() == 'POLY') && ($_SESSION['compte']->getPosition() == 'ASSI')) {
+                            unset($planningsAutres[$key]);
+                        } else if ((($employeDAO->getEmployeParId($planning->getIdEmploye()))->getPosition() == 'POLY') && ($_SESSION['compte']->getPosition() == 'MANA')) {
+                            unset($planningsAutres[$key]);
                         }
                     }
                     if (!empty($planningsAutres)) {
@@ -120,8 +131,8 @@ if (!is_null($listeEnvois)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('Y-m-d'),
-            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdService()),
-            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep())->getIdService()),
+            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet()),
+            $jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep()),
             $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
             $listeEnvois[$i]->getIdEchange()
         ));
@@ -143,9 +154,10 @@ if (!is_null($listeRecus)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
             $jour->format('Y-m-d'),
-            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep())->getIdService()),
-            $serviceDAO->getServiceParId($jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getIdService()),
+            $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
+            $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
             $listeRecus[$i]->getIdEchange()
         ));
     }
 }
+
