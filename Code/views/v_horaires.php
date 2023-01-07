@@ -10,20 +10,23 @@
 
 <div class="row">
 	<form method="post">
-		<div class="four columns">
-			<label for="semaine">Semaine</label>
-			<input class="u-full-width" type="text" value="<?php echo $semaine ?>" id="semaine" name="semaine">
+		<div class="one column">
+			<button class="button-success"><i class="fa-solid fa-arrow-left"></i></button>
 		</div>
-		<div class="four columns">
-			<label for="annee">Année</label>
-			<input class="u-full-width" type="text" value="<?php echo $annee ?>" id="annee" name="annee">
+		<div class="five columns">
+			<label for="date">Date</label>
+			<input class="u-full-width" type="date" value="<?php echo $ajd ?>" id="date" name="date">
 		</div>
-		<div class="four columns">
+		<div class="five columns">
 			<input class="button-primary u-full-width" type="submit" value="Valider">
+		</div>
+		<div class="one column">
+			<button class="button-success"><i class="fa-solid fa-arrow-right"></i></button>
 		</div>
 	</form>
 </div>
 <?php if (!isset($alert)) {?>
+<h2>Semaine n° <?php echo $semaine ?></h2>
 <table class="u-full-width">
 	<thead>
 		<tr>
@@ -37,25 +40,48 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>Début :</td>
+			<td>Service :</td>
 			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getIdService() == 'y') {
-						echo '<td>CONGÉ</td>';
-					} else {
-						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getDebut().'</td>';
+					switch($listeJours[$i]->getIdService()) {
+						case 'a':
+						case 'b':
+						case 'c':
+						case 'd':
+							$class = 'matin';
+							$icon = '<i class="fa-solid fa-sun"></i>';
+							break;
+						case 'e':
+						case 'f':
+						case 'g':
+						case 'h':
+						case 'i':
+							$class = 'soir';
+							$icon = '<i class="fa-solid fa-moon"></i>';
+							break;
+						case 'y':
+							$class = 'conges';
+							$icon = '<i class="fa-solid fa-plane"></i>';
+							break;
+						case 'z':
+							$class = 'repos';
+							$icon = '<i class="fa-solid fa-bed"></i>';
+							break;
+						default:
+							break;
 					}
+					echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($listeServicesIndex[$listeJours[$i]->getIdService()]->getId()) . '</td>';
 				} else echo '<td></td>';
 			}?>
 		</tr>
 		<tr>
-			<td>Fin :</td>
+			<td>Horaires :</td>
 			<?php for ($i=0; $i < 7; $i++) { 
 				if (isset($listeJours[$i])) {
-					if($listeJours[$i]->getIdService() == 'y') {
-						echo '<td>CONGÉ</td>';
+					if(($listeJours[$i]->getIdService() == 'y') || ($listeJours[$i]->getIdService() == 'z')) {
+						echo '<td></td>';
 					} else {
-						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getFin().'</td>';
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getDebut().'<br>' . $listeServicesIndex[$listeJours[$i]->getIdService()]->getFin() . '</td>';
 					}
 				} else echo '<td></td>';
 			}?>

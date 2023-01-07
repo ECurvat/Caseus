@@ -1,19 +1,14 @@
 <?php
-if (isset($_POST['semaine']) && 
-    is_numeric($_POST['semaine']) && 
-    isset($_POST['annee']) && 
-    is_numeric($_POST['annee'])) {
-    //Semaine choisie par l'utilisateur
-    $semaine = htmlspecialchars($_POST['semaine']);
-    $annee = htmlspecialchars($_POST['annee']);
+if (isset($_POST['date'])) {
+    //Date choisie par l'utilisateur
+    $ajd = htmlspecialchars($_POST['date']);
 } else {
     //Semaine choisie automatiquement en fonction du jour
-    $ddate = date("Y-m-d");
-    $duedt = explode ("-", $ddate);
-    $date = mktime (0, 0, 0, $duedt[1], $duedt[2], $duedt[0]);
-    $semaine = date('W', $date);
-    $annee = date("Y");
+    $ajd = date('Y-m-d');
 }
+
+$semaine = date('W', strtotime($ajd));
+$annee = date('Y', strtotime($ajd));
 
 //On trouve le premier jour de la semaine choisie
 $jourCourant = new DateTime(date('Y-m-d',strtotime($annee.'W'.$semaine)));
