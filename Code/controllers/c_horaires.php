@@ -1,4 +1,11 @@
 <?php
+$days = '+0';
+if(isset($_POST['previous'])) {
+    $days = '-7';
+}
+if (isset($_POST['next'])) {
+    $days = '+7';
+}
 if (isset($_POST['date'])) {
     //Date choisie par l'utilisateur
     $ajd = htmlspecialchars($_POST['date']);
@@ -6,6 +13,8 @@ if (isset($_POST['date'])) {
     //Semaine choisie automatiquement en fonction du jour
     $ajd = date('Y-m-d');
 }
+echo $days;
+$ajd = date('Y-m-d', strtotime($ajd. ' '.$days.' days'));
 
 $semaine = date('W', strtotime($ajd));
 $annee = date('Y', strtotime($ajd));

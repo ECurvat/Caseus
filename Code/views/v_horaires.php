@@ -11,7 +11,7 @@
 <div class="row">
 	<form method="post">
 		<div class="one column">
-			<button class="button-success"><i class="fa-solid fa-arrow-left"></i></button>
+			<input class="button-success" type="submit" value="&#8592" name="previous">
 		</div>
 		<div class="five columns">
 			<label for="date">Date</label>
@@ -21,7 +21,7 @@
 			<input class="button-primary u-full-width" type="submit" value="Valider">
 		</div>
 		<div class="one column">
-			<button class="button-success"><i class="fa-solid fa-arrow-right"></i></button>
+		<input class="button-success" type="submit" value="&#8594" name="next">
 		</div>
 	</form>
 </div>
