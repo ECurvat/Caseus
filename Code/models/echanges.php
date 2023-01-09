@@ -25,7 +25,9 @@ if (isset($_POST['choixJour'])) {
         $alert = choixAlert('pas_de_planning');
     } else {
         // on tente de récupérer le jour 
-        $jourEmetteur = $jourDAO->getJourParPlanningEtNumero(array($planningEmetteur->getIdPlanning(), date("N", strtotime($_POST['choixJour']))));
+        if (date("N", strtotime($_POST['choixJour'])) > 0) $numJour = date("N", strtotime($_POST['choixJour'])) - 1;
+        else $numJour = 7;
+        $jourEmetteur = $jourDAO->getJourParPlanningEtNumero(array($planningEmetteur->getIdPlanning(), $numJour));
         if (!$jourEmetteur) {
             $alert = choixAlert('pas_de_jour');
         } else {
@@ -55,7 +57,7 @@ if (isset($_POST['choixJour'])) {
                         $joursEchangeables = array();
                         // sélectionner les jours correspondant aux plannings 
                         foreach ($planningsAutres as $elem) {
-                            $jourCourant = $jourDAO->getJourParPlanningEtNumero(array($elem->getIdPlanning(), date("N", strtotime($_POST['choixJour']))));
+                            $jourCourant = $jourDAO->getJourParPlanningEtNumero(array($elem->getIdPlanning(), $numJour));
                             if ($jourCourant != null && $jourCourant->getIdService() != 'y') {
                                 array_push($joursEchangeables, $jourCourant);
                             }

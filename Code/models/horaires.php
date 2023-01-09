@@ -1,6 +1,8 @@
 <?php
 require_once(PATH_MODELS.'EtatDAO.php');
 $etatDAO = new EtatDAO(true);
+require_once(PATH_MODELS.'ServiceDAO.php');
+$serviceDAO = new ServiceDAO(true);
 $listeEtats = $etatDAO->getListeEtats();
 
 $para = array($_SESSION['compte']->getId(), $semaine, $annee);
@@ -15,9 +17,6 @@ if (!is_null($planning)) {
 } else {
     $alert = choixAlert('pas_de_planning');
 }
-
-require_once(PATH_MODELS . 'ServiceDAO.php');
-$serviceDAO = new ServiceDAO(true);
 
 $listeServices = $serviceDAO->getListeServices();
 $listeServicesIndex = array();

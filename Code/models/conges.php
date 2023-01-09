@@ -18,11 +18,12 @@ if (isset($_POST['ajoutValider'])) {
         $alert = choixAlert('contraintes');
     } 
 }
-
-foreach ($listeConges as $elem) {
-    if(isset($_POST['del'.$elem->getIdDemande()])) { // sorte d'écouteur sur les boutons de suppression
-        $congeDAO->removeConge($elem->getIdDemande());
-        $alert = choixAlert('succes_operation');
-        $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche); // on actualise la liste des demandes
+if (!empty($listeConges)) {
+    foreach ($listeConges as $elem) {
+        if(isset($_POST['del'.$elem->getIdDemande()])) { // sorte d'écouteur sur les boutons de suppression
+            $congeDAO->removeConge($elem->getIdDemande());
+            $alert = choixAlert('succes_operation');
+            $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche); // on actualise la liste des demandes
+        }
     }
 }
