@@ -8,13 +8,53 @@
 
 <!--  Début de la page -->
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, dicta soluta totam optio, repudiandae aliquid voluptates quas earum aspernatur deserunt obcaecati debitis tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
+<h1><?php
+if($_SESSION['compte']->getPosition() == 'MANA') {
+        $position = 'Manager';
+    } else if($_SESSION['compte']->getPosition() == 'ASSI') {
+        $position = 'Assistant Manager';
+    } else {
+        $position = 'Employé Polyvalent';
+    }
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae dolores excepturi, cupiditate fugiat dolorum doloremque accusantium. Qui quos, quasi consectetur saepe ullam porro autem velit vero dolor asperiores optio necessitatibus tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
+    echo $_SESSION['compte']->getNom() . " " . $_SESSION['compte']->getPrenom() . " - " . $position;
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, dicta soluta totam optio, repudiandae aliquid voluptates quas earum aspernatur deserunt obcaecati debitis tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae dolores excepturi, cupiditate fugiat dolorum doloremque accusantium. Qui quos, quasi consectetur saepe ullam porro tempora quo incidunt nostrum hic beatae necessitatibus asperiores tempora quo incidunt nostrum hic beatae necessitatibus asperiores autem velit vero dolor asperiores optio necessitatibus.</p>
+?></h1>
+
+<?php 
+
+if (!isset($alert)) {?>
+<table class="u-full-width">
+	<h3>Votre emploie du temps de la journée - <?php echo date('l', strtotime($ddate)); ?></h3>
+	<tbody>
+		<tr>
+			<td>Début :</td>
+			<?php
+				if (isset($jour)) {
+					if($jour->getConge() == 1) {
+						echo '<td>CONGÉ</td>';
+					} else {
+						echo '<td>'.$jour->getDebutJournee().'</td>';
+					}
+				} else echo '<td></td>';
+			?>
+		</tr>
+		<tr>
+			<td>Fin :</td>
+			<?php
+				if (isset($jour)) {
+					if($jour->getConge() == 1) {
+						echo '<td>CONGÉ</td>';
+					} else {
+						echo '<td>'.$jour->getFinJournee().'</td>';
+					}
+				} else echo '<td></td>';
+			?>
+		</tr>
+	</tbody>
+</table>
+<?php }?>
 
 <a href="index.php?page=logout"><button>Se déconnecter</button></a>
 
