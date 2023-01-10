@@ -13,7 +13,6 @@ if (isset($_POST['date'])) {
     //Semaine choisie automatiquement en fonction du jour
     $ajd = date('Y-m-d');
 }
-echo $days;
 $ajd = date('Y-m-d', strtotime($ajd. ' '.$days.' days'));
 
 $semaine = date('W', strtotime($ajd));
