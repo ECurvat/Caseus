@@ -9,6 +9,7 @@
 		<link href="<?= PATH_CSS ?>normalize.css" rel="stylesheet"> 
 		<link href="<?= PATH_CSS ?>skeleton.css" rel="stylesheet">
 		<link href="<?= PATH_CSS ?><?= $page ?>.css" rel="stylesheet">
+		<script src="<?= PATH_SCRIPTS?>"></script>
 		
 		<script src="https://kit.fontawesome.com/c133ee1e05.js" crossorigin="anonymous"></script>
 		<?php
