@@ -19,7 +19,7 @@ if (!isset($alert)) {?>
 			<h4>Journée de travail</h4>
 			<div>
 				<p><strong><?php echo jourFrancais(date("N"), false) . " " . date("d") . " " . moisFrancais(date("m")) . " " . date("Y") ?></strong></p>
-				<?php if ($jour->getIdService() != 'y' && $jour->getIdService() != 'z') { ?>
+				<?php if ($jour != null && $jour->getIdService() != 'y' && $jour->getIdService() != 'z') { ?>
 					<p>Prise de service <?php echo $listeServicesIndex[$jour->getIdService()]->getDebut() ?></p>
 					<p>Fin de service <?php echo $listeServicesIndex[$jour->getIdService()]->getFin() ?></p>
 				<?php } else { ?>
