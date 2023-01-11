@@ -82,4 +82,18 @@ class CongeDAO extends DAO {
         return null;
     }
 
+    public function getCongesFuturs() {
+        $result = $this->queryAll('SELECT * FROM CONGE 
+                                    WHERE ID_ETAT = 4 AND FIN_CONGE >= CURRENT_TIMESTAMP');
+        if ($result) {
+            $listeCongesFuturs = array();
+            foreach ($result as $elem) {
+                $conge = new Conge($elem[0], $elem[1], $elem[2], $elem[3], $elem[4], $elem[5]);
+                array_push($listeCongesFuturs, $conge);
+            }
+            return $listeCongesFuturs;
+        }
+        return null;
+    }
+
 }

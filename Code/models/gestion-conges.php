@@ -60,19 +60,23 @@ if (isset($_POST['accepter'])) {
 }
 
 $listeCongesEnAttente = $congeDAO->getCongeEnAttente();
+require_once(PATH_MODELS.'EmployeDAO.php');
+$employeDAO = new EmployeDAO(true);
+
+$listeEmployes = $employeDAO->getListeEmployes();
+$listeEmployesIndex = array();
+
+foreach ($listeEmployes as $emp) {
+    $listeEmployesIndex[$emp->getId()] = $emp;
+}
 
 if (!empty($listeCongesEnAttente)) {
     $idEmps = array();
     foreach ($listeCongesEnAttente as $elem) {
         array_push($idEmps, $elem->getIdEmploye());
     }
-
-    require_once(PATH_MODELS.'EmployeDAO.php');
-    $employeDAO = new EmployeDAO(true);
-    $listeEmployes = array();
-    foreach ($idEmps as $elem) {
-        $listeEmployes[$elem] = $employeDAO->getEmployeParId($elem);
-    }
 } else {
     $alert = choixAlert('pas_de_demande');
 }
+
+$listeCongesFuturs = $congeDAO->getCongesFuturs();
