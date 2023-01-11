@@ -8,54 +8,32 @@
 
 <!--  Début de la page -->
 
-<h1><?php
-if($_SESSION['compte']->getPosition() == 'MANA') {
-        $position = 'Manager';
-    } else if($_SESSION['compte']->getPosition() == 'ASSI') {
-        $position = 'Assistant Manager';
-    } else {
-        $position = 'Employé Polyvalent';
-    }
-
-    echo $_SESSION['compte']->getNom() . " " . $_SESSION['compte']->getPrenom() . " - " . $position;
-
-
-?></h1>
+<h2><?php echo $_SESSION['compte']->getNom() . " " . $_SESSION['compte']->getPrenom() . " - " . $position;?></h2>
 
 <?php 
 
 if (!isset($alert)) {?>
-<table class="u-full-width">
-	<h3>Votre emploie du temps de la journée - <?php echo date('l', strtotime($ddate)); ?></h3>
-	<tbody>
-		<tr>
-			<td>Début :</td>
-			<?php
-				if (isset($jour)) {
-					if($jour->getConge() == 1) {
-						echo '<td>CONGÉ</td>';
-					} else {
-						echo '<td>'.$jour->getDebutJournee().'</td>';
-					}
-				} else echo '<td></td>';
-			?>
-		</tr>
-		<tr>
-			<td>Fin :</td>
-			<?php
-				if (isset($jour)) {
-					if($jour->getConge() == 1) {
-						echo '<td>CONGÉ</td>';
-					} else {
-						echo '<td>'.$jour->getFinJournee().'</td>';
-					}
-				} else echo '<td></td>';
-			?>
-		</tr>
-	</tbody>
-</table>
-<?php }?>
+<div class="row">
+	<div class="six columns">
+		<div class="item">
+			<h4>Journée de travail</h4>
+			<div>
+				<p><strong><?php echo jourFrancais(date("N"), false) . " " . date("d") . " " . moisFrancais(date("m")) . " " . date("Y") ?></strong></p>
+				<?php if ($jour->getIdService() != 'y' && $jour->getIdService() != 'z') { ?>
+					<p>Prise de service <?php echo $listeServicesIndex[$jour->getIdService()]->getDebut() ?></p>
+					<p>Fin de service <?php echo $listeServicesIndex[$jour->getIdService()]->getFin() ?></p>
+				<?php } else { ?>
+					<p>Pas de service</p>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
+	<div class="six columns">
 
+	</div>
+</div>
+<?php }?>
+<br>
 <a href="index.php?page=logout"><button>Se déconnecter</button></a>
 
 <!--  Fin de la page -->

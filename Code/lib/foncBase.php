@@ -64,3 +64,78 @@ function choixAlert($message)
 	}
 	return $alert;
 }
+
+function jourFrancais($numero, $abrege) {
+	switch($numero) {
+		case 1 :
+			$jour = 'Lundi';
+			break;
+		case 2 :
+			$jour = 'Mardi';
+			break;
+		case 3 :
+			$jour = 'Mercredi';
+			break;
+		case 4 :
+			$jour = 'Jeudi';
+			break;
+		case 5 :
+			$jour = 'Vendredi';
+			break;
+		case 6 :
+			$jour = 'Samedi';
+			break;
+		case 7 :
+			$jour = 'Dimanche';
+			break;
+		default :
+			break;
+	}
+	if ($abrege == true) {
+		$jour = substr($jour, 0, 3);
+	}
+	return $jour;
+}
+
+function moisFrancais($numero) {
+	switch($numero) {
+		case 1 :
+			return 'janvier';
+			break;
+		case 2 :
+			return 'février';
+			break;
+		case 3 :
+			return 'mars';
+			break;
+		case 4 :
+			return 'avril';
+			break;
+		case 5 :
+			return 'mai';
+			break;
+		case 6 :
+			return 'juin';
+			break;
+		case 7 :
+			return 'juillet';
+			break;
+		case 8 :
+			return 'août';
+			break;
+		case 9 :
+			return 'septembre';
+			break;
+		case 10 :
+			return 'octobre';
+			break;
+		case 11 :
+			return 'novembre';
+			break;
+		case 12 :
+			return 'décembre';
+			break;
+		default :
+			break;
+	}
+}

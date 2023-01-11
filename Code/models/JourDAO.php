@@ -17,9 +17,8 @@ class JourDAO extends DAO {
     }
 
     public function getJourParPlanningEtNumero($para) {
-        $result = $this->queryAll('SELECT * FROM JOUR WHERE ID_PLANNING = ? AND N_JOUR = ?', $para);
+        $result = $this->queryRow('SELECT * FROM JOUR WHERE ID_PLANNING = ? AND N_JOUR = ?', $para);
         if ($result) {
-            $result = $result[0];
             $jour = new Jour($result[0], $result[1], $result[2], $result[3]);
             return $jour;
         }

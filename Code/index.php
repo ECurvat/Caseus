@@ -40,6 +40,8 @@ require_once(PATH_ENTITY.'Produit.php');
 require_once(PATH_ENTITY.'Conge.php');
 require_once(PATH_ENTITY.'Echange.php');
 require_once(PATH_ENTITY.'Service.php');
+setlocale(LC_TIME, "fr_FR");
+
 session_start();
 if (!isset($_SESSION['logged']) || ($_SESSION['logged'] == false)) {
   $page = 'login';
