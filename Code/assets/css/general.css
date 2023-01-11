@@ -1,3 +1,29 @@
+/*CSS for all*/
+
+/*Declaration variables*/
+:root {
+    --primary-1: #f2f2f2ff;
+    --primary-2: #d9d9d9ff;
+
+    --secondary-1: #6b6b6bff;
+    --secondary-2: #4b4949ff;
+
+    --white: #ffffff;
+    --success-green: #5cb85c;
+    --danger-red: #d9534f;
+
+    /*    Gradient colors */
+    --gradient-1: #ea5753;
+    --gradient-2: #f1634f;
+    --gradient-3: #f7704b;
+    --gradient-4: #fb7d47;
+    --gradient-5: #ff8a44;
+
+    /*    Categories colors */
+    --cat-grey: #d9d9d9;
+    --subcat-grey: #f0f0f0;
+}
+
 ol,
 ul {
     list-style: none;
@@ -11,6 +37,14 @@ button {
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 }
+@media (max-width: 640px) {
+    a {
+        font-size: 10px;
+    }
+    .subcategory {
+        text-indent: 10px;
+    }
+}
 
 html {
     min-width: 350px;
@@ -19,17 +53,14 @@ html {
 }
 
 body {
-    --primary-1: hsl(0deg, 0%, 95%);
-    --primary-2: hsl(0deg, 0%, 85%);
-
-    --secondary-1: hsl(0deg, 0%, 42%);
-    --secondary-2: hsl(0deg, 1%, 29%);
-
     min-height: 100vh;
     min-height: 100dvh;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @media (min-width: 640px) {
+        font-size: 0.5em;
+    }
 }
 
 body:has(.no-scroll) {
@@ -54,11 +85,11 @@ navbar {
     flex-direction: column;
     background-image: linear-gradient(
         to bottom,
-        #ea5753,
-        #f1634f,
-        #f7704b,
-        #fb7d47,
-        #ff8a44
+        var(--gradient-1),
+        var(--gradient-2),
+        var(--gradient-3),
+        var(--gradient-4),
+        var(--gradient-5)
     );
     height: 100vh;
     font-size: 2vmin;
@@ -70,16 +101,21 @@ navbar > div {
 }
 
 .category {
-    background-color: #d9d9d9;
+    background-color: var(--cat-grey);
 }
 
 .subcategory {
-    background-color: #f0f0f0;
-    text-indent: 40px;
+    background-color: var(--subcat-grey);
+    text-indent: 10px;
+}
+@media (max-width: 640px) {
+    .subcategory {
+        text-indent: 20px;
+    }
 }
 
 .active {
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 #logo {
@@ -94,13 +130,13 @@ navbar > div {
 .msg-danger {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #d9534f;
+    border: 1px solid var(--danger-red);
 }
 
 .msg-success {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #5cb85c;
+    border: 1px solid var(--success-green);
 }
 #navbar-button i {
     display: none;
