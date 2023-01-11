@@ -32,7 +32,7 @@
 					<th>Id employé</th>
 					<?php
 					foreach ($datesTriees as $elem) {
-						echo '<th>' . date("d-m-Y", strtotime($elem)) . '</th>';
+						echo '<th>' . jourFrancais(date("N", strtotime($elem)), true) . date(" d/m", strtotime($elem)) . '</th>';
 					}
 					?>
 				</tr>
@@ -97,7 +97,7 @@
 					<?php 
 					$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
 					for($i=0;$i<7;$i++){
-						echo '<th>'.$jourCourant->format('D d/m').'</th>';
+						echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
 						$jourCourant->modify('+1 day');
 					}
 					?>
@@ -172,7 +172,7 @@
 					<?php 
 					$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
 					for($i=0;$i<7;$i++){
-						echo '<th>'.$jourCourant->format('D d/m').'</th>';
+						echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
 						$jourCourant->modify('+1 day');
 					}
 					?>
@@ -183,7 +183,7 @@
 				<?php 
 				foreach ($listeAssiMana as $emp) {
 					echo '<tr>';
-					echo '<td>' . $emp->getId() . ' ' . $emp->getPosition() . '</td>';
+					echo '<td>' . $emp->getId() . ' (' . $emp->getPosition()[0].')</td>';
 					for ($i=0; $i < 7; $i++) {
 						if ($affectation[$i][$emp->getId()] != null) {
 							switch($affectation[$i][$emp->getId()]->getId()) {

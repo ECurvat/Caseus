@@ -33,7 +33,7 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>Adresse mail</th>
-        <th>Date</th>
+        <th>Embauche</th>
         <th>Adresse</th>
         <th>Position</th>
         <th>Heures sup</th>
@@ -46,8 +46,8 @@
         echo '<td>'.$emp->getNom().'</td>';
         echo '<td>'.$emp->getPrenom().'</td>';
         echo '<td>'.$emp->getMail().'</td>';
-        echo '<td>'.$emp->getEmbauche().'</td>';
-        echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().', '.$emp->getVille().'</td>';
+        echo '<td>'.date("d/m/Y", strtotime($emp->getEmbauche())).'</td>';
+        echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().' '.$emp->getVille().'</td>';
         echo '<td>'.$emp->getPosition().'</td>';
         ($emp->getHeuresSup() == '0') ? $val = '<td>Non</td>' : $val = '<td>Oui</td>';
         echo $val;

@@ -132,7 +132,7 @@ if (!is_null($listeEnvois)) {
         $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour() - 1;
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
-            $jour->format('Y-m-d'),
+            $jour->format('d/m/y'),
             $listeServicesIndex[$jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getIdService()],
             $listeServicesIndex[$jourDAO->getJourParId($listeEnvois[$i]->getIdJourRecep())->getIdService()],
             $etatDAO->getEtatParId($listeEnvois[$i]->getIdEtat()),
@@ -155,7 +155,7 @@ if (!is_null($listeRecus)) {
         $nbJoursAAjouter = $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getNJour() - 1;
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
-            $jour->format('Y-m-d'),
+            $jour->format('d/m/y'),
             $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
             $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
             $listeRecus[$i]->getIdEchange()

@@ -48,8 +48,8 @@
 					<select name="idAbsence" class="u-full-width">
 						<?php 
 							foreach ($listeAbsences as $elem) {
-								$debut = date('l d (H:i)', strtotime($elem->getDebut()));
-								$fin = date('l d (H:i)', strtotime($elem->getFin()));
+								$debut = jourFrancais(date("N", strtotime($elem->getDebut())), false) . date(' d (H\hi)', strtotime($elem->getDebut()));
+								$fin = jourFrancais(date("N", strtotime($elem->getFin())), false) . date(' d (H\hi)', strtotime($elem->getFin()));
 								if (isset($_POST['idAbsence']) && ($elem->getIdAbsence() == $_POST['idAbsence'])) echo '<option selected value="'.$elem->getIdAbsence().'">'.$debut.' - '.$fin.'</option>';
 								echo '<option value="'.$elem->getIdAbsence().'">'.$debut.' - '.$fin.'</option>';
 							}

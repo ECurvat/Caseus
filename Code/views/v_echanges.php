@@ -14,7 +14,7 @@
             <form method="post">
                 <div class="six columns">
                     <label for="choixJour">Jour</label>
-                    <input class="u-full-width" type="date" id="choixJour" name="choixJour" min="<?php //echo date("Y-m-d");
+                    <input class="u-full-width" type="date" id="choixJour" name="choixJour" min="<?php echo date("Y-m-d");
                                                                                                     ?>" required>
                 </div>
                 <div class="six columns">
@@ -79,8 +79,8 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Jour actuel</th>
-                            <th>Jour souhaité</th>
+                            <th>Actuel</th>
+                            <th>Souhaité</th>
                             <th>Etat</th>
                             <th>Supprimer</th>
                         </tr>
@@ -132,8 +132,8 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Jour actuel</th>
-                            <th>Jour proposé</th>
+                            <th>Actuel</th>
+                            <th>Proposé</th>
                             <th>Accepter</th>
                             <th>Refuser</th>
                         </tr>

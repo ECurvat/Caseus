@@ -71,9 +71,9 @@
                     }
                     echo '<tr>';
                     echo '<td>'.$elem->getIdDemande().'</td>';
-                    echo '<td>'.$elem->getDebut().'</td>';
-                    echo '<td>'.$elem->getFin().'</td>';
-                    echo '<td>'.$elem->getDateDemande().'</td>';
+                    echo '<td>'.jourFrancais(date("N", strtotime($elem->getDebut())), true) . " " . date("d/m/Y", strtotime($elem->getDebut())) .'</td>';
+                    echo '<td>'.jourFrancais(date("N", strtotime($elem->getFin())), true) . " " . date("d/m/Y", strtotime($elem->getFin())) .'</td>';
+                    echo '<td>'.date("d/m/Y", strtotime($elem->getDateDemande())).'</td>';
                     echo '<td><span class="'.$status.'">'.$listeEtats[$elem->getIdEtat() - 1]->getNomEtat().'</span></td>';
                     echo '<td><button class="button u-full-width" type="submit" name="del'.$elem->getIdDemande().'"><i class="fa-regular fa-trash-can"></i></button></td>';
                 echo '</tr>';
