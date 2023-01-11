@@ -106,7 +106,7 @@ navbar > div {
 
 .subcategory {
     background-color: var(--subcat-grey);
-    text-indent: 10px;
+    text-indent: 40px;
 }
 @media (max-width: 640px) {
     .subcategory {
