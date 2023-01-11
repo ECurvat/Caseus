@@ -136,6 +136,9 @@ navbar > div {
         align-items: center;
         position: fixed;
         margin-bottom: 10px;
+        opacity: 1;
+        top: 0;
+        z-index: 3;
     }
     #navbar-button i {
         display: flex;
