@@ -10,44 +10,80 @@
 
 <div class="row">
 	<form method="post">
-		<div class="four columns">
-			<label for="semaine">Semaine</label>
-			<input class="u-full-width" type="text" value="<?php echo $semaine ?>" id="semaine" name="semaine">
+		<div class="one column">
+			<input class="button-success" type="submit" value="&#8592" name="previous">
 		</div>
-		<div class="four columns">
-			<label for="annee">Année</label>
-			<input class="u-full-width" type="text" value="<?php echo $annee ?>" id="annee" name="annee">
+		<div class="five columns">
+			<label for="date">Date</label>
+			<input class="u-full-width" type="date" value="<?php echo $ajd ?>" id="date" name="date">
 		</div>
-		<div class="four columns">
+		<div class="five columns">
 			<input class="button-primary u-full-width" type="submit" value="Valider">
+		</div>
+		<div class="one column">
+		<input class="button-success" type="submit" value="&#8594" name="next">
 		</div>
 	</form>
 </div>
 <?php if (!isset($alert)) {?>
+<h2>Semaine n°<?php echo $semaine ?></h2>
 <table class="u-full-width">
 	<thead>
 		<tr>
 			<th></th>
 			<?php
 			foreach($datesSemaine as $dateJour) {
-				echo "<th>".date('l', strtotime($dateJour))."<br>".$dateJour."</th>";
+				echo "<th>".jourFrancais(date('N', strtotime($dateJour)), true).' '.date("j/m", strtotime($dateJour))."</th>";
 			}
 			?>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td>Début :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
-				if (isset($listeJours[$i])) echo '<td>'.$listeJours[$i]->getDebutJournee().'</td>';
-				else echo '<td></td>';
+			<td>Service :</td>
+			<?php for ($i=0; $i < 7; $i++) { 
+				if (isset($listeJours[$i])) {
+					switch($listeJours[$i]->getIdService()) {
+						case 'a':
+						case 'b':
+						case 'c':
+						case 'd':
+							$class = 'matin';
+							$icon = '<i class="fa-solid fa-sun"></i>';
+							break;
+						case 'e':
+						case 'f':
+						case 'g':
+						case 'h':
+						case 'i':
+							$class = 'soir';
+							$icon = '<i class="fa-solid fa-moon"></i>';
+							break;
+						case 'y':
+							$class = 'conges';
+							$icon = '<i class="fa-solid fa-plane"></i>';
+							break;
+						case 'z':
+							$class = 'repos';
+							$icon = '<i class="fa-solid fa-bed"></i>';
+							break;
+						default:
+							break;
+					}
+					echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($listeServicesIndex[$listeJours[$i]->getIdService()]->getId()) . '</td>';
+				} else echo '<td></td>';
 			}?>
 		</tr>
 		<tr>
-			<td>Fin :</td>
-			<?php for ($i=1; $i <= 7; $i++) { 
-				if (isset($listeJours[$i])) echo '<td>'.$listeJours[$i]->getFinJournee().'</td>';
-				else echo '<td></td>';
+			<td>Horaires :</td>
+			<?php for ($i=0; $i < 7; $i++) { 
+				if (isset($listeJours[$i])) {
+					if(($listeJours[$i]->getIdService() == 'y') || ($listeJours[$i]->getIdService() == 'z')) {
+						echo '<td></td>';
+					} else {
+						echo '<td>'.$listeServicesIndex[$listeJours[$i]->getIdService()]->getDebut().'<br>' . $listeServicesIndex[$listeJours[$i]->getIdService()]->getFin() . '</td>';
+					}
+				} else echo '<td></td>';
 			}?>
 		</tr>
 	</tbody>

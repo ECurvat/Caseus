@@ -11,8 +11,9 @@ class Employe {
     private $ville;
     private $mdp;
     private $position;
+    private $heures_sup;
 
-    public function __construct($id_employe, $nom, $prenom, $adresse_mail, $date_embauche, $adresse, $code_postal, $ville, $mdp, $position) {
+    public function __construct($id_employe, $nom, $prenom, $adresse_mail, $date_embauche, $adresse, $code_postal, $ville, $mdp, $position, $heures_sup) {
         $this->id_employe = $id_employe;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -23,6 +24,7 @@ class Employe {
         $this->ville = $ville;
         $this->mdp = $mdp;
         $this->position = $position;
+        $this->heures_sup = $heures_sup;
     }
 
     public function getId() {
@@ -63,6 +65,10 @@ class Employe {
 
     public function getPosition() {
         return $this->position;
+    }
+
+    public function getHeuresSup() {
+        return $this->heures_sup;
     }
 
 }

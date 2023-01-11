@@ -33,9 +33,10 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>Adresse mail</th>
-        <th>Date</th>
+        <th>Embauche</th>
         <th>Adresse</th>
         <th>Position</th>
+        <th>Heures sup</th>
     </tr>
 </thead>
 <tbody>
@@ -45,9 +46,11 @@
         echo '<td>'.$emp->getNom().'</td>';
         echo '<td>'.$emp->getPrenom().'</td>';
         echo '<td>'.$emp->getMail().'</td>';
-        echo '<td>'.$emp->getEmbauche().'</td>';
-        echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().', '.$emp->getVille().'</td>';
+        echo '<td>'.date("d/m/Y", strtotime($emp->getEmbauche())).'</td>';
+        echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().' '.$emp->getVille().'</td>';
         echo '<td>'.$emp->getPosition().'</td>';
+        ($emp->getHeuresSup() == '0') ? $val = '<td>Non</td>' : $val = '<td>Oui</td>';
+        echo $val;
         echo '</tr>';
     }
     ?>
@@ -92,12 +95,20 @@
             </div>
         </div>
         <div class="row">
-            <label for="ajoutPosition">Position</label>
-			<select name="ajoutPosition" class="u-full-width">
-                <option value="POLY">Employé polyvalent</option>
-                <option value="ASSI">Assistant manager</option>
-                <option value="MANA">Manager</option>
-            </select>
+            <div class="nine columns">
+                <label for="ajoutPosition">Position</label>
+                <select name="ajoutPosition" class="u-full-width">
+                    <option value="POLY">Employé polyvalent</option>
+                    <option value="ASSI">Assistant manager</option>
+                    <option value="MANA">Manager</option>
+                </select>
+            </div>
+            <div class="three columns">
+                <label>
+                    <input type="checkbox" id="ajoutSup" name="ajoutSup">
+                    <span class="label-checkbox">Heures sup ok ?</span>
+                </label>
+            </div>
         </div>
         <input class="button-success u-full-width" type="submit" value="Ajouter" name="ajoutValider">
     </form>
@@ -119,7 +130,7 @@
         <form method="post">
             <label for="modifierMDP">Réinitialiser le mot de passe</label>
             <p>Ceci enverra un nouveau mot de passe à l'adresse mail actuelle de l'employé séléctionné</p>
-            <input class="button-warning u-full-width" type="submit" value="Confirmer" name="modifierMDP">
+            <button class="button-warning u-full-width" type="submit" value=<?php echo($_POST['modifierChoixEmp']) ?> name="modifierMDP">Confirmer</button>
             <hr>
             <label for="modifierMsg">Envoyer un message</label>
             <textarea class="u-full-width" placeholder="Bonjour …" name="modifierMsg"></textarea>
@@ -139,7 +150,10 @@
             <input class="button-danger u-full-width" type="submit" value="Supprimer" name="supprimerValider">
         </form>
     </div>
+<?php } if (isset($newMDP)){?>
+    <p>Le nouveau mot de passe est : <?php echo $newMDP?></p>
 <?php }?>
+
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
