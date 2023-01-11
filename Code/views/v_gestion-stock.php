@@ -39,7 +39,7 @@
             echo '<td>'.$produit->getDenomination().'</td>';
             echo '<td>'.$produit->getQteEnStock().'</td>';
             echo '<td>'.$correspUnites[$produit->getIdUnite()].'</td>';
-            echo '<td>'.$produit->getDerniereModif().'</td>';
+            echo '<td>'.jourFrancais(date("N", strtotime($produit->getDerniereModif())), false) . " " . date("d/m/Y H:i:s", strtotime($produit->getDerniereModif())) .'</td>';
             echo '</tr>';
         }?>
     </tbody>

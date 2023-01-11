@@ -8,14 +8,32 @@
 
 <!--  Début de la page -->
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, dicta soluta totam optio, repudiandae aliquid voluptates quas earum aspernatur deserunt obcaecati debitis tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
+<h2><?php echo $_SESSION['compte']->getNom() . " " . $_SESSION['compte']->getPrenom() . " - " . $position;?></h2>
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae dolores excepturi, cupiditate fugiat dolorum doloremque accusantium. Qui quos, quasi consectetur saepe ullam porro autem velit vero dolor asperiores optio necessitatibus tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
+<?php 
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, dicta soluta totam optio, repudiandae aliquid voluptates quas earum aspernatur deserunt obcaecati debitis tempora quo incidunt nostrum hic beatae necessitatibus asperiores?</p>
+if (!isset($alert)) {?>
+<div class="row">
+	<div class="six columns">
+		<div class="item">
+			<h4>Journée de travail</h4>
+			<div>
+				<p><strong><?php echo jourFrancais(date("N"), false) . " " . date("d") . " " . moisFrancais(date("m")) . " " . date("Y") ?></strong></p>
+				<?php if ($jour->getIdService() != 'y' && $jour->getIdService() != 'z') { ?>
+					<p>Prise de service <?php echo $listeServicesIndex[$jour->getIdService()]->getDebut() ?></p>
+					<p>Fin de service <?php echo $listeServicesIndex[$jour->getIdService()]->getFin() ?></p>
+				<?php } else { ?>
+					<p>Pas de service</p>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
+	<div class="six columns">
 
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae dolores excepturi, cupiditate fugiat dolorum doloremque accusantium. Qui quos, quasi consectetur saepe ullam porro tempora quo incidunt nostrum hic beatae necessitatibus asperiores tempora quo incidunt nostrum hic beatae necessitatibus asperiores autem velit vero dolor asperiores optio necessitatibus.</p>
-
+	</div>
+</div>
+<?php }?>
+<br>
 <a href="index.php?page=logout"><button>Se déconnecter</button></a>
 
 <!--  Fin de la page -->

@@ -2,7 +2,7 @@
 //  En tête de page
 ?>
 <?php require_once(PATH_VIEWS.'header.php');?>
-<h1>Disponibilités</h1>
+<h1>Absences</h1>
 <!--  Zone message d'alerte -->
 <?php require_once(PATH_VIEWS.'alert.php');?>
 
@@ -24,7 +24,7 @@
 	<div class="nine columns">
 		<h5>Edition</h5>
 		<div class="row">
-			<h6>Rechercher une disponibilité</h6>
+			<h6>Rechercher une absence</h6>
 			<form method="post">
 				<div class="four columns">
 					<label for="mois">Mois</label>
@@ -39,19 +39,19 @@
 				</div>
 			</form>
 		</div>
-		<?php if (!empty($listeDispos)) {?>
+		<?php if (!empty($listeAbsences)) {?>
 		<div class="row">
-			<h6>Choisir la disponibilité</h6>
+			<h6>Choisir l'absence</h6>
 			<form method="post">
 				<div class="nine columns">
-					<label for="idDispo">Disponibilité</label>
-					<select name="idDispo" class="u-full-width">
+					<label for="idAbsence">Absence</label>
+					<select name="idAbsence" class="u-full-width">
 						<?php 
-							foreach ($listeDispos as $elem) {
-								$debut = date('l d (H:i)', strtotime($elem->getDebutDispo()));
-								$fin = date('l d (H:i)', strtotime($elem->getFinDispo()));
-								if (isset($_POST['idDispo']) && ($elem->getIdDispo() == $_POST['idDispo'])) echo '<option selected value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
-								echo '<option value="'.$elem->getIdDispo().'">'.$debut.' - '.$fin.'</option>';
+							foreach ($listeAbsences as $elem) {
+								$debut = jourFrancais(date("N", strtotime($elem->getDebut())), false) . date(' d (H\hi)', strtotime($elem->getDebut()));
+								$fin = jourFrancais(date("N", strtotime($elem->getFin())), false) . date(' d (H\hi)', strtotime($elem->getFin()));
+								if (isset($_POST['idAbsence']) && ($elem->getIdAbsence() == $_POST['idAbsence'])) echo '<option selected value="'.$elem->getIdAbsence().'">'.$debut.' - '.$fin.'</option>';
+								echo '<option value="'.$elem->getIdAbsence().'">'.$debut.' - '.$fin.'</option>';
 							}
 						?>
 					</select>
@@ -63,21 +63,21 @@
 		</div>
 		<?php }?>
 
-		<?php if (isset($dispoEditee)) {?>
+		<?php if (isset($absEditee)) {?>
 		<div class="row">
-			<h6>Editer la disponibilité</h6>
+			<h6>Editer l'absence</h6>
 			<form method="post">
 				<div class="three columns">
 					<label for="modifId">ID</label>
-					<input class="u-full-width" readonly type="text" id="modifId" name="modifId" value="<?php echo $dispoEditee->getIdDispo();?>">
+					<input class="u-full-width" readonly type="text" id="modifId" name="modifId" value="<?php echo $absEditee->getIdAbsence();?>">
 				</div>
 				<div class="three columns">
 					<label for="modifDebut">Début</label>
-					<input class="u-full-width" type="datetime-local" id="modifDebut" name="modifDebut" value="<?php echo $dispoEditee->getDebutDispo();?>">
+					<input class="u-full-width" type="datetime-local" id="modifDebut" name="modifDebut" value="<?php echo $absEditee->getDebut();?>">
 				</div>
 				<div class="three columns">
 					<label for="modifFin">Fin</label>
-					<input class="u-full-width" type="datetime-local" id="modifFin" name="modifFin" value="<?php echo $dispoEditee->getFinDispo();?>">
+					<input class="u-full-width" type="datetime-local" id="modifFin" name="modifFin" value="<?php echo $absEditee->getFin();?>">
 				</div>
 				<div class="three columns">
 					<input class="button-warning u-full-width" type="submit" value="Modifier" name="modifier">

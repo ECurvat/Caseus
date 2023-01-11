@@ -16,8 +16,8 @@
             <?php 
                 foreach ($listeCongesEnAttente as $elem) {
                     $emp = $listeEmployes[$elem->getIdEmploye()];
-                    $debut = date("D, M j Y", strtotime($elem->getDebut()));
-                    $fin = date("D, M j Y", strtotime($elem->getFin()));
+                    $debut = jourFrancais(date("N", strtotime($elem->getDebut())), false).date(" d/m/Y", strtotime($elem->getDebut()));
+                    $fin = jourFrancais(date("N", strtotime($elem->getFin())), false).date(" d/m/Y", strtotime($elem->getFin()));
                     echo '<option value="'.$elem->getIdDemande().'">'.$emp->getPrenom().' '.$emp->getNom().' : '.$debut.' - '.$fin.'</option>';
                 }
             ?>

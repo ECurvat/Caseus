@@ -34,10 +34,14 @@ require_once(PATH_ENTITY.'Employe.php');
 require_once(PATH_ENTITY.'Etat.php');
 require_once(PATH_ENTITY.'Planning.php');
 require_once(PATH_ENTITY.'Jour.php');
-require_once(PATH_ENTITY.'Disponibilite.php');
+require_once(PATH_ENTITY.'Absence.php');
 require_once(PATH_ENTITY.'Unite.php');
 require_once(PATH_ENTITY.'Produit.php');
 require_once(PATH_ENTITY.'Conge.php');
+require_once(PATH_ENTITY.'Echange.php');
+require_once(PATH_ENTITY.'Service.php');
+setlocale(LC_TIME, "fr_FR");
+
 session_start();
 if (!isset($_SESSION['logged']) || ($_SESSION['logged'] == false)) {
   $page = 'login';
