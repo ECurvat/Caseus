@@ -26,14 +26,14 @@
 	</form>
 </div>
 <?php if (!isset($alert)) {?>
-<h2>Semaine n° <?php echo $semaine ?></h2>
+<h2>Semaine n°<?php echo $semaine ?></h2>
 <table class="u-full-width">
 	<thead>
 		<tr>
 			<th></th>
 			<?php
 			foreach($datesSemaine as $dateJour) {
-				echo "<th>".date('D', strtotime($dateJour)).' '.date("j/m/y", strtotime($dateJour))."</th>";
+				echo "<th>".jourFrancais(date('N', strtotime($dateJour)), true).' '.date("j/m", strtotime($dateJour))."</th>";
 			}
 			?>
 		</tr>
