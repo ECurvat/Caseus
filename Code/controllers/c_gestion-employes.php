@@ -21,6 +21,12 @@ if ($_SESSION['compte']->getPosition() != 'MANA') {
     exit;
 
 }
+
+if (isset ($_POST['modifierMDP'])){
+    $newMDP = randomPassword();
+}
+
+
 require_once(PATH_MODELS.$page.'.php'); 
 
 require_once(PATH_VIEWS.$page.'.php'); 

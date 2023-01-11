@@ -14,3 +14,7 @@ if (isset($_POST['supprimerValider'])) {
     $employeDAO->removeEmploye($_POST['supprimerEmp']);
     $alert = choixAlert('succes_operation');
 }
+
+if (isset($_POST['modifierMDP'])){
+    $employeDAO->updateMDP(array(password_hash($newMDP, PASSWORD_DEFAULT), $_POST['modifierMDP']));
+}

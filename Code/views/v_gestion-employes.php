@@ -130,7 +130,7 @@
         <form method="post">
             <label for="modifierMDP">Réinitialiser le mot de passe</label>
             <p>Ceci enverra un nouveau mot de passe à l'adresse mail actuelle de l'employé séléctionné</p>
-            <input class="button-warning u-full-width" type="submit" value="Confirmer" name="modifierMDP">
+            <button class="button-warning u-full-width" type="submit" value=<?php echo($_POST['modifierChoixEmp']) ?> name="modifierMDP">Confirmer</button>
             <hr>
             <label for="modifierMsg">Envoyer un message</label>
             <textarea class="u-full-width" placeholder="Bonjour …" name="modifierMsg"></textarea>
@@ -150,7 +150,10 @@
             <input class="button-danger u-full-width" type="submit" value="Supprimer" name="supprimerValider">
         </form>
     </div>
+<?php } if (isset($newMDP)){?>
+    <p>Le nouveau mot de passe est : <?php echo $newMDP?></p>
 <?php }?>
+
 <!--  Fin de la page -->
 
 <!--  Pied de page -->
