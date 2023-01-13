@@ -22,10 +22,9 @@ if ($_SESSION['compte']->getPosition() != 'MANA') {
 
 }
 
-if (isset ($_POST['modifierMDP'])){
+if (isset ($_POST['modifierMDP']) || isset($_POST['ajoutValider'])){
     $newMDP = randomPassword();
 }
-
 
 require_once(PATH_MODELS.$page.'.php'); 
 

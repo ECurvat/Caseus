@@ -151,7 +151,7 @@
         </form>
     </div>
 <?php } if (isset($newMDP)){?>
-    <p>Le nouveau mot de passe est : <?php echo $newMDP?></p>
+    <p>Le mot de passe de l'employé est : <?php echo $newMDP?></p>
 <?php }?>
 
 <!--  Fin de la page -->

@@ -5,7 +5,7 @@ $listeEmployes = $employeDAO->getListeEmployes();
 
 if (isset($_POST['ajoutValider'])) {
     ($_POST['ajoutSup'] == 'on') ? $sup = 1 : $sup = 0;
-    $para = array($_POST['ajoutNom'], $_POST['ajoutPrenom'], $_POST['ajoutMail'], $_POST['ajoutDate'], $_POST['ajoutAdresse'], $_POST['ajoutCP'], $_POST['ajoutVille'], '$2y$10$mYy/0tLWJjUXCAxf6XuJ5.nV0m1SJJx6xPsg5fo1VA.Hj1.eWPFe.', $_POST['ajoutPosition'] , $sup);
+    $para = array($_POST['ajoutNom'], $_POST['ajoutPrenom'], $_POST['ajoutMail'], $_POST['ajoutDate'], $_POST['ajoutAdresse'], $_POST['ajoutCP'], $_POST['ajoutVille'], password_hash($newMDP, PASSWORD_DEFAULT), $_POST['ajoutPosition'] , $sup);
     $employeDAO->addEmploye($para);
     $alert = choixAlert('succes_operation');
 }
