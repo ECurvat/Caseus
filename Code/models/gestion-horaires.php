@@ -342,3 +342,103 @@ if (isset($_POST['generer'])) {
         
     }
 }
+
+if (isset($_POST['voir'])) {
+    // on récupère la liste de tous les employés
+    $listeEmployes = $employeDAO->getListeEmployes();
+    $planningGenere = true;
+    foreach ($listeEmployes as $elem) {
+        $param = array($elem->getId(), $semainePlanning, $anneePlanning);
+        if ($planningDAO->getPlanningParEmp($param) == null) {
+            $planningGenere = false;
+        }
+    }
+    if(!$planningGenere) {
+        $alert = choixAlert('planning_pas_fait');
+    } else {
+        // on les trie par position
+        $listePoly = array();
+        $listeAssiMana = array();
+        $listePlannings = array();
+        foreach ($listeEmployes as $employe) {
+            if ($employe->getPosition() == 'POLY') {
+                $listePoly[] = $employe;
+            } else {
+                $listeAssiMana[] = $employe;
+            }
+            $listePlannings[$employe->getId()] = $planningDAO->getPlanningParEmp(array($employe->getId(), $semainePlanning, $anneePlanning));
+        }
+        // on récupère la liste des services
+        $listeServices = $serviceDAO->getListeServices();
+        
+        // on déclare les affectations
+        $affectation = array();
+        $srvPoly = array();
+        $srvAssiMana = array();
+        for($i=0; $i<7; $i++) {
+            foreach ($listePoly as $elem) {
+                $affectation[$i][$elem->getId()] = NULL;
+            }
+            foreach ($listeAssiMana as $elem) {
+                $affectation[$i][$elem->getId()] = NULL;
+            }
+            $srvPoly[$i] = array();
+            $srvAssiMana[$i] = array();
+            // on crée un tableau avec les services pour chaque jour de la semaine
+            $listeServices = $serviceDAO->getListeServices();
+            foreach ($listeServices as $service) {
+                if (date('h:i:s', strtotime($service->getFin()) - strtotime($service->getDebut())) == '04:30:00') {
+                    // alors c'est un service de polyvalent
+                    for($j = 0; $j<$service->getNombre(); $j++) {
+                        array_push($srvPoly[$i], $service);
+                    }
+                } else {
+                    for($j = 0; $j<$service->getNombre(); $j++) {
+                        array_push($srvAssiMana[$i], $service);
+                    }
+                }
+            }
+        }
+
+        $totSrvPoly = array();
+        foreach ($listePoly as $elem) {
+            $totSrvPoly[$elem->getId()] = 0;
+        }
+        $totSrvAssiMana = array();
+        foreach ($listeAssiMana as $elem) {
+            $totSrvAssiMana[$elem->getId()] = 0;
+        }
+
+        foreach ($listePoly as $poly) {
+            for($i=0; $i<7; $i++) {
+                $jour = $jourDAO->getJourParPlanningEtNumero(array($listePlannings[$poly->getId()]->getIdPlanning(), $i));
+                if ($jour != null) {
+                    $srv = $serviceDAO->getServiceParId($jour->getIdService());
+                    $affectation[$i][$poly->getId()] = $srv;
+                    $totSrvPoly[$poly->getId()]++;
+                    foreach ($srvPoly[$i] as $key => $current) {
+                        if($current == $srv) {
+                            unset($srvPoly[$i][$key]);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($listeAssiMana as $assimana) {
+            for($i=0; $i<7; $i++) {
+                $jour = $jourDAO->getJourParPlanningEtNumero(array($listePlannings[$assimana->getId()]->getIdPlanning(), $i));
+                if ($jour != null) {
+                    $srv = $serviceDAO->getServiceParId($jour->getIdService());
+                    $affectation[$i][$assimana->getId()] = $srv;
+                    $totSrvAssiMana[$assimana->getId()]++;
+                    foreach ($srvAssiMana[$i] as $key => $current) {
+                        if($current == $srv) {
+                            unset($srvAssiMana[$i][$key]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

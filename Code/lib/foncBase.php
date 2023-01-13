@@ -47,6 +47,9 @@ function choixAlert($message)
 		case 'planning_existant' :
 			$alert['messageAlert'] = PLANNING_EXISTANT;
 			break;
+		case 'planning_pas_fait' :
+			$alert['messageAlert'] = PLANNING_PAS_FAIT;
+			break;
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
 			break;

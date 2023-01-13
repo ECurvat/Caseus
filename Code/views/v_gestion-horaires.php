@@ -64,11 +64,11 @@
 	?>
 </div>
 <div class="row">
-	<h5>Générer un planning pour une semaine</h5>
+	<h5>Gérer un planning pour une semaine</h5>
 	<div class="row">
 		<form method="post">
 			<div class="eight columns">
-				<div class="row">
+				
 					<div class="six columns">
 						<label for="semainePlanning">Semaine</label>
 						<input class="u-full-width" type="text" value="<?php echo $semainePlanning ?>" id="semainePlanning" name="semainePlanning">
@@ -77,19 +77,19 @@
 						<label for="anneePlanning">Année</label>
 						<input class="u-full-width" type="text" value="<?php echo $anneePlanning ?>" id="anneePlanning" name="anneePlanning">
 					</div>
-				</div>
-				<div class="row">
-					<input type="checkbox" id="ignorer" name="ignorer">
-					<span class="label-checkbox">Ecraser l'ancien planning s'il existe déjà</span>
-				</div>
 			</div>
 			<div class="four columns">
-				<input class="button-success u-full-width" type="submit" value="Génerer" name="generer">
+				<input class="button-primary u-full-width" type="submit" value="Visualiser" name="voir">
+				<br>
+				
+				<input class="button-success u-full-width" type="submit" value="Génerer" name="generer"><br>
+				<input type="checkbox" id="ignorer" name="ignorer">
+				<span class="label-checkbox">Ecraser l'ancien planning s'il existe déjà</span>
 			</div>
 		</form>
 	</div>
 	
-	<?php if(isset($_POST['generer']) && $generation) {?>
+	<?php if((isset($_POST['generer']) && $generation) || (isset($_POST['voir']) && $planningGenere)) {?>
 		<table class="u-full-width">
 			<thead>
 				<tr>
