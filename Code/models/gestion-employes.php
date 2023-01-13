@@ -1,6 +1,14 @@
 <?php
 require_once(PATH_MODELS.'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
+require_once(PATH_MODELS.'PlanningDAO.php');
+$planningDAO = new PlanningDAO(true);
+require_once(PATH_MODELS.'JourDAO.php');
+$jourDAO = new JourDAO(true);
+require_once(PATH_MODELS.'CongeDAO.php');
+$congeDAO = new CongeDAO(true);
+require_once(PATH_MODELS.'AbsenceDAO.php');
+$absenceDAO = new AbsenceDAO(true);
 $listeEmployes = $employeDAO->getListeEmployes();
 
 if (isset($_POST['ajoutValider'])) {
@@ -11,7 +19,22 @@ if (isset($_POST['ajoutValider'])) {
 }
 
 if (isset($_POST['supprimerValider'])) {
+    $listePlannings = $planningDAO->getTousPlanningsParEmp($_POST['supprimerEmp']);
+    if ($listePlannings != null) {
+        foreach ($listePlannings as $planning) {
+            $jourDAO->removeJoursParPlanning($planning->getIdPlanning());
+            $planningDAO->removePlanning($planning->getIdPlanning());
+        }
+    }
+    $absenceDAO->removeAbsencesParEmp($_POST['supprimerEmp']);
+    $congeDAO->removeCongesParEmp($_POST['supprimerEmp']);
     $employeDAO->removeEmploye($_POST['supprimerEmp']);
+    // on cherche les plannings de l'employé à supprimer
+    
+    // on supprime les plannings de l'employé à supprimer
+    // on supprime tous les jours associés à ces plannings
+    
+    
     $alert = choixAlert('succes_operation');
 }
 

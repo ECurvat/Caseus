@@ -28,6 +28,11 @@ class CongeDAO extends DAO {
         return $result;
     }
 
+    public function removeCongesParEmp($id) {
+        $result = $this->queryRow('DELETE FROM CONGE WHERE ID_EMPLOYE = ?', array($id));
+        return $result;
+    }
+
     public function accepterConge($id) {
         $result = $this->queryRow('UPDATE CONGE SET ID_ETAT = 4 WHERE ID_DEMANDE = ?', array($id));
         return $result;

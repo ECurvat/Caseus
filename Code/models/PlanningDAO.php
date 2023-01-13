@@ -16,9 +16,26 @@ class PlanningDAO extends DAO {
         $result = $this->queryRow('INSERT INTO PLANNING (ID_EMPLOYE, ID_ETAT, N_SEMAINE, ANNEE_PLANNING) VALUES (?, 1, ?, ?)', $para);
         return $result;
     }
+    public function removePlanning($id) {
+        $result = $this->queryRow('DELETE FROM PLANNING WHERE ID_PLANNING = ?', array($id));
+        return $result;
+    }
 
     public function getPlanningsTousEmps($para) {
         $result = $this->queryAll('SELECT * FROM PLANNING WHERE N_SEMAINE = ? AND ANNEE_PLANNING = ?', $para);
+        if ($result) {
+            $listePlannings = array();
+            foreach ($result as $elem) {
+                $planning = new Planning($elem[0], $elem[1], $elem[2], $elem[3], $elem[4]);
+                array_push($listePlannings, $planning);
+            }
+            return $listePlannings;
+        }
+        return null;
+    }
+
+    public function getTousPlanningsParEmp($id) {
+        $result = $this->queryAll('SELECT * FROM PLANNING WHERE ID_EMPLOYE = ?', array($id));
         if ($result) {
             $listePlannings = array();
             foreach ($result as $elem) {

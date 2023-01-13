@@ -71,6 +71,11 @@ class AbsenceDAO extends DAO {
         return $result;
     }
 
+    public function removeAbsencesParEmp($id) {
+        $result = $this->queryRow('DELETE FROM ABSENCE WHERE ID_EMPLOYE = ?', array($id));
+        return $result;
+    }
+
     public function ajouterAbsence($params) {
         $result = $this->queryRow('INSERT INTO ABSENCE (ID_EMPLOYE, DEBUT_ABSENCE, FIN_ABSENCE) VALUES(?, ?, ?)', $params);
         return $result;
