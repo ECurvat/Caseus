@@ -39,5 +39,11 @@ if (isset($_POST['supprimerValider'])) {
 }
 
 if (isset($_POST['modifierMDP'])){
+    $empModif = $employeDAO->getEmployeParId($_POST['modifierMDP']);
     $employeDAO->updateMDP(array(password_hash($newMDP, PASSWORD_DEFAULT), $_POST['modifierMDP']));
+}
+
+if (isset($_POST['modifierChoisir'])) {
+
+    $empModif = $employeDAO->getEmployeParId($_POST['modifierChoixEmp']);
 }

@@ -1,3 +1,10 @@
 .label-checkbox {
     color: black;
 }
+
+.infosEmp {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
