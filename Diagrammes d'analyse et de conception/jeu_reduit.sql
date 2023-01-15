@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 15 jan. 2023 à 22:06
+-- Généré le : dim. 15 jan. 2023 à 22:30
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `conge` (
   PRIMARY KEY (`ID_DEMANDE`),
   KEY `FK_DEMANDE` (`ID_EMPLOYE`),
   KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `conge`
@@ -101,7 +101,21 @@ INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_
 (14, 4, 3, '2023-01-02', '2023-01-09', '2022-12-02'),
 (20, 5, 2, '2022-12-12', '2022-12-16', '2022-12-12'),
 (22, 4, 3, '2022-12-25', '2022-12-28', '2022-12-28'),
-(23, 4, 1, '2022-12-27', '2022-12-28', '2022-12-29');
+(23, 4, 1, '2022-12-27', '2022-12-28', '2022-12-29'),
+(24, 4, 7, '2023-01-17', '2023-01-18', '2023-01-15'),
+(25, 5, 7, '2023-01-19', '2023-01-20', '2023-01-15'),
+(26, 4, 8, '2023-01-19', '2023-01-20', '2023-01-15'),
+(27, 3, 8, '2023-01-23', '2023-01-24', '2023-01-15'),
+(28, 5, 8, '2023-01-23', '2023-01-27', '2023-01-15'),
+(29, 5, 9, '2023-01-31', '2023-02-03', '2023-01-15'),
+(30, 3, 9, '2023-01-20', '2023-01-24', '2023-01-15'),
+(31, 4, 9, '2023-01-26', '2023-01-27', '2023-01-15'),
+(32, 5, 10, '2023-01-16', '2023-01-20', '2023-01-15'),
+(33, 5, 10, '2023-01-21', '2023-01-23', '2023-01-15'),
+(34, 4, 11, '2023-01-17', '2023-01-18', '2023-01-15'),
+(35, 3, 11, '2023-01-20', '2023-01-23', '2023-01-15'),
+(36, 3, 11, '2023-01-31', '2023-02-02', '2023-01-15'),
+(37, 3, 12, '2023-02-01', '2023-02-03', '2023-01-15');
 
 -- --------------------------------------------------------
 
@@ -225,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `jour` (
   PRIMARY KEY (`ID_JOUR`),
   KEY `FK_CONTIENT` (`ID_PLANNING`),
   KEY `FK_JOUR_SERVICE` (`ID_SERVICE`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `jour`
@@ -323,7 +337,7 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (180, 20, 3, 'i'),
 (181, 23, 3, 'd'),
 (182, 24, 4, 'b'),
-(183, 25, 4, 'b'),
+(183, 25, 4, 'y'),
 (184, 26, 4, 'f'),
 (185, 27, 4, 'h'),
 (186, 28, 4, 'e'),
@@ -336,7 +350,7 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (193, 20, 4, 'i'),
 (194, 23, 4, 'd'),
 (195, 24, 5, 'f'),
-(196, 25, 5, 'b'),
+(196, 25, 5, 'y'),
 (197, 26, 5, 'a'),
 (198, 27, 5, 'g'),
 (199, 28, 5, 'h'),
@@ -360,7 +374,13 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (217, 33, 6, 'a'),
 (218, 18, 6, 'i'),
 (219, 21, 6, 'd'),
-(220, 22, 6, 'i');
+(220, 22, 6, 'i'),
+(221, 24, 2, 'y'),
+(222, 24, 3, 'y'),
+(223, 39, 4, 'y'),
+(224, 39, 5, 'y'),
+(225, 28, 2, 'y'),
+(226, 28, 3, 'y');
 
 -- --------------------------------------------------------
 
@@ -391,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   PRIMARY KEY (`ID_PLANNING`),
   KEY `FK_EST_CARACTERISE_PAR` (`ID_ETAT`),
   KEY `FK_POSSEDE` (`ID_EMPLOYE`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `planning`
@@ -431,7 +451,8 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 (35, 18, 1, 3, 2023),
 (36, 19, 1, 3, 2023),
 (37, 20, 1, 3, 2023),
-(38, 21, 1, 3, 2023);
+(38, 21, 1, 3, 2023),
+(39, 9, 1, 4, 2023);
 
 -- --------------------------------------------------------
 
