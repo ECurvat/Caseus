@@ -57,9 +57,16 @@ class EmployeDAO extends DAO {
         return $result;
     }
 
-    public function updateMDP($para){
+    public function updateMDP($para) {
         $result = $this->queryRow('UPDATE employe SET mdp=? WHERE id_employe = ?', $para);
         return $result;
+    }
+
+    public function alterEmploye($modif) {
+        $modif = $this->queryRow('UPDATE EMPLOYE SET NOM=?, PRENOM=?, ADRESSE_MAIL=?, ADRESSE=?, CODE_POSTAL=?, VILLE=?, HEURES_SUP=? WHERE ID_EMPLOYE=?', $modif);
+        $employeDAO = new EmployeDAO(true);
+        $_SESSION['compte'] = $employeDAO->getEmployeParId($_SESSION['compte']->getId());
+        return $modif;
     }
 
 }

@@ -11,6 +11,7 @@ $positionCourante = $_SESSION['compte']->getPosition();
         <div class="subcategory <?php echo ($page=='absences' ? "active":'')?>"><a href="index.php?page=absences">Absences</a></div>
         <div class="subcategory <?php echo ($page=='echanges' ? "active":'')?>"><a href="index.php?page=echanges">Échanges</a></div>
         <div class="subcategory <?php echo ($page=='conges' ? "active":'')?>"><a href="index.php?page=conges">Congés</a></div>
+        <div class="subcategory <?php echo ($page=='modifier-profil' ? "active":'')?>"><a href="index.php?page=modifier-profil">Profil</a></div>
     <?php endif; ?>
     <?php if (($positionCourante == 'ASSI') || ($positionCourante == 'MANA')): ?>
     <div class="category">Gestion</div>
