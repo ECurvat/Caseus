@@ -1,8 +1,16 @@
 <?php 
 require_once(PATH_MODELS_DAO.'DAO.php');
 
+/**
+ * Classe d'accès aux données des services
+ * @see Service
+ */
 class ServiceDAO extends DAO {
 
+    /**
+     * Fonction qui permet de récupérer la liste de tous les services
+     * @return array
+     */
     public function getListeServices() {
         $result = $this->queryAll('SELECT * FROM SERVICE');
         if ($result) {
@@ -16,6 +24,11 @@ class ServiceDAO extends DAO {
         return null;
     }
 
+    /**
+     * Fonction qui permet de récupérer un service par son id
+     * @param int $id
+     * @return Service
+     */
     public function getServiceParId($id) {
         $result = $this->queryRow('SELECT * FROM SERVICE WHERE ID_SERVICE = ?', array($id));
         if ($result) {
