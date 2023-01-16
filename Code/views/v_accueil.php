@@ -32,7 +32,7 @@ if (!isset($alert)) {?>
 		<div class="item">
 			<h4>Modifier mon profil</h4>
 			<p>Une information à modifier ?</p>
-			<a href="index.php?page=modifier-profil"><button>Modifier mon profil</button></a>
+			<a href="index.php?page=profil"><button>Modifier mon profil</button></a>
 		</div>
 	</div>
 </div>

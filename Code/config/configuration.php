@@ -1,6 +1,6 @@
 <?php
  
-const DEBUG = true; // production : false; dev : true
+const DEBUG = true;
 
 // Accès base de données
 const BD_HOST = 'localhost';
