@@ -1,7 +1,9 @@
+<!-- Modèle de la page profil -->
 <?php
 require_once(PATH_MODELS_DAO.'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
 
+// Gestion du formulaire de modification des informations
 if (isset($_POST['valider'])) {
     $choixSup = 0;
     if(isset($_POST['modifSup'])) {
