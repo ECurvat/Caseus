@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Fonction qui permet de choisir le message d'alerte à afficher
+ * @param string $message
+ */
 function choixAlert($message)
 {
 	$alert = array();
@@ -68,6 +71,11 @@ function choixAlert($message)
 	return $alert;
 }
 
+/**
+ * Fonction qui transforme un numéro de jour en son nom en français
+ * @param int $numero
+ * @param bool $abrege
+ */
 function jourFrancais($numero, $abrege) {
 	switch($numero) {
 		case 1 :
@@ -100,6 +108,10 @@ function jourFrancais($numero, $abrege) {
 	return $jour;
 }
 
+/**
+ * Fonction qui transforme un numéro de mois en son nom en français
+ * @param int $numero
+ */
 function moisFrancais($numero) {
 	switch($numero) {
 		case 1 :

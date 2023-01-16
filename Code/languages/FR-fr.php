@@ -1,9 +1,8 @@
 <?php
-//isoler ici dans des constantes les textes affichés sur le site
 define('LOGO', 'Logo CASEUS'); // Affiché si image non trouvée
+define('TITRE', 'Caseus'); // Nom de l'onglet
 
-define('MENU_ACCUEIL','Accueil');
-
+// Messages d'alerte
 define('TEXTE_PAGE_404','Oops, la page demandée n\'existe pas !');
 define('MESSAGE_ERREUR',"Une erreur s'est produite");
 define('ERREUR_REQUETE',"Une erreur s'est produite dans la requête");
@@ -24,5 +23,3 @@ define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
 define('FORM_VIDE',"Echec : entrez au moins un produit avant de valider");
-
-define('TITRE', 'Caseus');
