@@ -23,18 +23,22 @@ if (!isset($alert)) {?>
 					<p>Prise de service <?php echo $listeServicesIndex[$jour->getIdService()]->getDebut() ?></p>
 					<p>Fin de service <?php echo $listeServicesIndex[$jour->getIdService()]->getFin() ?></p>
 				<?php } else { ?>
-					<p>Pas de service</p>
+					<br><p>Pas de service</p>
 				<?php } ?>
 			</div>
 		</div>
 	</div>
 	<div class="six columns">
-
+		<div class="item">
+			<h4>Modifier mon profil</h4>
+			<p>Une information à modifier ?</p>
+			<a href="index.php?page=modifier-profil"><button>Modifier mon profil</button></a>
+		</div>
 	</div>
 </div>
 <?php }?>
 <br>
-<a href="index.php?page=logout"><button>Se déconnecter</button></a>
+<a href="index.php?page=logout"><button class="u-full-width">Déconnexion</button></a>
 
 <!--  Fin de la page -->
 
