@@ -1,10 +1,10 @@
 <?php
-require_once(PATH_MODELS.'CongeDAO.php');
+require_once(PATH_MODELS_DAO.'CongeDAO.php');
 $congeDAO = new CongeDAO(true);
 $paraRecherche = array($_SESSION['compte']->getId(), $annee);
 $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche);
 
-require_once(PATH_MODELS.'EtatDAO.php');
+require_once(PATH_MODELS_DAO.'EtatDAO.php');
     $etatDAO = new EtatDAO(true);
     $listeEtats = $etatDAO->getListeEtats();
 

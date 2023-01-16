@@ -1,5 +1,5 @@
 <?php
-require_once(PATH_MODELS.'Connexion.php');
+require_once(PATH_MODELS_DAO.'Connexion.php');
 abstract class DAO 
 {
 

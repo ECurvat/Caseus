@@ -1,5 +1,5 @@
 <?php 
-require_once(PATH_MODELS.'DAO.php');
+require_once(PATH_MODELS_DAO.'DAO.php');
 
 class JourDAO extends DAO {
 

@@ -1,6 +1,6 @@
 <?php
 $para = array($_SESSION['compte']->getId(), $mois, $annee);
-require_once(PATH_MODELS.'AbsenceDAO.php');
+require_once(PATH_MODELS_DAO.'AbsenceDAO.php');
 $absenceDAO = new AbsenceDAO(true);
 
 if (isset($_POST['idAbsence'])) {

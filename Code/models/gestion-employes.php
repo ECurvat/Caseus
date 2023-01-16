@@ -1,13 +1,13 @@
 <?php
-require_once(PATH_MODELS.'EmployeDAO.php');
+require_once(PATH_MODELS_DAO.'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
-require_once(PATH_MODELS.'PlanningDAO.php');
+require_once(PATH_MODELS_DAO.'PlanningDAO.php');
 $planningDAO = new PlanningDAO(true);
-require_once(PATH_MODELS.'JourDAO.php');
+require_once(PATH_MODELS_DAO.'JourDAO.php');
 $jourDAO = new JourDAO(true);
-require_once(PATH_MODELS.'CongeDAO.php');
+require_once(PATH_MODELS_DAO.'CongeDAO.php');
 $congeDAO = new CongeDAO(true);
-require_once(PATH_MODELS.'AbsenceDAO.php');
+require_once(PATH_MODELS_DAO.'AbsenceDAO.php');
 $absenceDAO = new AbsenceDAO(true);
 $listeEmployes = $employeDAO->getListeEmployes();
 

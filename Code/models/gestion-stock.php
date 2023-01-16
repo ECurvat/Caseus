@@ -1,6 +1,6 @@
 <?php
 // listing des produits
-require_once(PATH_MODELS.'UniteDAO.php');
+require_once(PATH_MODELS_DAO.'UniteDAO.php');
 $uniteDAO = new UniteDAO(true);
 $listeUnites = $uniteDAO->getListeUnites();
 $correspUnites = array();
@@ -9,7 +9,7 @@ foreach ($listeUnites as $unite) {
 }
 
 
-require_once(PATH_MODELS.'ProduitDAO.php');
+require_once(PATH_MODELS_DAO.'ProduitDAO.php');
 $produitDAO = new ProduitDAO(true);
 $listeProduits = $produitDAO->getListeProduits();
 // traitement des produits entrés

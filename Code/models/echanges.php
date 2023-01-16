@@ -1,15 +1,15 @@
 <?php
-require_once(PATH_MODELS . 'PlanningDAO.php');
+require_once(PATH_MODELS_DAO . 'PlanningDAO.php');
 $planningDAO = new PlanningDAO(true);
-require_once(PATH_MODELS . 'JourDAO.php');
+require_once(PATH_MODELS_DAO . 'JourDAO.php');
 $jourDAO = new JourDAO(true);
-require_once(PATH_MODELS . 'EchangeDAO.php');
+require_once(PATH_MODELS_DAO . 'EchangeDAO.php');
 $echangeDAO = new EchangeDAO(true);
-require_once(PATH_MODELS . 'EtatDAO.php');
+require_once(PATH_MODELS_DAO . 'EtatDAO.php');
 $etatDAO = new EtatDAO(true);
-require_once(PATH_MODELS . 'ServiceDAO.php');
+require_once(PATH_MODELS_DAO . 'ServiceDAO.php');
 $serviceDAO = new ServiceDAO(true);
-require_once(PATH_MODELS . 'EmployeDAO.php');
+require_once(PATH_MODELS_DAO . 'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
 
 $listeServices = $serviceDAO->getListeServices();

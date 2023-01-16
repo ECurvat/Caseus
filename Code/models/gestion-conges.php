@@ -1,5 +1,5 @@
 <?php 
-require_once(PATH_MODELS.'CongeDAO.php');
+require_once(PATH_MODELS_DAO.'CongeDAO.php');
 $congeDAO = new CongeDAO(true);
 
 
@@ -13,9 +13,9 @@ if (isset($_POST['accepter'])) {
 
     $idEmp = $congeAccepte->getIdEmploye();
     $anneeConcernee = date("Y", strtotime($debut));
-    require_once(PATH_MODELS.'PlanningDAO.php');
+    require_once(PATH_MODELS_DAO.'PlanningDAO.php');
     $planningDAO = new PlanningDAO(true);
-    require_once(PATH_MODELS.'JourDAO.php');
+    require_once(PATH_MODELS_DAO.'JourDAO.php');
     $jourDAO = new JourDAO(true);
     // on parcours toutes les semaines concernées par le congé accepté
     for($semaine = $semDebut; $semaine <= $semFin; $semaine++) {
@@ -60,7 +60,7 @@ if (isset($_POST['accepter'])) {
 }
 
 $listeCongesEnAttente = $congeDAO->getCongeEnAttente();
-require_once(PATH_MODELS.'EmployeDAO.php');
+require_once(PATH_MODELS_DAO.'EmployeDAO.php');
 $employeDAO = new EmployeDAO(true);
 
 $listeEmployes = $employeDAO->getListeEmployes();
