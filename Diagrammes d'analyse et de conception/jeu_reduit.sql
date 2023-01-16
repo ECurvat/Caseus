@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : dim. 15 jan. 2023 à 22:30
--- Version du serveur : 5.7.36
--- Version de PHP : 7.4.26
+-- Hôte : localhost:8889
+-- Généré le : lun. 16 jan. 2023 à 16:11
+-- Version du serveur : 5.7.34
+-- Version de PHP : 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `jeu_reduit`
+-- Base de données : `jeu_reduit_yanis`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +28,12 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `absence`;
-CREATE TABLE IF NOT EXISTS `absence` (
-  `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `absence` (
+  `ID_ABSENCE` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
   `DEBUT_ABSENCE` datetime DEFAULT NULL,
-  `FIN_ABSENCE` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID_ABSENCE`),
-  KEY `FK_DECLARE` (`ID_EMPLOYE`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+  `FIN_ABSENCE` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `absence`
@@ -60,36 +58,18 @@ INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comprend`
---
-
-DROP TABLE IF EXISTS `comprend`;
-CREATE TABLE IF NOT EXISTS `comprend` (
-  `ID_LIVRAISON` int(11) NOT NULL,
-  `ID_PRODUIT` int(11) NOT NULL,
-  `QUANTITE_LIVREE` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`ID_LIVRAISON`,`ID_PRODUIT`),
-  KEY `FK_COMPREND2` (`ID_PRODUIT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `conge`
 --
 
 DROP TABLE IF EXISTS `conge`;
-CREATE TABLE IF NOT EXISTS `conge` (
-  `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `conge` (
+  `ID_DEMANDE` int(11) NOT NULL,
   `ID_ETAT` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
   `DEBUT_CONGE` date DEFAULT NULL,
   `FIN_CONGE` date DEFAULT NULL,
-  `DATE_DEMANDE` date NOT NULL,
-  PRIMARY KEY (`ID_DEMANDE`),
-  KEY `FK_DEMANDE` (`ID_EMPLOYE`),
-  KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+  `DATE_DEMANDE` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `conge`
@@ -124,21 +104,15 @@ INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_
 --
 
 DROP TABLE IF EXISTS `echange`;
-CREATE TABLE IF NOT EXISTS `echange` (
-  `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `echange` (
+  `ID_ECHANGE` int(11) NOT NULL,
   `ID_ETAT` int(11) NOT NULL,
   `ID_JOUR_EMETTEUR` int(11) NOT NULL,
   `ID_EMPLOYE_EMETTEUR` int(11) NOT NULL,
   `ID_JOUR_RECEPTEUR` int(11) NOT NULL,
   `ID_EMPLOYE_RECEPTEUR` int(11) NOT NULL,
-  `DATE_PROPOSITION` date DEFAULT NULL,
-  PRIMARY KEY (`ID_ECHANGE`),
-  KEY `FK_EST_PRECISE_PAR` (`ID_ETAT`),
-  KEY `FK_JOUR_RECEPTEUR` (`ID_JOUR_RECEPTEUR`),
-  KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
-  KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
-  KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `DATE_PROPOSITION` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `echange`
@@ -158,8 +132,8 @@ INSERT INTO `echange` (`ID_ECHANGE`, `ID_ETAT`, `ID_JOUR_EMETTEUR`, `ID_EMPLOYE_
 --
 
 DROP TABLE IF EXISTS `employe`;
-CREATE TABLE IF NOT EXISTS `employe` (
-  `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `employe` (
+  `ID_EMPLOYE` int(11) NOT NULL,
   `NOM` varchar(255) DEFAULT NULL,
   `PRENOM` varchar(255) DEFAULT NULL,
   `ADRESSE_MAIL` varchar(255) DEFAULT NULL,
@@ -169,9 +143,8 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `VILLE` varchar(255) DEFAULT NULL,
   `MDP` varchar(255) NOT NULL,
   `POSITION` varchar(255) NOT NULL DEFAULT 'POLY',
-  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID_EMPLOYE`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `employe`
@@ -207,11 +180,10 @@ INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBA
 --
 
 DROP TABLE IF EXISTS `etat`;
-CREATE TABLE IF NOT EXISTS `etat` (
-  `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT,
-  `NOM_ETAT` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID_ETAT`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+CREATE TABLE `etat` (
+  `ID_ETAT` int(11) NOT NULL,
+  `NOM_ETAT` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `etat`
@@ -231,15 +203,12 @@ INSERT INTO `etat` (`ID_ETAT`, `NOM_ETAT`) VALUES
 --
 
 DROP TABLE IF EXISTS `jour`;
-CREATE TABLE IF NOT EXISTS `jour` (
-  `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jour` (
+  `ID_JOUR` int(11) NOT NULL,
   `ID_PLANNING` int(11) NOT NULL,
   `N_JOUR` int(11) NOT NULL,
-  `ID_SERVICE` varchar(1) NOT NULL,
-  PRIMARY KEY (`ID_JOUR`),
-  KEY `FK_CONTIENT` (`ID_PLANNING`),
-  KEY `FK_JOUR_SERVICE` (`ID_SERVICE`)
-) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8;
+  `ID_SERVICE` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `jour`
@@ -385,74 +354,57 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `livraison`
---
-
-DROP TABLE IF EXISTS `livraison`;
-CREATE TABLE IF NOT EXISTS `livraison` (
-  `ID_LIVRAISON` int(11) NOT NULL AUTO_INCREMENT,
-  `DATE_LIVRAISON` date DEFAULT NULL,
-  PRIMARY KEY (`ID_LIVRAISON`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `planning`
 --
 
 DROP TABLE IF EXISTS `planning`;
-CREATE TABLE IF NOT EXISTS `planning` (
-  `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `planning` (
+  `ID_PLANNING` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
-  `ID_ETAT` int(11) NOT NULL,
   `N_SEMAINE` int(11) DEFAULT NULL,
-  `ANNEE_PLANNING` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`ID_PLANNING`),
-  KEY `FK_EST_CARACTERISE_PAR` (`ID_ETAT`),
-  KEY `FK_POSSEDE` (`ID_EMPLOYE`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+  `ANNEE_PLANNING` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `planning`
 --
 
-INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `ANNEE_PLANNING`) VALUES
-(1, 1, 1, 44, 2022),
-(2, 3, 1, 48, 2022),
-(5, 3, 1, 51, 2022),
-(6, 3, 1, 52, 2022),
-(8, 3, 1, 1, 2023),
-(9, 3, 1, 2, 2023),
-(10, 3, 1, 49, 2022),
-(11, 3, 1, 50, 2022),
-(13, 2, 1, 49, 2022),
-(14, 1, 1, 49, 2022),
-(15, 2, 1, 50, 2022),
-(16, 2, 1, 52, 2022),
-(17, 1, 1, 52, 2022),
-(18, 1, 1, 3, 2023),
-(19, 2, 1, 3, 2023),
-(20, 3, 1, 3, 2023),
-(21, 4, 1, 3, 2023),
-(22, 5, 1, 3, 2023),
-(23, 6, 1, 3, 2023),
-(24, 7, 1, 3, 2023),
-(25, 8, 1, 3, 2023),
-(26, 9, 1, 3, 2023),
-(27, 10, 1, 3, 2023),
-(28, 11, 1, 3, 2023),
-(29, 12, 1, 3, 2023),
-(30, 13, 1, 3, 2023),
-(31, 14, 1, 3, 2023),
-(32, 15, 1, 3, 2023),
-(33, 16, 1, 3, 2023),
-(34, 17, 1, 3, 2023),
-(35, 18, 1, 3, 2023),
-(36, 19, 1, 3, 2023),
-(37, 20, 1, 3, 2023),
-(38, 21, 1, 3, 2023),
-(39, 9, 1, 4, 2023);
+INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `N_SEMAINE`, `ANNEE_PLANNING`) VALUES
+(1, 1, 44, 2022),
+(2, 3, 48, 2022),
+(5, 3, 51, 2022),
+(6, 3, 52, 2022),
+(8, 3, 1, 2023),
+(9, 3, 2, 2023),
+(10, 3, 49, 2022),
+(11, 3, 50, 2022),
+(13, 2, 49, 2022),
+(14, 1, 49, 2022),
+(15, 2, 50, 2022),
+(16, 2, 52, 2022),
+(17, 1, 52, 2022),
+(18, 1, 3, 2023),
+(19, 2, 3, 2023),
+(20, 3, 3, 2023),
+(21, 4, 3, 2023),
+(22, 5, 3, 2023),
+(23, 6, 3, 2023),
+(24, 7, 3, 2023),
+(25, 8, 3, 2023),
+(26, 9, 3, 2023),
+(27, 10, 3, 2023),
+(28, 11, 3, 2023),
+(29, 12, 3, 2023),
+(30, 13, 3, 2023),
+(31, 14, 3, 2023),
+(32, 15, 3, 2023),
+(33, 16, 3, 2023),
+(34, 17, 3, 2023),
+(35, 18, 3, 2023),
+(36, 19, 3, 2023),
+(37, 20, 3, 2023),
+(38, 21, 3, 2023),
+(39, 9, 4, 2023);
 
 -- --------------------------------------------------------
 
@@ -461,15 +413,13 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `ID_ETAT`, `N_SEMAINE`, `AN
 --
 
 DROP TABLE IF EXISTS `produit`;
-CREATE TABLE IF NOT EXISTS `produit` (
-  `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produit` (
+  `ID_PRODUIT` int(11) NOT NULL,
   `ID_UNITE` int(11) NOT NULL,
   `DENOMINATION` varchar(255) DEFAULT NULL,
   `DERNIERE_MODIF` datetime DEFAULT NULL,
-  `QUANTITE_EN_STOCK` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`ID_PRODUIT`),
-  KEY `FK_EST_EN` (`ID_UNITE`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `QUANTITE_EN_STOCK` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
@@ -489,12 +439,11 @@ INSERT INTO `produit` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF
 --
 
 DROP TABLE IF EXISTS `service`;
-CREATE TABLE IF NOT EXISTS `service` (
+CREATE TABLE `service` (
   `ID_SERVICE` varchar(1) NOT NULL,
   `NOMBRE` int(2) NOT NULL DEFAULT '1',
   `DEBUT_SERVICE` time NOT NULL,
-  `FIN_SERVICE` time NOT NULL,
-  PRIMARY KEY (`ID_SERVICE`)
+  `FIN_SERVICE` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -517,28 +466,14 @@ INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) V
 -- --------------------------------------------------------
 
 --
--- Structure de la table `supervise`
---
-
-DROP TABLE IF EXISTS `supervise`;
-CREATE TABLE IF NOT EXISTS `supervise` (
-  `ID_EMPLOYE` int(11) NOT NULL,
-  `ID_LIVRAISON` int(11) NOT NULL,
-  PRIMARY KEY (`ID_EMPLOYE`,`ID_LIVRAISON`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `unite`
 --
 
 DROP TABLE IF EXISTS `unite`;
-CREATE TABLE IF NOT EXISTS `unite` (
-  `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT,
-  `NOM_UNITE` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID_UNITE`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE `unite` (
+  `ID_UNITE` int(11) NOT NULL,
+  `NOM_UNITE` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `unite`
@@ -550,6 +485,140 @@ INSERT INTO `unite` (`ID_UNITE`, `NOM_UNITE`) VALUES
 (3, 'litres');
 
 --
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `absence`
+--
+ALTER TABLE `absence`
+  ADD PRIMARY KEY (`ID_ABSENCE`),
+  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
+
+--
+-- Index pour la table `conge`
+--
+ALTER TABLE `conge`
+  ADD PRIMARY KEY (`ID_DEMANDE`),
+  ADD KEY `FK_DEMANDE` (`ID_EMPLOYE`),
+  ADD KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`);
+
+--
+-- Index pour la table `echange`
+--
+ALTER TABLE `echange`
+  ADD PRIMARY KEY (`ID_ECHANGE`),
+  ADD KEY `FK_EST_PRECISE_PAR` (`ID_ETAT`),
+  ADD KEY `FK_JOUR_RECEPTEUR` (`ID_JOUR_RECEPTEUR`),
+  ADD KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
+  ADD KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
+  ADD KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE;
+
+--
+-- Index pour la table `employe`
+--
+ALTER TABLE `employe`
+  ADD PRIMARY KEY (`ID_EMPLOYE`);
+
+--
+-- Index pour la table `etat`
+--
+ALTER TABLE `etat`
+  ADD PRIMARY KEY (`ID_ETAT`);
+
+--
+-- Index pour la table `jour`
+--
+ALTER TABLE `jour`
+  ADD PRIMARY KEY (`ID_JOUR`),
+  ADD KEY `FK_CONTIENT` (`ID_PLANNING`),
+  ADD KEY `FK_JOUR_SERVICE` (`ID_SERVICE`);
+
+--
+-- Index pour la table `planning`
+--
+ALTER TABLE `planning`
+  ADD PRIMARY KEY (`ID_PLANNING`),
+  ADD KEY `FK_POSSEDE` (`ID_EMPLOYE`);
+
+--
+-- Index pour la table `produit`
+--
+ALTER TABLE `produit`
+  ADD PRIMARY KEY (`ID_PRODUIT`),
+  ADD KEY `FK_EST_EN` (`ID_UNITE`);
+
+--
+-- Index pour la table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`ID_SERVICE`);
+
+--
+-- Index pour la table `unite`
+--
+ALTER TABLE `unite`
+  ADD PRIMARY KEY (`ID_UNITE`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `absence`
+--
+ALTER TABLE `absence`
+  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT pour la table `conge`
+--
+ALTER TABLE `conge`
+  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT pour la table `echange`
+--
+ALTER TABLE `echange`
+  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT pour la table `employe`
+--
+ALTER TABLE `employe`
+  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT pour la table `etat`
+--
+ALTER TABLE `etat`
+  MODIFY `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `jour`
+--
+ALTER TABLE `jour`
+  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+
+--
+-- AUTO_INCREMENT pour la table `planning`
+--
+ALTER TABLE `planning`
+  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT pour la table `produit`
+--
+ALTER TABLE `produit`
+  MODIFY `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `unite`
+--
+ALTER TABLE `unite`
+  MODIFY `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Contraintes pour les tables déchargées
 --
 
@@ -558,13 +627,6 @@ INSERT INTO `unite` (`ID_UNITE`, `NOM_UNITE`) VALUES
 --
 ALTER TABLE `absence`
   ADD CONSTRAINT `FK_DECLARE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
-
---
--- Contraintes pour la table `comprend`
---
-ALTER TABLE `comprend`
-  ADD CONSTRAINT `FK_COMPREND` FOREIGN KEY (`ID_LIVRAISON`) REFERENCES `livraison` (`ID_LIVRAISON`),
-  ADD CONSTRAINT `FK_COMPREND2` FOREIGN KEY (`ID_PRODUIT`) REFERENCES `produit` (`ID_PRODUIT`);
 
 --
 -- Contraintes pour la table `conge`
@@ -594,7 +656,6 @@ ALTER TABLE `jour`
 -- Contraintes pour la table `planning`
 --
 ALTER TABLE `planning`
-  ADD CONSTRAINT `FK_EST_CARACTERISE_PAR` FOREIGN KEY (`ID_ETAT`) REFERENCES `etat` (`ID_ETAT`),
   ADD CONSTRAINT `FK_POSSEDE` FOREIGN KEY (`ID_EMPLOYE`) REFERENCES `employe` (`ID_EMPLOYE`);
 
 --
