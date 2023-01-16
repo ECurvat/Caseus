@@ -61,6 +61,7 @@
         <?php } ?>
     </div>
 </div>
+<hr>
 <div class="row">
     <div class="six columns">
         <h5>Demandes envoyées</h5>

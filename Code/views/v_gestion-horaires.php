@@ -63,6 +63,7 @@
 	}
 	?>
 </div>
+<hr>
 <div class="row">
 	<h5>Gérer un planning pour une semaine</h5>
 	<div class="row">

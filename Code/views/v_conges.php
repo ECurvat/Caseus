@@ -25,7 +25,7 @@
         </div>
     </form>
 </div>
-
+<hr>
 <div class="row">
     <h5>Mes demandes</h5>
     <form method="post">

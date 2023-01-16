@@ -33,9 +33,10 @@
     </form>
 </div>
 <?php } ?>
+<hr>
 <div class="row">
-    <?php if (!empty($listeCongesFuturs)) { ?>
     <h5>Futurs congés déjà acceptés</h5>
+    <?php if (!empty($listeCongesFuturs)) { ?>
     <table class="u-full-width">
         <thead>
             <tr>
