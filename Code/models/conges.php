@@ -28,11 +28,16 @@ $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche);
 if (!empty($listeConges)) {
     foreach ($listeConges as $elem) {
         // Ecouteur sur les boutons de suppression
-        if(isset($_POST['del'.$elem->getIdDemande()])) { 
-            $congeDAO->removeConge($elem->getIdDemande());
-            // Actualisation de la liste des congés après suppression
-            $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche);
-            $alert = choixAlert('succes_operation');
+        if(isset($_POST['del'.$elem->getIdDemande()])) {
+            // Impossible de supprimer une demande acceptée ou refusée
+            if ($elem->getIdEtat() == 3) {
+                $congeDAO->removeConge($elem->getIdDemande());
+                // Actualisation de la liste des congés après suppression
+                $listeConges = $congeDAO->getCongeParDateParEmploye($paraRecherche);
+                $alert = choixAlert('succes_operation');
+            } else {
+                $alert = choixAlert('supp_impossible');
+            }
         }
     }
 }

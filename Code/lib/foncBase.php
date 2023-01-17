@@ -38,8 +38,8 @@ function choixAlert($message)
 		case 'pas_de_jour' :
 			$alert['messageAlert'] = PAS_DE_JOUR;
 			break;
-		case 'supp_echange_impossible' :
-			$alert['messageAlert'] = SUPP_ECHANGE_IMPOSSIBLE;
+		case 'supp_impossible' :
+			$alert['messageAlert'] = SUPP_IMPOSSIBLE;
 			break;
 		case 'conge_trouve' :
 			$alert['messageAlert'] = CONGE_TROUVE;

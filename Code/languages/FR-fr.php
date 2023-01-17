@@ -18,7 +18,7 @@ define('CONGE_TROUVE', "Vous avez un jour de congé prévu à la date renseigné
 define('DEJA_ECHANGE', "Vous avez déjà une demande d'échange en attente pour ce jour");
 define('PLANNING_EXISTANT', "Tous les employés ont un planning pour cette semaine : essayez d'écraser le planning existant");
 define('PLANNING_PAS_FAIT', "Tous les employés n'ont pas de planning pour cette semaine : essayez de créer un planning");
-define('SUPP_ECHANGE_IMPOSSIBLE', "Impossible de supprimer une demande qui n'est plus en attente");
+define('SUPP_IMPOSSIBLE', "Impossible de supprimer une demande qui n'est plus en attente");
 define('SUCCES_OPERATION',"Opération réalisée avec succès");
 define('CONTRAINTES',"Echec : les contraintes ne sont pas respectées");
 define('PRIVILEGES',"Echec : vous n'avez pas les privilèges nécessaires");
