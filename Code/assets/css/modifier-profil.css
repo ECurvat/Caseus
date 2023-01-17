@@ -1,0 +1,7 @@
+input:disabled {
+    background-color: hsl(0deg, 0%, 85%);
+}
+
+input:disabled:hover {
+    cursor: not-allowed;
+}

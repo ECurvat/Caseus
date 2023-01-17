@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Fonction qui permet de choisir le message d'alerte à afficher
+ * @param string $message
+ */
 function choixAlert($message)
 {
 	$alert = array();
@@ -35,8 +38,8 @@ function choixAlert($message)
 		case 'pas_de_jour' :
 			$alert['messageAlert'] = PAS_DE_JOUR;
 			break;
-		case 'supp_echange_impossible' :
-			$alert['messageAlert'] = SUPP_ECHANGE_IMPOSSIBLE;
+		case 'supp_impossible' :
+			$alert['messageAlert'] = SUPP_IMPOSSIBLE;
 			break;
 		case 'conge_trouve' :
 			$alert['messageAlert'] = CONGE_TROUVE;
@@ -46,6 +49,9 @@ function choixAlert($message)
 			break;
 		case 'planning_existant' :
 			$alert['messageAlert'] = PLANNING_EXISTANT;
+			break;
+		case 'planning_pas_fait' :
+			$alert['messageAlert'] = PLANNING_PAS_FAIT;
 			break;
 		case 'succes_operation' :
 			$alert['messageAlert'] = SUCCES_OPERATION;
@@ -65,6 +71,11 @@ function choixAlert($message)
 	return $alert;
 }
 
+/**
+ * Fonction qui transforme un numéro de jour en son nom en français
+ * @param int $numero
+ * @param bool $abrege
+ */
 function jourFrancais($numero, $abrege) {
 	switch($numero) {
 		case 1 :
@@ -97,6 +108,10 @@ function jourFrancais($numero, $abrege) {
 	return $jour;
 }
 
+/**
+ * Fonction qui transforme un numéro de mois en son nom en français
+ * @param int $numero
+ */
 function moisFrancais($numero) {
 	switch($numero) {
 		case 1 :

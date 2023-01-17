@@ -129,14 +129,20 @@
         </form>
     </div>
     <?php if (isset($_POST['modifierChoisir'])) {?>
+        <div class="infosEmp">
+                <label for="modifId">Id</label>
+                <input type="text" id="modifId" name="modifId" value="<?php echo $empModif->getId() ?>"disabled>
+                <label for="modifNom">Nom</label>
+                <input type="text" id="modifNom" name="modifNom" value="<?php echo $empModif->getNom() ?>"disabled>
+                <label for="modifPrenom">Prénom</label>
+                <input type="text" id="modifPrenom" name="modifPrenom" value="<?php echo $empModif->getPrenom() ?>"disabled>
+                <label for="modifEmail">Email</label>
+                <input type="text" id="modifEmail" name="modifEmail" value="<?php echo $empModif->getMail() ?>"disabled>
+        </div>
         <form method="post">
             <label for="modifierMDP">Réinitialiser le mot de passe</label>
             <p>Ceci enverra un nouveau mot de passe à l'adresse mail actuelle de l'employé séléctionné</p>
             <button class="button-warning u-full-width" type="submit" value=<?php echo($_POST['modifierChoixEmp']) ?> name="modifierMDP">Confirmer</button>
-            <hr>
-            <label for="modifierMsg">Envoyer un message</label>
-            <textarea class="u-full-width" placeholder="Bonjour …" name="modifierMsg"></textarea>
-            <input class="button-warning u-full-width" type="submit" value="Envoyer" name="modifierEnvoyer">
         </form>
     <?php }?>
 <?php } elseif (isset($_POST['choixSupprimer'])) {?>
@@ -152,9 +158,33 @@
             <input class="button-danger u-full-width" type="submit" value="Supprimer" name="supprimerValider">
         </form>
     </div>
-<?php } if (isset($newMDP)){?>
-    <p>Le nouveau mot de passe est : <?php echo $newMDP?></p>
-<?php }?>
+<?php } if (isset($_POST['ajoutValider'])) {?>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("ai91zG73bzke7Otd4");
+        var params = {
+            to_name: "<?php echo $_POST['ajoutPrenom']; ?>",
+            to_email: "<?php echo $_POST['ajoutMail']; ?>",
+            mdp: "<?php echo $newMDP; ?>"
+        };
+        emailjs.send('service_yuqvdpk', 'template_8ekmhcr', params);
+    })();
+</script>
+<?php } if (isset($_POST['modifierMDP'])) {?>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("ai91zG73bzke7Otd4");
+        var params = {
+            to_name: "<?php echo $empModif->getPrenom(); ?>",
+            to_email: "<?php echo $empModif->getMail(); ?>",
+            mdp: "<?php echo $newMDP; ?>"
+        };
+        emailjs.send('service_yuqvdpk', 'template_ysf4tn9', params);
+    })();
+</script>
+<?php } ?>
 
 <!--  Fin de la page -->
 

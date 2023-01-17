@@ -1,6 +1,6 @@
 <?php
  
-const DEBUG = true; // production : false; dev : true
+const DEBUG = true;
 
 // Accès base de données
 const BD_HOST = 'localhost';
@@ -17,6 +17,7 @@ define('PATH_ENTITY','./entities/');
 define('PATH_ASSETS','./assets/');
 define('PATH_LIB','./lib/');
 define('PATH_MODELS','./models/');
+define('PATH_MODELS_DAO','./models/DAO/');
 define('PATH_VIEWS','./views/v_');
 define('PATH_TEXTES','./languages/');
 

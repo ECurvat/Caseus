@@ -1,7 +1,12 @@
+<!-- Contrôleur page de gestion des employés -->
 <?php
+// Vérification des autorisations
+if ($_SESSION['compte']->getPosition() != 'MANA') {
+    header("Location: index.php");
+    exit;
+}
 
-
-// pas encore utilisé : à voir en séance SAÉ
+// Générer un mot de passe (création compte ou réinitialisation mot de passe)
 function randomPassword() {
 
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -11,22 +16,14 @@ function randomPassword() {
         $n = rand(0, $alphaLength);
         $pass[] = $alphabet[$n];
     }
-    return implode($pass); // array -> string
+    return implode($pass); // tableau -> chaîne de caractères
 
 }
 
-if ($_SESSION['compte']->getPosition() != 'MANA') {
-
-    header("Location: index.php");
-    exit;
-
-}
-
-if (isset ($_POST['modifierMDP'])){
+// Génération du mot de passe quand nécessaire
+if (isset($_POST['modifierMDP']) || isset($_POST['ajoutValider'])){
     $newMDP = randomPassword();
 }
 
-
 require_once(PATH_MODELS.$page.'.php'); 
-
 require_once(PATH_VIEWS.$page.'.php'); 
