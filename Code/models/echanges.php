@@ -152,8 +152,8 @@ if (!is_null($listeRecus)) {
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
             $jour->format('d/m/y'),
-            $jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep()),
-            $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet()),
+            $listeServicesIndex[$jourDAO->getJourParId($listeRecus[$i]->getIdJourRecep())->getIdService()],
+            $listeServicesIndex[$jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getIdService()],
             $listeRecus[$i]->getIdEchange()
         ));
     }
