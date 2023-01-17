@@ -124,7 +124,7 @@ if (!is_null($listeEnvois)) {
         $premJour = new DateTime(date('Y-m-d', strtotime($planningEmetteur->getAnneePlanning() . 'W' . $planningEmetteur->getNSemaine())));
 
         // On trouve quel jour du planning est concerné
-        $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour() - 1;
+        $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour();
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('d/m/y'),
@@ -148,7 +148,7 @@ if (!is_null($listeRecus)) {
         $premJour = new DateTime(date('Y-m-d', strtotime($planningEmetteur->getAnneePlanning() . 'W' . $planningEmetteur->getNSemaine())));
 
         // On trouve quel jour du planning est concerné
-        $nbJoursAAjouter = $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getNJour() - 1;
+        $nbJoursAAjouter = $jourDAO->getJourParId($listeRecus[$i]->getIdJourEmet())->getNJour();
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeRecusPropre, array(
             $jour->format('d/m/y'),
