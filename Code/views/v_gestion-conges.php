@@ -49,7 +49,7 @@
         <tbody>
             <?php 
                 foreach ($listeCongesFuturs as $elem) {
-                    $emp = $listeEmployes[$elem->getIdEmploye()];
+                    $emp = $listeEmployesIndex[$elem->getIdEmploye()];
                     $debut = jourFrancais(date("N", strtotime($elem->getDebut())), false).date(" d/m/Y", strtotime($elem->getDebut()));
                     $fin = jourFrancais(date("N", strtotime($elem->getFin())), false).date(" d/m/Y", strtotime($elem->getFin()));
                     echo '<tr>';
