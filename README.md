@@ -1,22 +1,17 @@
-# templategp-agile-sae-s3
+# CASEUS
 
-Template de base pour gérer (en mode SCRUM-light) les SAE du s3 avec GitLab 🦊
+<img src="Code/assets/images/logo.png" alt="logo" width="200"/>
 
-![bannière](.ressources/SAE-s3-logo-bleu.png)
+_Une application de gestion administrative d'une entreprise_
 
-##  1. <a name='Tabledesmatires'></a> Table des matières
+
+##  1. <a name='Table'></a> Table des matières
 <!-- vscode-markdown-toc -->
-* 1. [ Table des matières](#Tabledesmatires)
-* 2. [Pourquoi ce dépôt ?](#Pourquoicedpt)
-* 3. [Que propose ce dépôt ?](#Queproposecedpt)
-	* 3.1. [Les labels](#Leslabels)
-	* 3.2. [Les Jalons](#Lesjalons)
-	* 3.3. [Le Board](#LeBoard)
-	* 3.4. [Les branches](#Lesbranches)
-	* 3.5. [Modèles pour les issues et les merges requests](#Modlespourlesissuesetlesmergesrequests)
-* 4. [Comment utiliser ce dépôt ?](#Commentutilisercedpt)
-* 5. [Licence](#Licence)
-* 6. [Auteur](#Auteur)
+1. [Table des matières](#Table)
+2. [Présentation du projet et objectifs](#Pres)
+3. [Outils et technologies utilisés](#Outils)
+4. [Consignes d’installation](#Consignes)
+5. [Sources et contact des auteurs](#Sources)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -24,88 +19,39 @@ Template de base pour gérer (en mode SCRUM-light) les SAE du s3 avec GitLab �
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  2. <a name='Pourquoicedpt'></a>Pourquoi ce dépôt ?
 
-Ce dépot à pour objectif de fournir un outil de démarrage rapide pour organiser et gérer de façon agile un nouveau projet avec GitLab, notamment pour la SAE du s3.
 
-Partant du constat que le démarrage d'un projet est un processus long et complexe, on fournit ici un outil simple pour lancer un projet avec GitLab, que vous pourrez réutiiser et adapter au fil du temps avec votre propre affinité de GiLab.
+##  2. <a name='Pres'></a>Présentation du projet et objectifs
+Notre projet « Caseus » est une application web ayant pour objectif de faciliter les tâches administratives pour les employés d’une entreprise. Elle permet aux employés de gérer efficacement leurs informations personnelles, de suivre leurs congés et absences, d’échanger un jour de travail et de consulter leurs horaires. Elle offre également aux managers une vue globale de l’activité de leur équipe et leur permet de prendre des décisions éclairées. Il y a 3 catégories d’employés dans l’entreprise : les employés polyvalents, les assistants manager et les managers.
+En somme, l’application vise à améliorer la productivité et la communication au sein de l’entreprise.
 
-##  3. <a name='Queproposecedpt'></a>Que propose ce dépôt ?
+##  3. <a name='Outils'></a>Outils et technologies utilisés
+Afin de créer une application web efficace et fonctionnelle nous avons fait le choix d’utiliser les outils et technologies suivants :
+- PHP 7 : utilisé pour développer la partie serveur de l’application et gérer les interactions avec la base de données.
+- Design Patterns : Data Access Object (DAO) et Singleton.
+- HTML, CSS et JavaScript : utilisés pour développer l’interface utilisateur et la
+présentation des données.
+- MySQL : utilisé pour stocker et récupérer les données de l’application, comme les informations sur les employés, les congés, les absences...
+- Git : utilisé pour gérer les différentes versions du code et faciliter la collaboration entre les développeurs. Aussi utilisé comme outil de gestion de projet (GitLab). (Template utilisé pour la gestion de projet : @V.Deslandres et [YoanDev](https://yoandev.co))
+- Méthode agile « Scrum » : utilisée pour gérer le développement du projet de manière efficace et flexible. Elle nous a par ailleurs permis de nous adapter aux changements d’objectifs en cours de projet et de prioriser les tâches importantes. Elle offre également une amélioration continue grâce à des itérations régulières. Enfin, elle nous a permis de maintenir une communication efficace.
 
-Ce dépôt fournit un ensemble de modèles, de fichiers et de paramétrages pour vous faciliter le démarrage d'un projet avec GitLab, que vous pouvez modifier à volonté.
-Vous trouverez les éléments suivants :
+##  4. <a name='Consignes'></a>Consignes d’installation
+Consignes d’installation pour éditer et visualiser le projet « Caseus » :
+1. Assurez-vous d’avoir les prérequis nécessaires : une version stable de PHP 7 et un environnement de développement web ; ex. : Visual Studio Code ou PhpStorm.
+2. Depuis cette page, téléchargez le projet ou forkez le.
+3. Installez sur votre machine un serveur web local (Xampp,Mamp...) comprenant un système de gestion de SGBD (phpMyAdmin par exemple).
+4. Importez le jeu de données fourni « ./Diagrammes d'analyse et de conception/jeu_donnees.sql » dans phpMyAdmin en utilisant l’outil d’import.
+5. Configurez le fichier « ./Code/config/configuration.php » pour relier votre base de données à l’application.
+6. Accédez à l’application enutilisant l’URL de votre serveur web (après vous être assuré que tous ses services fonctionnent) sur votre navigateur.
 
--   Ce fichier README.md
--   Des modèles pour les issues et les merge requests, et un modèle pour la réunion en séance avec le tuteur-SAE 
--   Une collection de labels
--   Une liste de jalons (_milestones_) correspondant aux dates des séances de SAE avec le tuteur
--   Un modèle de Board
--   3 Branches spécifiques à la SAE :
-    -   Main
-    -   Pré-Démonstration
-    -   Démonstration
+##  5. <a name='Sources'></a>Sources et contact des auteurs
+- Gestion de l’envoi des mails : EmailJS - https://www.emailjs.com
+- Problèmes rencontrés avec PHP (très utile pour la gestion des dates/heures) : PHP - https://www.php.net
+- Icônes : Fontawesome - https://fontawesome.com
+- Images d’illustration : Unsplash - https://unsplash.com/fr
 
-(Dans un cadre professionnel, ces 2 dernières branches s'appellent _pré-production_ et _production_)
-
-###  3.1. <a name='Leslabels'></a>Les labels
-
-Les labels sont des éléments qui sont associés à des _issues_ et _merge requests_ : ils permettent de les classer, les organiser et les identifier simplement. Voici ceux qu'on propose ici, vous pouvez en supprimer ou ajouter d'autres.
-
-On a distingué les labels prioritaires :
-
-![label](.ressources/labels.png)
-
-Des labels utilisés pour le board :
-
-![label](.ressources/labels2.png)
-
-###  3.2. <a name='Lesjalons'></a>Les Jalons
-
-Les jalons (milestones) sont les échéances connues du projet, qu'il faut préparer ou pour lesquelles certaines tâches / livrables doivent être terminées.
-Dans le modèle, on a défini des jalons qui devraient vous aider, notamment pour préparer chaque séance de SAE avec le tuteur.
-
-Libre à vous de les adapter.
-
-![label](.ressources/jalons.png)
-
-###  3.3. <a name='LeBoard'></a>Le Board
-
-Le Board est l'outil central de GitLab pour organiser et gérer les tâches afférentes au projet.
-
-Il permet de les visualiser et de suivre leur progression.
-
-La structure de ce board adopte l'approche [Scrumban](https://asana.com/fr/resources/scrumban).
-
-![board](.ressources/theBoard.png)
-
-###  3.4. <a name='Lesbranches'></a>Les branches
-
-Les trois branches proposées dans ce template permettent de gérer de manière simple l'état du votre projet, jusqu'à la revue finale de projet devant un jury de 2 enseignants.
-
-Ce modèle est librement inspiré de l'approche GitLab Flow, pour en savoir plus : [GitLab Flow](https://www.youtube.com/watch?v=ZJuUz5jWb44).
-
-![](.ressources/branches.png)
-
-###  3.5. <a name='Modlespourlesissuesetlesmergesrequests'></a>Modèles pour les issues et les merges requests
-
-Ce template propose des modèles pour les _issues_ et les _merge requests_ afin de simplifier et standardiser leur utilisation par les équipes du projet.
-
-![board](.ressources/issues.png)
-
-![board](.ressources/mr.png)
-
-##  4. <a name='Commentutilisercedpt'></a>Comment utiliser ce dépôt ?
-
-> Vous utilisez ce dépôt comme **base d'inspiration** pour votre gérer votre projet simplement en adaptant les éléments à votre contexte.
-
-> **Vous pouvez également télécharger l'export du dépôt pour l'importer avec tous les éléments dèja présents (labels, issues, merges requests, board, branches, ...)**
-> 1. [Télécharger l'export du dépôt](.ressources/export.tar.gz)
-> 2. [Importer l'export dans GitLab](https://docs.gitlab.com/ee/user/project/settings/import_export.html#import-a-project-and-its-data)
-
-##  5. <a name='Licence'></a>Licence
-
-Ce dépôt est sous licence [MIT](LICENSE)
-
-##  6. <a name='Auteur'></a>Auteur
-Contact : @V.Deslandres
-Ce travail est basé sur le kit starter de projet de [YoanDev](https://yoandev.co)
+Si vous rencontrez des problèmes lors de l’installation ou de la manipulation du projet, veuillez contacter l’équipe de développement pour obtenir de l'aide :
+- [AGHUMYAN Mesrop](@p2103901) (mesrop.aghumyan@etu.univ-lyon1.fr)
+- [BORIE Yanis](@p2100107) (yanis.borie@etu.univ-lyon1.fr)
+- [COURTET Tom](@p2101495) (tom.courtet@etu.univ-lyon1.fr)
+- [CURVAT Elliot](@p2020739) (elliot.curvat@etu.univ-lyon1.fr)
