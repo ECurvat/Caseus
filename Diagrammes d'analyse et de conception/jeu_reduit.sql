@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le : lun. 16 jan. 2023 à 16:11
--- Version du serveur : 5.7.34
--- Version de PHP : 7.4.21
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mar. 17 jan. 2023 à 22:01
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `jeu_reduit_yanis`
+-- Base de données : `jeu_reduit`
 --
 
 -- --------------------------------------------------------
@@ -28,12 +28,14 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `absence`;
-CREATE TABLE `absence` (
-  `ID_ABSENCE` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `absence` (
+  `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT,
   `ID_EMPLOYE` int(11) NOT NULL,
   `DEBUT_ABSENCE` datetime DEFAULT NULL,
-  `FIN_ABSENCE` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `FIN_ABSENCE` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID_ABSENCE`),
+  KEY `FK_DECLARE` (`ID_EMPLOYE`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `absence`
@@ -53,7 +55,13 @@ INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE
 (23, 1, '2022-12-29 08:00:00', '2022-12-29 23:10:00'),
 (24, 7, '2022-12-28 08:00:00', '2022-12-28 23:10:00'),
 (25, 10, '2022-12-31 03:00:00', '2022-12-31 20:00:00'),
-(29, 14, '2022-12-31 03:00:00', '2022-12-31 20:00:00');
+(29, 14, '2022-12-31 03:00:00', '2022-12-31 20:00:00'),
+(31, 13, '2023-01-18 00:00:00', '2023-01-18 18:00:00'),
+(32, 13, '2023-01-20 08:00:00', '2023-01-20 18:00:00'),
+(33, 14, '2023-01-24 08:00:00', '2023-01-24 22:55:00'),
+(34, 15, '2023-01-20 08:00:00', '2023-01-20 22:55:00'),
+(35, 15, '2023-01-27 08:00:00', '2023-01-27 22:56:00'),
+(36, 16, '2023-01-25 08:00:00', '2023-01-25 22:58:00');
 
 -- --------------------------------------------------------
 
@@ -62,14 +70,17 @@ INSERT INTO `absence` (`ID_ABSENCE`, `ID_EMPLOYE`, `DEBUT_ABSENCE`, `FIN_ABSENCE
 --
 
 DROP TABLE IF EXISTS `conge`;
-CREATE TABLE `conge` (
-  `ID_DEMANDE` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `conge` (
+  `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT,
   `ID_ETAT` int(11) NOT NULL,
   `ID_EMPLOYE` int(11) NOT NULL,
   `DEBUT_CONGE` date DEFAULT NULL,
   `FIN_CONGE` date DEFAULT NULL,
-  `DATE_DEMANDE` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `DATE_DEMANDE` date NOT NULL,
+  PRIMARY KEY (`ID_DEMANDE`),
+  KEY `FK_DEMANDE` (`ID_EMPLOYE`),
+  KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `conge`
@@ -104,15 +115,21 @@ INSERT INTO `conge` (`ID_DEMANDE`, `ID_ETAT`, `ID_EMPLOYE`, `DEBUT_CONGE`, `FIN_
 --
 
 DROP TABLE IF EXISTS `echange`;
-CREATE TABLE `echange` (
-  `ID_ECHANGE` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `echange` (
+  `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT,
   `ID_ETAT` int(11) NOT NULL,
   `ID_JOUR_EMETTEUR` int(11) NOT NULL,
   `ID_EMPLOYE_EMETTEUR` int(11) NOT NULL,
   `ID_JOUR_RECEPTEUR` int(11) NOT NULL,
   `ID_EMPLOYE_RECEPTEUR` int(11) NOT NULL,
-  `DATE_PROPOSITION` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `DATE_PROPOSITION` date DEFAULT NULL,
+  PRIMARY KEY (`ID_ECHANGE`),
+  KEY `FK_EST_PRECISE_PAR` (`ID_ETAT`),
+  KEY `FK_JOUR_RECEPTEUR` (`ID_JOUR_RECEPTEUR`),
+  KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
+  KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
+  KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `echange`
@@ -132,8 +149,8 @@ INSERT INTO `echange` (`ID_ECHANGE`, `ID_ETAT`, `ID_JOUR_EMETTEUR`, `ID_EMPLOYE_
 --
 
 DROP TABLE IF EXISTS `employe`;
-CREATE TABLE `employe` (
-  `ID_EMPLOYE` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `employe` (
+  `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT,
   `NOM` varchar(255) DEFAULT NULL,
   `PRENOM` varchar(255) DEFAULT NULL,
   `ADRESSE_MAIL` varchar(255) DEFAULT NULL,
@@ -143,8 +160,9 @@ CREATE TABLE `employe` (
   `VILLE` varchar(255) DEFAULT NULL,
   `MDP` varchar(255) NOT NULL,
   `POSITION` varchar(255) NOT NULL DEFAULT 'POLY',
-  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `HEURES_SUP` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID_EMPLOYE`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `employe`
@@ -180,10 +198,11 @@ INSERT INTO `employe` (`ID_EMPLOYE`, `NOM`, `PRENOM`, `ADRESSE_MAIL`, `DATE_EMBA
 --
 
 DROP TABLE IF EXISTS `etat`;
-CREATE TABLE `etat` (
-  `ID_ETAT` int(11) NOT NULL,
-  `NOM_ETAT` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `etat` (
+  `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT,
+  `NOM_ETAT` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID_ETAT`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `etat`
@@ -203,12 +222,15 @@ INSERT INTO `etat` (`ID_ETAT`, `NOM_ETAT`) VALUES
 --
 
 DROP TABLE IF EXISTS `jour`;
-CREATE TABLE `jour` (
-  `ID_JOUR` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `jour` (
+  `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT,
   `ID_PLANNING` int(11) NOT NULL,
   `N_JOUR` int(11) NOT NULL,
-  `ID_SERVICE` varchar(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ID_SERVICE` varchar(1) NOT NULL,
+  PRIMARY KEY (`ID_JOUR`),
+  KEY `FK_CONTIENT` (`ID_PLANNING`),
+  KEY `FK_JOUR_SERVICE` (`ID_SERVICE`)
+) ENGINE=InnoDB AUTO_INCREMENT=512 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `jour`
@@ -253,103 +275,293 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 (36, 17, 3, 'y'),
 (37, 17, 4, 'y'),
 (38, 17, 5, 'y'),
-(130, 24, 0, 'b'),
-(131, 25, 0, 'f'),
-(132, 26, 0, 'h'),
-(133, 27, 0, 'e'),
-(134, 28, 0, 'g'),
-(135, 29, 0, 'g'),
-(136, 30, 0, 'c'),
-(137, 31, 0, 'g'),
-(138, 32, 0, 'b'),
-(139, 33, 0, 'a'),
-(140, 18, 0, 'd'),
-(141, 19, 0, 'i'),
-(142, 20, 0, 'i'),
-(143, 24, 1, 'b'),
-(144, 25, 1, 'g'),
-(145, 26, 1, 'g'),
-(146, 27, 1, 'g'),
-(147, 28, 1, 'f'),
-(148, 34, 1, 'c'),
-(149, 35, 1, 'h'),
-(150, 36, 1, 'a'),
-(151, 37, 1, 'b'),
-(152, 38, 1, 'e'),
-(153, 18, 1, 'i'),
-(154, 21, 1, 'd'),
-(155, 22, 1, 'i'),
-(156, 29, 2, 'b'),
-(157, 30, 2, 'h'),
-(158, 31, 2, 'e'),
-(159, 32, 2, 'g'),
-(160, 33, 2, 'g'),
-(161, 34, 2, 'c'),
-(162, 35, 2, 'a'),
-(163, 36, 2, 'g'),
-(164, 37, 2, 'f'),
-(165, 38, 2, 'b'),
-(166, 21, 2, 'i'),
-(167, 22, 2, 'i'),
-(168, 23, 2, 'd'),
-(169, 29, 3, 'g'),
-(170, 30, 3, 'c'),
-(171, 31, 3, 'h'),
-(172, 32, 3, 'g'),
-(173, 33, 3, 'g'),
-(174, 34, 3, 'b'),
-(175, 35, 3, 'a'),
-(176, 36, 3, 'b'),
-(177, 37, 3, 'e'),
-(178, 38, 3, 'f'),
-(179, 19, 3, 'i'),
-(180, 20, 3, 'i'),
-(181, 23, 3, 'd'),
-(182, 24, 4, 'b'),
-(183, 25, 4, 'y'),
-(184, 26, 4, 'f'),
-(185, 27, 4, 'h'),
-(186, 28, 4, 'e'),
-(187, 34, 4, 'c'),
-(188, 35, 4, 'a'),
-(189, 36, 4, 'g'),
-(190, 37, 4, 'g'),
-(191, 38, 4, 'g'),
-(192, 19, 4, 'i'),
-(193, 20, 4, 'i'),
-(194, 23, 4, 'd'),
-(195, 24, 5, 'f'),
-(196, 25, 5, 'y'),
-(197, 26, 5, 'a'),
-(198, 27, 5, 'g'),
-(199, 28, 5, 'h'),
-(200, 29, 5, 'c'),
-(201, 30, 5, 'e'),
-(202, 31, 5, 'b'),
-(203, 32, 5, 'g'),
-(204, 33, 5, 'g'),
-(205, 18, 5, 'i'),
-(206, 21, 5, 'd'),
-(207, 22, 5, 'i'),
-(208, 24, 6, 'b'),
-(209, 25, 6, 'g'),
-(210, 26, 6, 'h'),
-(211, 27, 6, 'g'),
-(212, 28, 6, 'c'),
-(213, 29, 6, 'g'),
-(214, 30, 6, 'b'),
-(215, 31, 6, 'e'),
-(216, 32, 6, 'f'),
-(217, 33, 6, 'a'),
-(218, 18, 6, 'i'),
-(219, 21, 6, 'd'),
-(220, 22, 6, 'i'),
-(221, 24, 2, 'y'),
-(222, 24, 3, 'y'),
 (223, 39, 4, 'y'),
 (224, 39, 5, 'y'),
-(225, 28, 2, 'y'),
-(226, 28, 3, 'y');
+(227, 24, 0, 'b'),
+(228, 25, 0, 'b'),
+(229, 26, 0, 'c'),
+(230, 27, 0, 'f'),
+(231, 28, 0, 'g'),
+(232, 29, 0, 'h'),
+(233, 30, 0, 'a'),
+(234, 31, 0, 'g'),
+(235, 32, 0, 'e'),
+(236, 33, 0, 'g'),
+(237, 18, 0, 'd'),
+(238, 19, 0, 'i'),
+(239, 20, 0, 'i'),
+(240, 24, 1, 'y'),
+(241, 25, 1, 'g'),
+(242, 26, 1, 'g'),
+(243, 27, 1, 'b'),
+(244, 28, 1, 'y'),
+(245, 29, 1, 'b'),
+(246, 31, 1, 'g'),
+(247, 34, 1, 'a'),
+(248, 35, 1, 'f'),
+(249, 36, 1, 'e'),
+(250, 37, 1, 'c'),
+(251, 38, 1, 'h'),
+(252, 18, 1, 'i'),
+(253, 21, 1, 'd'),
+(254, 22, 1, 'i'),
+(255, 24, 2, 'y'),
+(256, 25, 2, 'g'),
+(257, 26, 2, 'b'),
+(258, 28, 2, 'y'),
+(259, 30, 2, 'h'),
+(260, 32, 2, 'g'),
+(261, 33, 2, 'g'),
+(262, 34, 2, 'c'),
+(263, 35, 2, 'a'),
+(264, 36, 2, 'b'),
+(265, 37, 2, 'f'),
+(266, 38, 2, 'e'),
+(267, 21, 2, 'i'),
+(268, 22, 2, 'i'),
+(269, 23, 2, 'd'),
+(270, 24, 3, 'c'),
+(271, 25, 3, 'y'),
+(272, 27, 3, 'b'),
+(273, 28, 3, 'g'),
+(274, 32, 3, 'g'),
+(275, 33, 3, 'e'),
+(276, 34, 3, 'h'),
+(277, 35, 3, 'a'),
+(278, 36, 3, 'g'),
+(279, 37, 3, 'b'),
+(280, 38, 3, 'f'),
+(281, 19, 3, 'i'),
+(282, 20, 3, 'i'),
+(283, 23, 3, 'd'),
+(284, 24, 4, 'c'),
+(285, 25, 4, 'y'),
+(286, 28, 4, 'f'),
+(287, 29, 4, 'b'),
+(288, 30, 4, 'h'),
+(289, 31, 4, 'a'),
+(290, 32, 4, 'z'),
+(291, 34, 4, 'b'),
+(292, 35, 4, 'e'),
+(293, 36, 4, 'g'),
+(294, 37, 4, 'g'),
+(295, 38, 4, 'g'),
+(296, 19, 4, 'i'),
+(297, 20, 4, 'i'),
+(298, 23, 4, 'd'),
+(299, 24, 5, 'b'),
+(300, 25, 5, 'g'),
+(301, 26, 5, 'g'),
+(302, 27, 5, 'h'),
+(303, 28, 5, 'b'),
+(304, 29, 5, 'g'),
+(305, 30, 5, 'e'),
+(306, 31, 5, 'a'),
+(307, 32, 5, 'c'),
+(308, 33, 5, 'f'),
+(309, 18, 5, 'i'),
+(310, 21, 5, 'd'),
+(311, 22, 5, 'i'),
+(312, 24, 6, 'b'),
+(313, 25, 6, 'a'),
+(314, 26, 6, 'g'),
+(315, 27, 6, 'b'),
+(316, 28, 6, 'f'),
+(317, 29, 6, 'c'),
+(318, 30, 6, 'g'),
+(319, 31, 6, 'h'),
+(320, 32, 6, 'e'),
+(321, 33, 6, 'g'),
+(322, 18, 6, 'i'),
+(323, 21, 6, 'd'),
+(324, 22, 6, 'i'),
+(325, 46, 0, 'b'),
+(326, 47, 0, 'c'),
+(327, 39, 0, 'f'),
+(328, 48, 0, 'g'),
+(329, 49, 0, 'a'),
+(330, 50, 0, 'e'),
+(331, 51, 0, 'g'),
+(332, 52, 0, 'h'),
+(333, 53, 0, 'g'),
+(334, 54, 0, 'b'),
+(335, 40, 0, 'd'),
+(336, 41, 0, 'i'),
+(337, 42, 0, 'i'),
+(338, 46, 1, 'f'),
+(339, 47, 1, 'g'),
+(340, 39, 1, 'e'),
+(341, 48, 1, 'b'),
+(342, 49, 1, 'b'),
+(343, 52, 1, 'z'),
+(344, 55, 1, 'a'),
+(345, 56, 1, 'c'),
+(346, 57, 1, 'h'),
+(347, 58, 1, 'g'),
+(348, 59, 1, 'g'),
+(349, 40, 1, 'i'),
+(350, 43, 1, 'd'),
+(351, 44, 1, 'i'),
+(352, 46, 2, 'c'),
+(353, 50, 2, 'g'),
+(354, 51, 2, 'a'),
+(355, 52, 2, 'h'),
+(356, 53, 2, 'b'),
+(357, 54, 2, 'z'),
+(358, 55, 2, 'b'),
+(359, 56, 2, 'f'),
+(360, 57, 2, 'e'),
+(361, 58, 2, 'g'),
+(362, 59, 2, 'g'),
+(363, 43, 2, 'i'),
+(364, 44, 2, 'i'),
+(365, 45, 2, 'd'),
+(366, 39, 3, 'y'),
+(367, 50, 3, 'h'),
+(368, 51, 3, 'g'),
+(369, 52, 3, 'b'),
+(370, 53, 3, 'g'),
+(371, 54, 3, 'e'),
+(372, 55, 3, 'f'),
+(373, 56, 3, 'a'),
+(374, 57, 3, 'b'),
+(375, 58, 3, 'g'),
+(376, 59, 3, 'c'),
+(377, 41, 3, 'i'),
+(378, 42, 3, 'i'),
+(379, 45, 3, 'd'),
+(380, 47, 4, 'e'),
+(381, 39, 4, 'y'),
+(382, 48, 4, 'g'),
+(383, 49, 4, 'g'),
+(384, 50, 4, 'g'),
+(385, 53, 4, 'z'),
+(386, 54, 4, 'b'),
+(387, 55, 4, 'f'),
+(388, 56, 4, 'h'),
+(389, 57, 4, 'b'),
+(390, 58, 4, 'a'),
+(391, 59, 4, 'c'),
+(392, 41, 4, 'i'),
+(393, 42, 4, 'i'),
+(394, 45, 4, 'd'),
+(395, 46, 5, 'e'),
+(396, 47, 5, 'a'),
+(397, 39, 5, 'b'),
+(398, 48, 5, 'c'),
+(399, 49, 5, 'b'),
+(400, 51, 5, 'g'),
+(401, 52, 5, 'f'),
+(402, 53, 5, 'h'),
+(403, 54, 5, 'g'),
+(404, 55, 5, 'g'),
+(405, 40, 5, 'i'),
+(406, 43, 5, 'd'),
+(407, 44, 5, 'i'),
+(408, 46, 6, 'g'),
+(409, 47, 6, 'f'),
+(410, 39, 6, 'c'),
+(411, 48, 6, 'b'),
+(412, 49, 6, 'g'),
+(413, 51, 6, 'b'),
+(414, 52, 6, 'g'),
+(415, 53, 6, 'e'),
+(416, 54, 6, 'a'),
+(417, 56, 6, 'h'),
+(418, 40, 6, 'i'),
+(419, 43, 6, 'd'),
+(420, 44, 6, 'i'),
+(421, 66, 0, 'g'),
+(422, 67, 0, 'b'),
+(423, 68, 0, 'c'),
+(424, 69, 0, 'a'),
+(425, 70, 0, 'h'),
+(426, 71, 0, 'f'),
+(427, 72, 0, 'g'),
+(428, 73, 0, 'b'),
+(429, 74, 0, 'e'),
+(430, 75, 0, 'g'),
+(431, 60, 0, 'd'),
+(432, 61, 0, 'i'),
+(433, 62, 0, 'i'),
+(434, 66, 1, 'c'),
+(435, 67, 1, 'b'),
+(436, 68, 1, 'b'),
+(437, 69, 1, 'g'),
+(438, 70, 1, 'g'),
+(439, 76, 1, 'h'),
+(440, 77, 1, 'f'),
+(441, 78, 1, 'e'),
+(442, 79, 1, 'g'),
+(443, 80, 1, 'a'),
+(444, 60, 1, 'i'),
+(445, 63, 1, 'd'),
+(446, 64, 1, 'i'),
+(447, 71, 2, 'c'),
+(448, 72, 2, 'b'),
+(449, 73, 2, 'a'),
+(450, 74, 2, 'h'),
+(451, 75, 2, 'e'),
+(452, 76, 2, 'g'),
+(453, 77, 2, 'g'),
+(454, 78, 2, 'f'),
+(455, 79, 2, 'b'),
+(456, 80, 2, 'g'),
+(457, 63, 2, 'i'),
+(458, 64, 2, 'i'),
+(459, 65, 2, 'd'),
+(460, 71, 3, 'e'),
+(461, 72, 3, 'a'),
+(462, 73, 3, 'f'),
+(463, 74, 3, 'c'),
+(464, 75, 3, 'h'),
+(465, 76, 3, 'g'),
+(466, 77, 3, 'g'),
+(467, 78, 3, 'b'),
+(468, 79, 3, 'g'),
+(469, 80, 3, 'b'),
+(470, 61, 3, 'i'),
+(471, 62, 3, 'i'),
+(472, 65, 3, 'd'),
+(473, 66, 4, 'f'),
+(474, 67, 4, 'a'),
+(475, 68, 4, 'e'),
+(476, 69, 4, 'c'),
+(477, 70, 4, 'g'),
+(478, 76, 4, 'b'),
+(479, 77, 4, 'g'),
+(480, 78, 4, 'g'),
+(481, 79, 4, 'b'),
+(482, 80, 4, 'h'),
+(483, 61, 4, 'i'),
+(484, 62, 4, 'i'),
+(485, 65, 4, 'd'),
+(486, 66, 5, 'g'),
+(487, 67, 5, 'g'),
+(488, 68, 5, 'g'),
+(489, 69, 5, 'b'),
+(490, 70, 5, 'b'),
+(491, 71, 5, 'e'),
+(492, 72, 5, 'a'),
+(493, 73, 5, 'c'),
+(494, 74, 5, 'f'),
+(495, 75, 5, 'h'),
+(496, 60, 5, 'i'),
+(497, 63, 5, 'd'),
+(498, 64, 5, 'i'),
+(499, 66, 6, 'a'),
+(500, 67, 6, 'g'),
+(501, 68, 6, 'e'),
+(502, 69, 6, 'h'),
+(503, 70, 6, 'g'),
+(504, 71, 6, 'b'),
+(505, 72, 6, 'g'),
+(506, 73, 6, 'c'),
+(507, 74, 6, 'b'),
+(508, 75, 6, 'f'),
+(509, 60, 6, 'i'),
+(510, 63, 6, 'd'),
+(511, 64, 6, 'i');
 
 -- --------------------------------------------------------
 
@@ -358,12 +570,14 @@ INSERT INTO `jour` (`ID_JOUR`, `ID_PLANNING`, `N_JOUR`, `ID_SERVICE`) VALUES
 --
 
 DROP TABLE IF EXISTS `planning`;
-CREATE TABLE `planning` (
-  `ID_PLANNING` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `planning` (
+  `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT,
   `ID_EMPLOYE` int(11) NOT NULL,
   `N_SEMAINE` int(11) DEFAULT NULL,
-  `ANNEE_PLANNING` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ANNEE_PLANNING` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`ID_PLANNING`),
+  KEY `FK_POSSEDE` (`ID_EMPLOYE`)
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `planning`
@@ -404,7 +618,48 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `N_SEMAINE`, `ANNEE_PLANNIN
 (36, 19, 3, 2023),
 (37, 20, 3, 2023),
 (38, 21, 3, 2023),
-(39, 9, 4, 2023);
+(39, 9, 4, 2023),
+(40, 1, 4, 2023),
+(41, 2, 4, 2023),
+(42, 3, 4, 2023),
+(43, 4, 4, 2023),
+(44, 5, 4, 2023),
+(45, 6, 4, 2023),
+(46, 7, 4, 2023),
+(47, 8, 4, 2023),
+(48, 10, 4, 2023),
+(49, 11, 4, 2023),
+(50, 12, 4, 2023),
+(51, 13, 4, 2023),
+(52, 14, 4, 2023),
+(53, 15, 4, 2023),
+(54, 16, 4, 2023),
+(55, 17, 4, 2023),
+(56, 18, 4, 2023),
+(57, 19, 4, 2023),
+(58, 20, 4, 2023),
+(59, 21, 4, 2023),
+(60, 1, 5, 2023),
+(61, 2, 5, 2023),
+(62, 3, 5, 2023),
+(63, 4, 5, 2023),
+(64, 5, 5, 2023),
+(65, 6, 5, 2023),
+(66, 7, 5, 2023),
+(67, 8, 5, 2023),
+(68, 9, 5, 2023),
+(69, 10, 5, 2023),
+(70, 11, 5, 2023),
+(71, 12, 5, 2023),
+(72, 13, 5, 2023),
+(73, 14, 5, 2023),
+(74, 15, 5, 2023),
+(75, 16, 5, 2023),
+(76, 17, 5, 2023),
+(77, 18, 5, 2023),
+(78, 19, 5, 2023),
+(79, 20, 5, 2023),
+(80, 21, 5, 2023);
 
 -- --------------------------------------------------------
 
@@ -413,13 +668,15 @@ INSERT INTO `planning` (`ID_PLANNING`, `ID_EMPLOYE`, `N_SEMAINE`, `ANNEE_PLANNIN
 --
 
 DROP TABLE IF EXISTS `produit`;
-CREATE TABLE `produit` (
-  `ID_PRODUIT` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `produit` (
+  `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT,
   `ID_UNITE` int(11) NOT NULL,
   `DENOMINATION` varchar(255) DEFAULT NULL,
   `DERNIERE_MODIF` datetime DEFAULT NULL,
-  `QUANTITE_EN_STOCK` decimal(10,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `QUANTITE_EN_STOCK` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`ID_PRODUIT`),
+  KEY `FK_EST_EN` (`ID_UNITE`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
@@ -439,11 +696,12 @@ INSERT INTO `produit` (`ID_PRODUIT`, `ID_UNITE`, `DENOMINATION`, `DERNIERE_MODIF
 --
 
 DROP TABLE IF EXISTS `service`;
-CREATE TABLE `service` (
+CREATE TABLE IF NOT EXISTS `service` (
   `ID_SERVICE` varchar(1) NOT NULL,
   `NOMBRE` int(2) NOT NULL DEFAULT '1',
   `DEBUT_SERVICE` time NOT NULL,
-  `FIN_SERVICE` time NOT NULL
+  `FIN_SERVICE` time NOT NULL,
+  PRIMARY KEY (`ID_SERVICE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -470,10 +728,11 @@ INSERT INTO `service` (`ID_SERVICE`, `NOMBRE`, `DEBUT_SERVICE`, `FIN_SERVICE`) V
 --
 
 DROP TABLE IF EXISTS `unite`;
-CREATE TABLE `unite` (
-  `ID_UNITE` int(11) NOT NULL,
-  `NOM_UNITE` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `unite` (
+  `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT,
+  `NOM_UNITE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID_UNITE`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `unite`
@@ -483,140 +742,6 @@ INSERT INTO `unite` (`ID_UNITE`, `NOM_UNITE`) VALUES
 (1, 'kg'),
 (2, 'unités'),
 (3, 'litres');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `absence`
---
-ALTER TABLE `absence`
-  ADD PRIMARY KEY (`ID_ABSENCE`),
-  ADD KEY `FK_DECLARE` (`ID_EMPLOYE`);
-
---
--- Index pour la table `conge`
---
-ALTER TABLE `conge`
-  ADD PRIMARY KEY (`ID_DEMANDE`),
-  ADD KEY `FK_DEMANDE` (`ID_EMPLOYE`),
-  ADD KEY `FK_EST_QUALIFIE_PAR` (`ID_ETAT`);
-
---
--- Index pour la table `echange`
---
-ALTER TABLE `echange`
-  ADD PRIMARY KEY (`ID_ECHANGE`),
-  ADD KEY `FK_EST_PRECISE_PAR` (`ID_ETAT`),
-  ADD KEY `FK_JOUR_RECEPTEUR` (`ID_JOUR_RECEPTEUR`),
-  ADD KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
-  ADD KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
-  ADD KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE;
-
---
--- Index pour la table `employe`
---
-ALTER TABLE `employe`
-  ADD PRIMARY KEY (`ID_EMPLOYE`);
-
---
--- Index pour la table `etat`
---
-ALTER TABLE `etat`
-  ADD PRIMARY KEY (`ID_ETAT`);
-
---
--- Index pour la table `jour`
---
-ALTER TABLE `jour`
-  ADD PRIMARY KEY (`ID_JOUR`),
-  ADD KEY `FK_CONTIENT` (`ID_PLANNING`),
-  ADD KEY `FK_JOUR_SERVICE` (`ID_SERVICE`);
-
---
--- Index pour la table `planning`
---
-ALTER TABLE `planning`
-  ADD PRIMARY KEY (`ID_PLANNING`),
-  ADD KEY `FK_POSSEDE` (`ID_EMPLOYE`);
-
---
--- Index pour la table `produit`
---
-ALTER TABLE `produit`
-  ADD PRIMARY KEY (`ID_PRODUIT`),
-  ADD KEY `FK_EST_EN` (`ID_UNITE`);
-
---
--- Index pour la table `service`
---
-ALTER TABLE `service`
-  ADD PRIMARY KEY (`ID_SERVICE`);
-
---
--- Index pour la table `unite`
---
-ALTER TABLE `unite`
-  ADD PRIMARY KEY (`ID_UNITE`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `absence`
---
-ALTER TABLE `absence`
-  MODIFY `ID_ABSENCE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT pour la table `conge`
---
-ALTER TABLE `conge`
-  MODIFY `ID_DEMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT pour la table `echange`
---
-ALTER TABLE `echange`
-  MODIFY `ID_ECHANGE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT pour la table `employe`
---
-ALTER TABLE `employe`
-  MODIFY `ID_EMPLOYE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT pour la table `etat`
---
-ALTER TABLE `etat`
-  MODIFY `ID_ETAT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT pour la table `jour`
---
-ALTER TABLE `jour`
-  MODIFY `ID_JOUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
-
---
--- AUTO_INCREMENT pour la table `planning`
---
-ALTER TABLE `planning`
-  MODIFY `ID_PLANNING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT pour la table `produit`
---
-ALTER TABLE `produit`
-  MODIFY `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT pour la table `unite`
---
-ALTER TABLE `unite`
-  MODIFY `ID_UNITE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées

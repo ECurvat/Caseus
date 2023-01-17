@@ -22,28 +22,30 @@
 </div>
 
 <?php if (isset($_POST['choixListe'])) { ?>
-<table class="u-full-width">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Dénomination</th>
-            <th>Quantité en stock</th>
-            <th>Unite</th>
-            <th>Dernière modification</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($listeProduits as $produit) {
-            echo '<tr>';
-            echo '<td>'.$produit->getIdProduit().'</td>';
-            echo '<td>'.$produit->getDenomination().'</td>';
-            echo '<td>'.$produit->getQteEnStock().'</td>';
-            echo '<td>'.$correspUnites[$produit->getIdUnite()].'</td>';
-            echo '<td>'.jourFrancais(date("N", strtotime($produit->getDerniereModif())), false) . " " . date("d/m/Y H:i:s", strtotime($produit->getDerniereModif())) .'</td>';
-            echo '</tr>';
-        }?>
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dénomination</th>
+                <th>Quantité en stock</th>
+                <th>Unite</th>
+                <th>Dernière modification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($listeProduits as $produit) {
+                echo '<tr>';
+                echo '<td>'.$produit->getIdProduit().'</td>';
+                echo '<td>'.$produit->getDenomination().'</td>';
+                echo '<td>'.$produit->getQteEnStock().'</td>';
+                echo '<td>'.$correspUnites[$produit->getIdUnite()].'</td>';
+                echo '<td>'.jourFrancais(date("N", strtotime($produit->getDerniereModif())), false) . " " . date("d/m/Y H:i:s", strtotime($produit->getDerniereModif())) .'</td>';
+                echo '</tr>';
+            }?>
+        </tbody>
+    </table>
+</div>
 <?php } else if (isset($_POST['choixEntree'])) {?>
 <div class="row">
     <p>Notice : ajouter une ligne avec le bouton +, choisir le produit concerné et indiquer la quantité inscrite sur le bon de commande</p>
