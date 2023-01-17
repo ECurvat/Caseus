@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 17 jan. 2023 à 22:01
+-- Généré le : mar. 17 jan. 2023 à 22:50
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -129,18 +129,19 @@ CREATE TABLE IF NOT EXISTS `echange` (
   KEY `FK_EMPLOYE_RECEPTEUR` (`ID_EMPLOYE_RECEPTEUR`),
   KEY `FK_EMPLOYE_EMETTEUR` (`ID_EMPLOYE_EMETTEUR`) USING BTREE,
   KEY `FK_JOUR_EMETTEUR` (`ID_JOUR_EMETTEUR`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `echange`
 --
 
 INSERT INTO `echange` (`ID_ECHANGE`, `ID_ETAT`, `ID_JOUR_EMETTEUR`, `ID_EMPLOYE_EMETTEUR`, `ID_JOUR_RECEPTEUR`, `ID_EMPLOYE_RECEPTEUR`, `DATE_PROPOSITION`) VALUES
-(7, 4, 9, 3, 32, 2, '2022-12-10'),
-(9, 5, 30, 2, 29, 3, '2022-12-12'),
-(11, 5, 32, 2, 9, 3, '2022-12-12'),
-(13, 4, 33, 2, 11, 3, '2022-12-13'),
-(16, 4, 26, 3, 34, 2, '2022-12-28');
+(17, 3, 344, 17, 340, 9, '2023-01-17'),
+(18, 5, 358, 17, 355, 14, '2023-01-17'),
+(19, 3, 372, 17, 373, 18, '2023-01-17'),
+(20, 3, 292, 18, 287, 12, '2023-01-17'),
+(21, 3, 373, 18, 371, 16, '2023-01-17'),
+(22, 3, 404, 17, 396, 8, '2023-01-17');
 
 -- --------------------------------------------------------
 
