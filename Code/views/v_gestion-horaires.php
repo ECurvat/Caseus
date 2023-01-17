@@ -26,6 +26,7 @@
 	<?php
 	if (!empty($listeAbsences)) {
 	?>
+	<div class="table-container">
 		<table class="u-full-width">
 			<thead>
 				<tr>
@@ -59,6 +60,7 @@
 				?>
 			</tbody>
 		</table>
+	</div>
 	<?php
 	}
 	?>
@@ -90,150 +92,153 @@
 	</div>
 	
 	<?php if(isset($_POST['generer']) && $generation) {?>
-		<table class="u-full-width">
-			<thead>
-				<tr>
-					<th>Employé</th>
-					<?php 
-					$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
-					for($i=0;$i<7;$i++){
-						echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
-						$jourCourant->modify('+1 day');
-					}
-					?>
-					<th>Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php 
-				foreach ($listePoly as $poly) {
-					echo '<tr>';
-					echo '<td>' . $poly->getId() . '</td>';
-					for ($i=0; $i < 7; $i++) {
-						if ($affectation[$i][$poly->getId()] != null) {
-							switch($affectation[$i][$poly->getId()]->getId()) {
-								case 'a':
-								case 'b':
-								case 'c':
-									$class = 'matin';
-									$icon = '<i class="fa-solid fa-sun"></i>';
-									break;
-								case 'e':
-								case 'f':
-								case 'g':
-								case 'h':
-									$class = 'soir';
-									$icon = '<i class="fa-solid fa-moon"></i>';
-									break;
-								case 'y':
-									$class = 'conges';
-									$icon = '<i class="fa-solid fa-plane"></i>';
-									break;
-								case 'z':
-									$class = 'repos';
-									$icon = '<i class="fa-solid fa-bed"></i>';
-									break;
-								default:
-									break;
-							}
-							echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($affectation[$i][$poly->getId()]->getId()) . '</td>';
-						} else {
-							echo '<td></td>';
-						}						
-					}
-					echo '<td>' . $totSrvPoly[$poly->getId()] . '</td>';
-					echo '</tr>';
-				}
-				?>
-				<tr>
-					<td>SNA</td>
-					<?php
-					for ($i=0; $i < 7; $i++) {
-						if (empty($srvPoly[$i])) {
-							echo '<td><i class="success fa-solid fa-xmark"></i></td>';
-						} else {
-							echo '<td><i class="danger fa-solid fa-check"></i><br>';
-							foreach ($srvPoly[$i] as $srv) {
-								echo $srv->getId() . '; ';
-							}
-							echo '</td>';
+		<div class="table-container">
+			<table class="u-full-width">
+				<thead>
+					<tr>
+						<th>Employé</th>
+						<?php 
+						$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
+						for($i=0;$i<7;$i++){
+							echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
+							$jourCourant->modify('+1 day');
 						}
-					}
-					?>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-
-		<table class="u-full-width">
-			<thead>
-				<tr>
-					<th>Employé</th>
+						?>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
 					<?php 
-					$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
-					for($i=0;$i<7;$i++){
-						echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
-						$jourCourant->modify('+1 day');
-					}
-					?>
-					<th>Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php 
-				foreach ($listeAssiMana as $emp) {
-					echo '<tr>';
-					echo '<td>' . $emp->getId() . ' (' . $emp->getPosition()[0].')</td>';
-					for ($i=0; $i < 7; $i++) {
-						if ($affectation[$i][$emp->getId()] != null) {
-							switch($affectation[$i][$emp->getId()]->getId()) {
-								case 'd':
-									$class = 'matin';
-									$icon = '<i class="fa-solid fa-sun"></i>';
-									break;
-								case 'i':
-									$class = 'soir';
-									$icon = '<i class="fa-solid fa-moon"></i>';
-									break;
-								case 'y':
-									$class = 'conges';
-									$icon = '<i class="fa-solid fa-plane"></i>';
-									break;
-								case 'z':
-									$class = 'repos';
-									$icon = '<i class="fa-solid fa-bed"></i>';
-									break;
-								default:
-									break;
-							}
-							echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($affectation[$i][$emp->getId()]->getId()) . '</td>';
-						} else {
-							echo '<td></td>';
-						}						
-					}
-					echo '<td>' . $totSrvAssiMana[$emp->getId()] . '</td>';
-					echo '</tr>';
-				}
-				?>
-				<tr>
-					<td>SNA</td>
-					<?php
-					for ($i=0; $i < 7; $i++) {
-						if (empty($srvAssiMana[$i])) {
-							echo '<td><i class="success fa-solid fa-xmark"></i></td>';
-						} else {
-							echo '<td><i class="danger fa-solid fa-check"></i><br>';
-							foreach ($srvAssiMana[$i] as $srv) {
-								echo $srv->getId() . '; ';
-							}
-							echo '</td>';
+					foreach ($listePoly as $poly) {
+						echo '<tr>';
+						echo '<td>' . $poly->getId() . '</td>';
+						for ($i=0; $i < 7; $i++) {
+							if ($affectation[$i][$poly->getId()] != null) {
+								switch($affectation[$i][$poly->getId()]->getId()) {
+									case 'a':
+									case 'b':
+									case 'c':
+										$class = 'matin';
+										$icon = '<i class="fa-solid fa-sun"></i>';
+										break;
+									case 'e':
+									case 'f':
+									case 'g':
+									case 'h':
+										$class = 'soir';
+										$icon = '<i class="fa-solid fa-moon"></i>';
+										break;
+									case 'y':
+										$class = 'conges';
+										$icon = '<i class="fa-solid fa-plane"></i>';
+										break;
+									case 'z':
+										$class = 'repos';
+										$icon = '<i class="fa-solid fa-bed"></i>';
+										break;
+									default:
+										break;
+								}
+								echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($affectation[$i][$poly->getId()]->getId()) . '</td>';
+							} else {
+								echo '<td></td>';
+							}						
 						}
+						echo '<td>' . $totSrvPoly[$poly->getId()] . '</td>';
+						echo '</tr>';
 					}
 					?>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
+					<tr>
+						<td>SNA</td>
+						<?php
+						for ($i=0; $i < 7; $i++) {
+							if (empty($srvPoly[$i])) {
+								echo '<td><i class="success fa-solid fa-xmark"></i></td>';
+							} else {
+								echo '<td><i class="danger fa-solid fa-check"></i><br>';
+								foreach ($srvPoly[$i] as $srv) {
+									echo $srv->getId() . '; ';
+								}
+								echo '</td>';
+							}
+						}
+						?>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-container">
+			<table class="u-full-width">
+				<thead>
+					<tr>
+						<th>Employé</th>
+						<?php 
+						$jourCourant = new DateTime(date('Y-m-d',strtotime($anneePlanning.'W'.$semainePlanning)));
+						for($i=0;$i<7;$i++){
+							echo '<th>'.jourFrancais($jourCourant->format('N'), true). ' ' .$jourCourant->format('d/m').'</th>';
+							$jourCourant->modify('+1 day');
+						}
+						?>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					foreach ($listeAssiMana as $emp) {
+						echo '<tr>';
+						echo '<td>' . $emp->getId() . ' (' . $emp->getPosition()[0].')</td>';
+						for ($i=0; $i < 7; $i++) {
+							if ($affectation[$i][$emp->getId()] != null) {
+								switch($affectation[$i][$emp->getId()]->getId()) {
+									case 'd':
+										$class = 'matin';
+										$icon = '<i class="fa-solid fa-sun"></i>';
+										break;
+									case 'i':
+										$class = 'soir';
+										$icon = '<i class="fa-solid fa-moon"></i>';
+										break;
+									case 'y':
+										$class = 'conges';
+										$icon = '<i class="fa-solid fa-plane"></i>';
+										break;
+									case 'z':
+										$class = 'repos';
+										$icon = '<i class="fa-solid fa-bed"></i>';
+										break;
+									default:
+										break;
+								}
+								echo '<td class="'.$class.'">'.$icon.' ' . strtoupper($affectation[$i][$emp->getId()]->getId()) . '</td>';
+							} else {
+								echo '<td></td>';
+							}						
+						}
+						echo '<td>' . $totSrvAssiMana[$emp->getId()] . '</td>';
+						echo '</tr>';
+					}
+					?>
+					<tr>
+						<td>SNA</td>
+						<?php
+						for ($i=0; $i < 7; $i++) {
+							if (empty($srvAssiMana[$i])) {
+								echo '<td><i class="success fa-solid fa-xmark"></i></td>';
+							} else {
+								echo '<td><i class="danger fa-solid fa-check"></i><br>';
+								foreach ($srvAssiMana[$i] as $srv) {
+									echo $srv->getId() . '; ';
+								}
+								echo '</td>';
+							}
+						}
+						?>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	<?php } ?>
 </div>
 <!--  Fin de la page -->

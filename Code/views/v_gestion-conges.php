@@ -36,30 +36,33 @@
 <div class="row">
     <?php if (!empty($listeCongesFuturs)) { ?>
     <h5>Futurs congés déjà acceptés</h5>
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Début</th>
-                <th>Fin</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-                foreach ($listeCongesFuturs as $elem) {
-                    $emp = $listeEmployes[$elem->getIdEmploye()];
-                    $debut = jourFrancais(date("N", strtotime($elem->getDebut())), false).date(" d/m/Y", strtotime($elem->getDebut()));
-                    $fin = jourFrancais(date("N", strtotime($elem->getFin())), false).date(" d/m/Y", strtotime($elem->getFin()));
-                    echo '<tr>';
-                    echo '<td>'.$emp->getNom().'</td>';
-                    echo '<td>'.$emp->getPrenom().'</td>';
-                    echo '<td>'.$debut.'</td>';
-                    echo '<td>'.$fin.'</td>';
-                    echo '</tr>';
-                }
-            ?>
-        </tbody>
+    <div class="table-container">
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    foreach ($listeCongesFuturs as $elem) {
+                        $emp = $listeEmployes[$elem->getIdEmploye()];
+                        $debut = jourFrancais(date("N", strtotime($elem->getDebut())), false).date(" d/m/Y", strtotime($elem->getDebut()));
+                        $fin = jourFrancais(date("N", strtotime($elem->getFin())), false).date(" d/m/Y", strtotime($elem->getFin()));
+                        echo '<tr>';
+                        echo '<td>'.$emp->getNom().'</td>';
+                        echo '<td>'.$emp->getPrenom().'</td>';
+                        echo '<td>'.$debut.'</td>';
+                        echo '<td>'.$fin.'</td>';
+                        echo '</tr>';
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
     <?php } ?>
 </div>
 <!--  Fin de la page -->

@@ -26,36 +26,38 @@
 </div>
 <?php if (isset($_POST['choixListe'])) { ?>
 <h5>Liste des employés</h5>
-<table class="u-full-width">
-<thead>
-    <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Adresse mail</th>
-        <th>Embauche</th>
-        <th>Adresse</th>
-        <th>Position</th>
-        <th>Heures sup</th>
-    </tr>
-</thead>
-<tbody>
-    <?php foreach ($listeEmployes as $emp) {
-        echo '<tr>';
-        echo '<td>'.$emp->getId().'</td>';
-        echo '<td>'.$emp->getNom().'</td>';
-        echo '<td>'.$emp->getPrenom().'</td>';
-        echo '<td>'.$emp->getMail().'</td>';
-        echo '<td>'.date("d/m/Y", strtotime($emp->getEmbauche())).'</td>';
-        echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().' '.$emp->getVille().'</td>';
-        echo '<td>'.$emp->getPosition().'</td>';
-        ($emp->getHeuresSup() == '0') ? $val = '<td>Non</td>' : $val = '<td>Oui</td>';
-        echo $val;
-        echo '</tr>';
-    }
-    ?>
-</tbody>
-</table>
+<div class="table-container">
+    <table class="u-full-width">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Adresse mail</th>
+            <th>Embauche</th>
+            <th>Adresse</th>
+            <th>Position</th>
+            <th>Heures sup</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($listeEmployes as $emp) {
+            echo '<tr>';
+            echo '<td>'.$emp->getId().'</td>';
+            echo '<td>'.$emp->getNom().'</td>';
+            echo '<td>'.$emp->getPrenom().'</td>';
+            echo '<td>'.$emp->getMail().'</td>';
+            echo '<td>'.date("d/m/Y", strtotime($emp->getEmbauche())).'</td>';
+            echo '<td>'.$emp->getAdresse().'<br>'.$emp->getCodePostal().' '.$emp->getVille().'</td>';
+            echo '<td>'.$emp->getPosition().'</td>';
+            ($emp->getHeuresSup() == '0') ? $val = '<td>Non</td>' : $val = '<td>Oui</td>';
+            echo $val;
+            echo '</tr>';
+        }
+        ?>
+    </tbody>
+    </table>
+</div>
 <?php } elseif (isset($_POST['choixAjouter'])) {?>
     <h5>Ajouter un employé</h5>
     L'employé recevra un email avec les informations dont il a besoin pour se connecter
