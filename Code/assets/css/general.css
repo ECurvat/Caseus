@@ -145,6 +145,10 @@ nav > div {
     display: none;
 }
 
+.table-container {
+    overflow: scroll;
+}
+
 @media screen and (max-width: 425px) {
     .inactive {
         display: none;

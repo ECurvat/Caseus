@@ -16,7 +16,7 @@
             <input class="button-success u-full-width" type="submit" value="Entrer une livraison" name="choixEntree">
         </div>
         <div class="four columns">
-        <input class="button-danger u-full-width" type="submit" value="Faire la pesée" name="choixSortie">
+        <input class="button-danger u-full-width" type="submit" value="Faire l'inventaire" name="choixSortie">
         </div>
     </form>
 </div>
