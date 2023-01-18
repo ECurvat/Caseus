@@ -65,7 +65,6 @@
 	}
 	?>
 </div>
-<hr>
 <div class="row">
 	<h5>Gérer un planning pour une semaine</h5>
 	<div class="row">
@@ -94,6 +93,7 @@
 	
 	<?php if((isset($_POST['generer']) && $generation) || (isset($_POST['voir']) && $planningGenere)) {?>
 		<div class="table-container">
+			<h5>Employés polyvalents</h5>
 			<table class="u-full-width">
 				<thead>
 					<tr>
@@ -170,6 +170,7 @@
 			</table>
 		</div>
 		<div class="table-container">
+			<h5>Assistants manager et Managers</h5>
 			<table class="u-full-width">
 				<thead>
 					<tr>

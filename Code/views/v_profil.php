@@ -26,7 +26,7 @@
         echo '<td>'.$_SESSION['compte']->getNom().'</td>';
         echo '<td>'.$_SESSION['compte']->getPrenom().'</td>';
         echo '<td>'.$_SESSION['compte']->getMail().'</td>';
-        echo '<td>'.$_SESSION['compte']->getEmbauche().'</td>';
+        echo '<td>'.date("d/m/Y", strtotime($_SESSION['compte']->getEmbauche())).'</td>';
         echo '<td>'.$_SESSION['compte']->getAdresse().'</td>';
         echo '<td>'.$_SESSION['compte']->getCodePostal().'</td>';
         echo '<td>'.$_SESSION['compte']->getVille().'</td>';

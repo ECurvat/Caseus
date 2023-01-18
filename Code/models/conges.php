@@ -7,6 +7,11 @@ $etatDAO = new EtatDAO(true);
 
 // Récupération de la liste des états pour affichage dans le tableau
 $listeEtats = $etatDAO->getListeEtats();
+// Indexation des services dans un tableau associatif pour accès plus rapide
+$listeEtatsIndex = array();
+foreach ($listeEtats as $elem) {
+    $listeEtatsIndex[$elem->getIdEtat()] = $elem;
+}
 
 // Gestion de l'envoi d'une demande de congés
 if (isset($_POST['ajoutValider'])) {

@@ -125,6 +125,7 @@ if (!is_null($listeEnvois)) {
 
         // On trouve quel jour du planning est concerné
         $nbJoursAAjouter = $jourDAO->getJourParId($listeEnvois[$i]->getIdJourEmet())->getNJour();
+        
         $jour = $premJour->modify('+' . $nbJoursAAjouter . ' day');
         array_push($listeEnvoisPropre, array(
             $jour->format('d/m/y'),
