@@ -40,8 +40,8 @@
         </div>
     </form>
     <?php if($listeConges != false) {?>
-    <div class="table-container">
         <form method="post" name="supprimerDispo">
+            <div class="table-container">
             <table class="u-full-width">
                 <thead>
                 <tr>
@@ -82,8 +82,8 @@
                 ?>
                 </tbody>
             </table>
+        </div>
         </form>
-    </div>
     <?php }?>
 </div>
 
