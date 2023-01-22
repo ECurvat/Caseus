@@ -54,4 +54,4 @@ Si vous rencontrez des problèmes lors de l’installation ou de la manipulation
 - [AGHUMYAN Mesrop](@p2103901) (mesrop.aghumyan@etu.univ-lyon1.fr)
 - [BORIE Yanis](@p2100107) (yanis.borie@etu.univ-lyon1.fr)
 - [COURTET Tom](@p2101495) (tom.courtet@etu.univ-lyon1.fr)
-- [CURVAT Elliot](@p2020739) (elliot.curvat@etu.univ-lyon1.fr)
+- [CURVAT Elliot](@p2020739) (curvat.elliot@outlook.com)
